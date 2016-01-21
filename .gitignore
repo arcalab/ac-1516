@@ -1,0 +1,11 @@
+slides/*.nav
+slides/*.aux
+slides/*.toc
+slides/*.snm
+slides/*.synctex.gz
+slides/*.fdb_latexmk
+slides/*.log
+slides/*.fls
+slides/*.out
+slides/images
+slides/macros

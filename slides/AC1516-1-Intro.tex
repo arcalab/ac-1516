@@ -694,13 +694,14 @@ Therefore, the course
 \item Introduction to software architecture
 \item {\red Background}
 \begin{itemize}
-\item {\blue (Semantics) Introduction to transition systems}
+\item {\blue (Semantics) Introduction to transition systems} 
+  \dgold{\textsf{mCRL2}}
 \item {\blue (Logic) Introduction to modal, hybrid and dynamic logic}
 \end{itemize}
 \item {\red Models and calculi of reactive systems}
 \begin{itemize}
 %\item {\blue Classical (non deterministic)}  (\dgold{\textsf{mCRL2}})
-\item {\blue Timed (with real time constraints)} (\dgold{\textsf{mCRL2, Uppaal}})
+\item {\blue Timed (with real time constraints)} (\dgold{\textsf{Uppaal}})
 \item {\blue Probabilistic}  (\dgold{\textsf{PRISM}})
 \item {\blue Cyber-physical} (\dgold{\textsf{KeYmaera}})
 \end{itemize}
@@ -756,62 +757,62 @@ Therefore, the course
 %\end{slide}
 
 
-%\begin{slide}{Component-oriented architectural design}
-%~\\
-%\fbox{new components from old in \textsc{mMm}}
-%~\\
-%
-%\scriptsize
-%
-%\begin{equation*}
-%\xygraph{~{<2pc,0pc>:} []!{
-%       +0="q1" *=<10pt>{ }
-%      ; p!D**{},
-%       ; "q1"  -/0pt/*{} +0
-%       ;p-/:a(90)150pt/="X11"**\dir{-}
-%       ; ?(.3)="ka1",
-%       p-/:a(90)36pt/**\dir{-}="X22"
-%       ;p-/:a(90)150pt/="X33"**\dir{-}
-%       ; ?(.3)="ja1",
-%       p-/:a(90)36pt/**\dir{-}
-%       ; "ja1"  *{\bullet} +0
-%       ; <0pt,10pt>+"ja1"  +0
-%%       ; <0pt,10pt>+"ja1" *{\dois^{{4}^{n}}} +0
-%       ; "ka1" -/2pt/*!E\cir<2pt>{} +0
-%       ; <-15pt,-20pt>+"ka1" *{\dois^n} +0
-%       ; <30pt,-17pt>+"ja1" *{\fuc{Cell} \para \fuc{Cell} \para \cdots \para \fuc{Cell}} +0
-%      ; "ka1"
-%       , "q1"."ja1"."ka1"."X11"."X22"."X33"}="C"
-%   ( "ja1"[uu]{\dois^{{4}^{n}}} - "ja1"   "ja1"[u]="lkg1" "ja1"[urr]="lkg4")
-%  "C"[d(3)]!{
-%      +0="q2" *=<10pt>{ }
-%      ; p!D**{},
-%       ; "q2"  -/0pt/*{} +0
-%       ;p-/:a(90)60pt/="X11"**\dir{-}
-%       ; ?(.3)="ka2",
-%       ?(.7)="kb2",
-%       p-/:a(90)36pt/**\dir{-}="X22"
-%       ;p-/:a(90)60pt/="X33"**\dir{-}
-%       ; ?(.26)="ja2",
-%       ?(.7)="jb2",
-%       p-/:a(90)36pt/**\dir{-}
-%       ; "ja2" *{\bullet} +0
-%      ; "ka2"  -/2pt/*!E\cir<2pt>{} +0
-%       ; <13pt,-17pt>+"ja2" *{\fuc{Bus}} +0
-%       , "q2"."ja2"."ka2"."X11"."X22"."X33"}
-%   ( "ja2" "ka2"[dd]{\dois^{{4}^{n}}} - "ka2" "ja2"[u]="lig2" "ka2"[d]="lkg2" )
-%  "ka1" - "ja2"
-%  "lkg2" - [r</8ex/] - [u!{"lkg1";p+/r/}] - [l</8ex/] -  "lkg1" - [r</3ex/] }
-%\end{equation*}
-%~\\
-%
-%\begin{align*}
-%\fuc{GameLife} \;& =\; \feed{((\fuc{Cell} \para \fuc{Cell} \para \cdots \para \fuc{Cell}) \qcomp \fuc{Bus})}\\
-%\intertext{where}
-%\fuc{Bus} \;& =\; \flift{\fuc{w}}
-%\end{align*}
-%
-%\end{slide}
+\begin{slide}{Component-oriented architectural design}
+~\\
+\fbox{new components from old in \textsc{mMm}}
+~\\
+
+\scriptsize
+
+\begin{equation*}
+\xygraph{~{<2pc,0pc>:} []!{
+      +0="q1" *=<10pt>{ }
+     ; p!D**{},
+      ; "q1"  -/0pt/*{} +0
+      ;p-/:a(90)150pt/="X11"**\dir{-}
+      ; ?(.3)="ka1",
+      p-/:a(90)36pt/**\dir{-}="X22"
+      ;p-/:a(90)150pt/="X33"**\dir{-}
+      ; ?(.3)="ja1",
+      p-/:a(90)36pt/**\dir{-}
+      ; "ja1"  *{\bullet} +0
+      ; <0pt,10pt>+"ja1"  +0
+%       ; <0pt,10pt>+"ja1" *{\dois^{{4}^{n}}} +0
+      ; "ka1" -/2pt/*!E\cir<2pt>{} +0
+      ; <-15pt,-20pt>+"ka1" *{\dois^n} +0
+      ; <30pt,-17pt>+"ja1" *{\fuc{Cell} \para \fuc{Cell} \para \cdots \para \fuc{Cell}} +0
+     ; "ka1"
+      , "q1"."ja1"."ka1"."X11"."X22"."X33"}="C"
+  ( "ja1"[uu]{\dois^{{4}^{n}}} - "ja1"   "ja1"[u]="lkg1" "ja1"[urr]="lkg4")
+ "C"[d(3)]!{
+     +0="q2" *=<10pt>{ }
+     ; p!D**{},
+      ; "q2"  -/0pt/*{} +0
+      ;p-/:a(90)60pt/="X11"**\dir{-}
+      ; ?(.3)="ka2",
+      ?(.7)="kb2",
+      p-/:a(90)36pt/**\dir{-}="X22"
+      ;p-/:a(90)60pt/="X33"**\dir{-}
+      ; ?(.26)="ja2",
+      ?(.7)="jb2",
+      p-/:a(90)36pt/**\dir{-}
+      ; "ja2" *{\bullet} +0
+     ; "ka2"  -/2pt/*!E\cir<2pt>{} +0
+      ; <13pt,-17pt>+"ja2" *{\fuc{Bus}} +0
+      , "q2"."ja2"."ka2"."X11"."X22"."X33"}
+  ( "ja2" "ka2"[dd]{\dois^{{4}^{n}}} - "ka2" "ja2"[u]="lig2" "ka2"[d]="lkg2" )
+ "ka1" - "ja2"
+ "lkg2" - [r</8ex/] - [u!{"lkg1";p+/r/}] - [l</8ex/] -  "lkg1" - [r</3ex/] }
+\end{equation*}
+~\\
+
+\begin{align*}
+\fuc{GameLife} \;& =\; \feed{((\fuc{Cell} \para \fuc{Cell} \para \cdots \para \fuc{Cell}) \qcomp \fuc{Bus})}\\
+\intertext{where}
+\fuc{Bus} \;& =\; \flift{\fuc{w}}
+\end{align*}
+
+\end{slide}
 
 
 
@@ -914,10 +915,16 @@ Therefore, the course
 %\item \textbf{References:} (tba)
 \item \textbf{Assessment:} 
 \begin{itemize}
-\item \dkb{Test}  \dkb{16 June} - 60 \% \\
+\item \dkb{Test}  \dkb{in June} - 60 \% \\
 %\item \dkb{Special Lab Assessment} (for \dkb{Models for cyber-physical systems}, \dkb{28 March}) - 20 \%
 \item \dkb{Exercises and group project}  - 40 \%
 \end{itemize}
+~\\
+%\item{Website:}
+%\begin{itemize}
+%  \item \url{http://ac1516.proenca.org}
+%\end{itemize}
+\myblock{\dkb{\url{http://ac1516.proenca.org}}}
 ~\\
 %\item \textbf{... may be extended} (with reasonable limits) by contacting \texttt{lsb@di.uminho.pt}
 \item \textbf{Research context:} Projects 

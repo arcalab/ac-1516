@@ -47,7 +47,8 @@ h4.pulldown {
 
 .bioPhoto { 
   float: right; 
-  width: 23%;
+  width: 17%;
+  min-width: 100px;
   padding: 10px;
 }
 

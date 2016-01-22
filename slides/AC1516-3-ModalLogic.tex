@@ -136,10 +136,12 @@ For logics with \dgold{negation} and a \dgold{conjunction} operator
 \begin{slide}{Examples}\label{s:6}
 \small
 
+$$ \dgold{\ger{M}} \models \dkb{\phi} $$
+
 \begin{itemize}
-\item Propositional logic (logic of \dgold{uninterpreted assertions}; models are \dgold{truth assignments})
-\item Equational logic (formalises \dgold{equational} reasoning; models are \dgold{algebras})
-\item First-order logic (logic of \dgold{predicates} and \dgold{quatification} over structures; models are \dgold{relational structures})
+\item Propositional logic (logic of \dkb{uninterpreted assertions}; models are \dgold{truth assignments})
+\item Equational logic (formalises \dkb{equational} reasoning; models are \dgold{algebras})
+\item First-order logic (logic of \dkb{predicates} and \dkb{quatification} over structures; models are \dgold{relational structures})
 \item Modal logics 
 \item ...
 \end{itemize}
@@ -179,12 +181,12 @@ Modal logics are
            \pv{m}{\phi} \:  \mid\:
            \nc{m}{\phi} 
 \end{equation*}
-where $p \in \mathsf{PROP}$ and $m \in \mathsf{MOD}$
+where $p \in \dgold{\mathsf{PROP}}$ and $m \in \dkb{\mathsf{MOD}}$
 \end{block}
 \vspace{1cm}
 
 Disjunction ($\ou$) and equivalence ($\dimpp$) are defined by abbreviation.
-The \dgold{signature} of the basic modal language is determined by sets $\mathsf{PROP}$ of \dgold{propositional} symbols (typically assumed to be denumerably infinite) and $\mathsf{MOD}$ of \dgold{modality} symbols.
+The \structure{signature} of the basic modal language is determined by sets $\dgold{\mathsf{PROP}}$ of \dgold{propositional} symbols (typically assumed to be denumerably infinite) and $\dkb{\mathsf{MOD}}$ of \dkb{modality} symbols.
 \end{slide}
 
 %----------------------------------------------------------------------------------
@@ -198,6 +200,12 @@ $\nc{m}{\phi}$ is equivalent to  $\neg \pv{m}{\neg \phi}$
 \item define \dgold{modal depth} in a formula $\phi$, denoted by \dgold{$\mdepth{\phi}$} as the maximum level of nesting of modalities in $\phi$
 \end{itemize}
 \end{block}
+
+\begin{exampleblock}{Example}
+  Models as LTSs over Act.\\
+  $\dkb{MOD} \subseteq Act$ -- subset of actions.\\
+  $\pv{\dkb{\set{a,b}}} \phi$ can be read as ``\emph{after observing $a$ \dgold{or} $b$, $\phi$ must hold.}''
+\end{exampleblock}
 
 \end{slide}
 

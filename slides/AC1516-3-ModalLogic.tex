@@ -203,8 +203,10 @@ $\nc{m}{\phi}$ is equivalent to  $\neg \pv{m}{\neg \phi}$
 
 \begin{exampleblock}{Example}
   Models as LTSs over Act.\\
-  $\dkb{MOD} \subseteq Act$ -- subset of actions.\\
-  $\pv{\dkb{\set{a,b}}} \phi$ can be read as ``\emph{after observing $a$ \dgold{or} $b$, $\phi$ must hold.}''
+  $\dkb{MOD} = \blk P {Act}$ -- sets of actions.\\
+  $\pv{\dkb{\set{a,b}}} \phi$ can be read as ``\emph{after observing $a$
+\dgold{or} $b$, $\phi$ must hold.}''\\
+  $\nc{\dkb{\set{a,b}}} \phi$ can be read as ``\emph{after observing $a$ \dgold{and} $b$, $\phi$ must hold.}''
 \end{exampleblock}
 
 \end{slide}
@@ -213,16 +215,25 @@ $\nc{m}{\phi}$ is equivalent to  $\neg \pv{m}{\neg \phi}$
 \begin{slide}{Semantics}\label{s:12}
 \small
 \begin{block}{Semantics}
-A \dkb{model} for the language is a pair $\ger{M} = \pair{\blk{F},V}$, where
+A \dkb{model} for the language is a pair $\dkb{\ger{M}} = \pair{\ger{F},V}$, where
 \begin{itemize}
-\item $\ger{F} = \pair{W, \enset{R_m}_{m \in \mathsf{MOD}}}$  \\ is a \dkb{Kripke frame}, ie, a non empty set $W$ and a family of binary relations
-over $W$, one for each modality symbol $m \in \mathsf{MOD}$. Elements of $W$ are called \dgold{points},  \dgold{states},  \dgold{worlds} or
+\item $\ger{F} = \pair{\dgold{W}, \enset{\alert{R_m}}_{m \in \mathsf{MOD}}}$  \\ is a \dkb{Kripke frame}, ie, a non empty set \dgold{$W$} and a family of \alert{binary relations} (called \emph{accessibility relations})
+over \dgold{$W$}, one for each modality symbol $m \in \mathsf{MOD}$. Elements of \dgold{$W$} are called \dgold{points},  \dgold{states},  \dgold{worlds} or
 simply  \dgold{vertices} in  directed graphs. 
 \item $\fdec{V}{\mathsf{PROP}}{\pow{(W)}}$ is a \dkb{valuation}.
 \end{itemize}
 \end{block}
-\end{slide}
 
+
+\begin{exampleblock}{When MOD = \textbf{1}}
+\begin{itemize}
+  \item \dgold{$\eventual \phi$} and \dgold{$\always \phi$} instead of
+        \dkb{$\pv{\cdot} \phi$} and \dkb{$\nc{\cdot} \phi$}
+  \item \dgold{$\ger{F} = \pair{W,R}$} instead of
+        \dkb{$\ger{F} = \pair{{W}, \enset{{R_m}}_{m \in \mathsf{MOD}}}$}
+\end{itemize}
+\end{exampleblock}
+\end{slide}
 
 
 %----------------------------------------------------------------------------------
@@ -292,7 +303,7 @@ but are truth-functionally tautologous)
 \begin{slide}{Variants}\label{s:38}
 \small
 
-Normal modal logics are \dgold{axiomatic extensions to $\mathbf{K}$}
+\emph{Normal modal logics} are \dgold{axiomatic extensions to $\mathbf{K}$}
 
 \begin{itemize}
 \item
@@ -331,7 +342,7 @@ eg, \dgold{connected}, \dgold{irreflexive}, \dgold{containing a isolated irrefle
 
 
 %----------------------------------------------------------------------------------
-\begin{slide}{Examples}\label{s:15}
+\begin{slide}{Examples I}\label{s:15}
 \small
 \begin{block}{An automaton}
 \begin{equation*}
@@ -353,7 +364,7 @@ where $t$ is a proposition valid only at the (terminal) state $3$.
 
 
 %----------------------------------------------------------------------------------
-\begin{slide}{Examples}\label{s:16}
+\begin{slide}{Examples II}\label{s:16}
 \small
 \begin{block}{$(P,<)$ a strict partial order with infimum $0$}
 ~\\
@@ -370,7 +381,7 @@ where $t$ is a proposition valid only at the (terminal) state $3$.
 
 
 %----------------------------------------------------------------------------------
-\begin{slide}{Examples}\label{s:17}
+\begin{slide}{Examples III}\label{s:17}
 \small
 \begin{block}{Process logic (\dgold{Hennessy-Milner logic})}
 \begin{itemize}
@@ -388,22 +399,60 @@ p & \models \nc{K}{\phi} \text{~~~~~~~~~~ \textsf{iff} ~~~}
 \end{align*}
 \end{slide}
 
+\begin{slide}{Examples III}
+\small
 
+\begin{columns}
+\column{0.38\textwidth}
+\centering
+\begin{tikzpicture}[scale=1.5,%
+  every node/.style={auto,inner sep=1pt},%
+  every edge/.style={draw, thick,-latex',shorten >= 2pt}]
+\tikzstyle{n} = [inner sep=3pt]
+\node[n](s2)at(0,2){$S_2$};
+\node[n](s3)at(2,2){$S_3$};
+\node[n](s1)at(1,1){$S_1$};
+\node[n](s5)at(0,0){$S_4$};
+\node[n](s4)at(2,0){$S_5$};
+\draw[->]
+  (s1)edge node{$a$}(s4) edge[bend left=5pt] node{$a$}(s3)
+  (s2)edge node{$b$}(s3)
+  (s3)edge node{$c$}(s4) edge[bend left=5pt] node{$c$}(s1)
+  (s4)edge node{$b$}(s5)
+  (s5)edge node{$c$}(s2) edge node{$c$}(s1);
+\end{tikzpicture}
+
+\column{0.58\textwidth}
+\begin{exampleblock}{Prove:}
+\begin{enumerate}
+  \item $S_2 \models \alm a (\evm b tt \land \evm c tt)$\\
+  \item $S_1 \not \models \alm a(\evm b tt \land \evm c tt)$\\
+  \item $S_2 \models \alm b \alm c(\evm a tt \lor \evm b tt)$\\
+  \item $S_1 \models \alm b \alm c(\evm a tt \lor \evm b tt)$    
+%  \item $S_2 \models [a](⟨b⟩tt ∧ ⟨c⟩tt)$\\
+%  \item $S_1 \not \models [a](⟨b⟩tt ∧ ⟨c⟩tt)$\\
+%  \item $S_2 \models [b][c](⟨a⟩tt ∨ ⟨c⟩tt)$\\
+%  \item $S_1 \models [b][c](⟨a⟩tt ∨ ⟨c⟩tt)$    
+\end{enumerate}
+\end{exampleblock}
+\end{columns}
+  
+\end{slide}
 
 %----------------------------------------------------------------------------------
-\begin{slide}{Examples}\label{s:18}
+\begin{slide}{Examples IV}\label{s:18}
 \small
 \begin{block}{Temporal logic}
 \begin{itemize}
 \item $\pair{T, <}$ where $T$ is a set of time points (instants, execution states , ...) and $<$ is the \dgold{earlier than} relation on $T$.
 \item Thus, $\always \varphi$ (respectively, $\eventual \varphi$) means that $\varphi$ holds in all (respectively, some)  time points.
-\item \dgold{origin}: Arthur Prior, an attempt to \emph{deal with temporal information from the inside, capturing the situated nature of our experience and the context-dependent way we talk about it} 
+%\item \dgold{origin}: Arthur Prior, an attempt to \emph{deal with temporal information from the inside, capturing the situated nature of our experience and the context-dependent way we talk about it} 
 \end{itemize}
 \end{block}
 \end{slide}
 
 %----------------------------------------------------------------------------------
-\begin{slide}{Examples}\label{s:18a}
+\begin{slide}{Examples IV}\label{s:18a}
 \small
 
 \begin{block}{$\pair{T,<}$}
@@ -411,13 +460,16 @@ The structure of time is a \dkb{strict partial order} \\ (i.e., a transitive and
 \vspace{0.3cm}
 
 \noindent
-For any such structure, a new modality, $\nexts$, can be defined based on the \dgold{cover} relation $\lessdot$ for $<$ (\ie, the smallest relation whose transitive closure is $<$). Thus,
+For any such structure, a new modality, $\nexts$, can be defined based on the \alert{cover} relation \alert{$\lessdot$} for $<$ 
+%(\ie, the smallest relation whose transitive closure is $<$).
+(\ie, $x\alert{\lessdot} y$ if (1) every $x<y$ and (2) there is no $z$ such that $x<z<y$).
+Thus,
 \begin{align*}
-t & \models \nexts \phi \text{ ~~~~~~~~ \textsf{iff} ~~~} 
-\universal{t' \in \setdef{p'}{t \lessdot t' }}{t' \models \phi} \\ &\\
-t & \models \always \phi \text{ ~~~~~~~~ \textsf{iff} ~~~} 
+t  \models \nexts \phi &\text{ ~~~~~~~~ \textsf{iff} ~~~} 
+\universal{t' \in \setdef{p'}{t \alert{\lessdot} t' }}{t' \models \phi} \\ &\\
+t  \models \always \phi &\text{ ~~~~~~~~ \textsf{iff} ~~~} 
 \universal{t' \in \setdef{p'}{t < t' }}{t' \models \phi} \\
-t & \models \eventual \phi \text{ ~~~~~~~~ \textsf{iff} ~~~} 
+t  \models \eventual \phi &\text{ ~~~~~~~~ \textsf{iff} ~~~} 
 \existential{t' \in \setdef{p'}{t < t' }}{t' \models \phi} \\
 \end{align*}
 \end{block}
@@ -425,7 +477,7 @@ t & \models \eventual \phi \text{ ~~~~~~~~ \textsf{iff} ~~~}
 \end{slide}
 
 %----------------------------------------------------------------------------------
-\begin{slide}{Examples}\label{s:18b}
+\begin{slide}{Examples IV}\label{s:18b}
 \small
 
 ... but typical structures, however, are 
@@ -446,7 +498,7 @@ t & \models \eventual \phi \text{ ~~~~~~~~ \textsf{iff} ~~~}
 
 
 %----------------------------------------------------------------------------------
-\begin{slide}{Examples}\label{s:19}
+\begin{slide}{Examples V}\label{s:19}
 \small
 \begin{block}{Epistemic logic (J. Hintikka, 1962)}
 \begin{itemize}
@@ -465,12 +517,40 @@ t & \models \eventual \phi \text{ ~~~~~~~~ \textsf{iff} ~~~}
 
 
 
-%----------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 \begin{slide}{The first order connection}\label{s:20}
 \small
+
+\begin{block}{From modal logic}
+\vspace*{-3mm}
+\begin{equation*}
+\phi\; ::=\; p \: \mid\: \true\: \mid\: \false\: \mid\: \neg \phi \: \mid\: \phi_1 \e \phi_2\: \mid\:
+           \phi_1 \impp  \phi_2\:   \mid\:
+           \dgold{\pv{m}{\phi}} \:  \mid\:
+           \dgold{\nc{m}{\phi}} 
+\end{equation*}
+\end{block}
+
+~\\[5mm]
+
+\begin{block}{To first order logic}
+\vspace*{-3mm}
+\begin{equation*}
+\phi\; ::=\; P\,x \: \mid\: \true\: \mid\: \false\: \mid\: \neg \phi \: \mid\: \phi_1 \e \phi_2\: \mid\:
+           \phi_1 \impp  \phi_2\: \mid\:
+           \dgold{\rcb{\exists}{x}{}{\phi} } \: \mid\:
+           \dgold{\rcb{\forall}{y}{}{\phi} }
+\end{equation*}
+\end{block}
+\end{slide}
+
+%------------------------------------------------------------------------------
+
+\begin{slide}{The first order connection}
+\small
+
 Boxes and diamonds are essentially a \dgold{macro notation} to encode quantification over accessible states in a point free way. \\
 \vspace{0.2cm}
-
 \begin{block}{The standard translation}
 
 ... to first-order logic \dgold{expands} these macros:
@@ -538,35 +618,44 @@ If $\Phi$ is a set of basic modal formulas  satisfiable in at least one infinite
 
 
 %----------------------------------------------------------------------------------
-\begin{slide}{\red Exercise}\label{s:24}
-\small
-\begin{block}{Express the following properties in Process Logic}
-\begin{itemize}
-\item \dgold{inevitability of $a$}: 
-\item \dgold{progress}: 
-\item \dgold{deadlock or termination}: 
-\item what about
-\begin{equation*}
-\dkb{\pv{-}{\false}}\; \; \; \text{and}\; \; \;  \dkb{\nc{-}{\true}}\; \; \; \text{?}
-\end{equation*}
- \end{itemize}
- \end{block}
-\end{slide}
+%\begin{slide}{\red Exercise}\label{s:24}
+%\small
+%\begin{exampleblock}{Express the following properties in Process Logic}
+%\begin{itemize}
+%\item \dgold{inevitability of $a$}: 
+%\item \dgold{progress}: 
+%\item \dgold{deadlock or termination}: 
+%\item what about
+%\begin{equation*}
+%\dkb{\pv{-}{\false}}\; \; \; \text{and}\; \; \;  \dkb{\nc{-}{\true}}\; \; \; \text{?}
+%\end{equation*}
+% \end{itemize}
+% \end{exampleblock}
+% 
+%\begin{itemize}
+% \item ``$-$" stands for $Act$, and ``$-x$'' abbreviates $Act-\enset{x}$
+%\end{itemize}
+%
+%\end{slide}
 
 %----------------------------------------------------------------------------------
 \begin{slide}{\red Exercise}\label{s:25}
 \small
-\begin{block}{Express the following properties in Process Logic}
+\begin{exampleblock}{Express the following properties in Process Logic}
 \begin{itemize}
-\item \dgold{inevitability of $a$}: \dkb{$\pv{-}{\true} \e \nc{-a}{\false}$}
-\item \dgold{progress}: \dkb{$\pv{-}{\true}$}
-\item \dgold{deadlock or termination}: \dkb{$\nc{-}{\false}$}
-\item what about
+\item \dgold{inevitability of $a$}: \only<2->{\dkb{$\pv{-}{\true} \e \nc{-a}{\false}$}}
+\item \dgold{progress}: \only<3->{\dkb{$\pv{-}{\true}$}}
+\item \dgold{deadlock or termination}: \only<4->{\dkb{$\nc{-}{\false}$}}
+\visible<4->{\item what about
 \begin{equation*}
 \dkb{\pv{-}{\false}}\; \; \; \text{and}\; \; \;  \dkb{\nc{-}{\true}}\; \; \; \text{?}
-\end{equation*}
+\end{equation*}}
  \end{itemize}
- \end{block}
+ \end{exampleblock}
+
+``$-$" stands for $Act$, and ``$-x$'' abbreviates $Act-\enset{x}$
+
+
 \end{slide}
 
 
@@ -575,7 +664,7 @@ If $\Phi$ is a set of basic modal formulas  satisfiable in at least one infinite
 %----------------------------------------------------------------------------------
 \begin{slide}{\red Exercise}\label{s:26}
 \small
-\begin{block}{Express the following properties in Process Logic}
+\begin{exampleblock}{Express the following properties in Process Logic}
 \begin{itemize}
 \item $\phi_0 =$ \emph{In a taxi network, a car can collect a passenger or be allocated by the Central to a pending service}
 \item $\phi_1 =$ \emph{This applies only to cars already on service}
@@ -584,13 +673,13 @@ If $\Phi$ is a set of basic modal formulas  satisfiable in at least one infinite
 \item $\phi_3 =$ \emph{On detecting an emergence the taxi becomes inactive}
 \item $\phi_4 =$ \emph{A car on service is not inactive}
 \end{itemize}
-\end{block}
+\end{exampleblock}
 \end{slide}
 
 %----------------------------------------------------------------------------------
 \begin{slide}{\red Exercise}\label{s:27}
 \small
-\begin{block}{Process logic: The taxi network example}
+\begin{exampleblock}{Process logic: The taxi network example}
 \begin{itemize}
 \item $\phi_0 =\; \pv{rec,alo}{\true}$ 
 \item $\phi_1 =\;  \nc{onservice}{\pv{rec,alo}{\true}}\; $ or\\
@@ -599,21 +688,20 @@ $\phi_1 =\;   \nc{onservice}{\phi_0}$
 \item $\phi_3 =\;  \nc{sos}{\nc{-}{\false}}$
 \item $\phi_4 =\;  \nc{onservice}{\pv{-}{\true}}$
 \end{itemize}
-where $-$ stands for $Act$, and $-x$ abbreviates $Act-\enset{x}$
-\end{block}
+\end{exampleblock}
 \end{slide}
 
 
 %----------------------------------------------------------------------------------
 \begin{slide}{\red Exercise}\label{s:28}
 \small
-\begin{block}{Standard translation to FOL}
+\begin{exampleblock}{Standard translation to FOL}
 \begin{itemize}
 \item Explain how propositional symbols and modalities are translated to first-order logic?
 \item In what sense can modal logic be regarded as a \dgold{pointfree} version of a FOL fragment?
 \item Compute  $ST_x (p \imp \pv{m}{p})$ 
 \end{itemize}
-\end{block}
+\end{exampleblock}
 \end{slide}
 
 
@@ -672,11 +760,40 @@ $S \subseteq W \times W'$ , if two points $w, w'$ are related by $S$, i.e. $w S 
 \end{slide}
 
 %----------------------------------------------------------------------------------
+\begin{slide}{Frame definability}\label{s:32}
+\small
+\begin{itemize}
+  \item A modal formula is valid on a frame if it is true under every valuation at every world (i.e., it cannot be refuted)
+  \item The class of frames defined by a modal formula $\phi$ are those where $\phi$ is valid.
+  \item Example: $\eventual\eventual p \to \eventual p$ defines transitivity:\\
+  ~~~~$\ger{F}=\pair{W,R}$ is transitive iff for all $V$ and $w$,\\
+  ~~~~$\pair{\ger{F},V},w\models \eventual\eventual p \to \eventual p $
+\end{itemize}
+\end{slide}
+%----------------------------------------------------------------------------------
 \begin{slide}{\red Exercise}\label{s:32}
 \small
-\begin{block}{Bisimilarity and modal equivalence}
+
+\begin{exampleblock}{Exercise: other properties}
+\begin{itemize}
+  \item Transitivity: \dkb{$\eventual\eventual p \to \eventual p$}
+  \item Reflexivity: \visible<2->{\dkb{$p \to \eventual p$}}
+  \item Symmetry:    \visible<2->{\dkb{$p \to \always \eventual p$}}
+  \item Confluence:  \visible<2->{\dkb{$\eventual\always p \to \always \eventual p$}}
+  \item Irreflexibility:  \visible<2->{\alert{Not possible}}
+\end{itemize}
+\end{exampleblock}
+
+\end{slide}
+
+%----------------------------------------------------------------------------------
+
+\begin{slide}{\red Exercise}\label{s:32}
+\small
+\begin{exampleblock}{Bisimilarity and modal equivalence}
 \begin{itemize}
 \item Show that  \dgold{irreflexivity} is modally undefinable.
+\\(\ie, no formula that characterises a irreflexive system)
 \item Consider the following transition systems:
 \begin{equation*}
 %??????
@@ -688,9 +805,10 @@ $S \subseteq W \times W'$ , if two points $w, w'$ are related by $S$, i.e. $w S 
 }
 \end{equation*}
 Give a modal formula that can be satisfied at point $1$ but not at $3$.
+%[]([]false + <>[]false) - after any step it either deadlocks in one or 2 steps.
 %item Prove the invariance lemma.
 \end{itemize}
-\end{block}
+\end{exampleblock}
 \end{slide}
 
 %----------------------------------------------------------------------------------
@@ -714,11 +832,12 @@ $S \subseteq W \times W'$  such that $w S w'$.
 \end{itemize}
 \end{block}
 
-\begin{block}{Exercise}
+\begin{exampleblock}{Exercise}
 \begin{itemize}
 \item Give an example of modally equivalent states in different Kripke structure which fail to be bisimilar.
+% infinite models: one modal formula satisfies 2 non-bisimilar (infinite) models
 \end{itemize}
-\end{block}
+\end{exampleblock}
 \end{slide}
 
 
@@ -762,6 +881,16 @@ The following are equivalent for all first-order formulas $\phi(x)$ in one free 
   \vspace{0.2cm}
  \dgold{What are the trade-offs? Can this better computational behaviour be lifted to more expressive modal logics? }
 \end{slide}
+
+
+%-------------------------------------------------------------------------------
+\begin{slide}{mCRL2 - modal logic}
+\small
+
+\myblock{todo}
+
+\end{slide}
+
 
 
  \section{Temporal logic}
@@ -813,7 +942,7 @@ e.g. \dkb{some event will happen, and a certain condition will hold until then}
 %----------------------------------------------------------------------------------
 \begin{slide}{\red Exercise}\label{s:42}
 \small
-\begin{block}{Temporal logics}
+\begin{exampleblock}{Temporal logics}
 \begin{itemize}
 \item Show that  $\mathcal{U}$ is modally undefinable.\\
 \emph{Hint} Consider the following transition structures and formula $\false\, \mathcal{U}\, \true$:
@@ -827,7 +956,7 @@ e.g. \dkb{some event will happen, and a certain condition will hold until then}
 \end{equation*}
 \item Would this be the case if we restrict ourselves to transitive, irreflexive models?
 \end{itemize}
-\end{block}
+\end{exampleblock}
 \end{slide}
 
 
@@ -836,7 +965,7 @@ e.g. \dkb{some event will happen, and a certain condition will hold until then}
 \small
 
 \[
-\phi\, := \; \true \mid p \mid  \phi_1 \wedge \phi_2 \mid \neg \phi \mid \nexts \phi \mid  \phi_1 \until \phi_2
+\phi\, := \; \true \mid p \mid  \phi_1 \wedge \phi_2 \mid \neg \phi \mid \nexts \phi \mid  \phi_1 \until \phi_2 \mid \eventual \phi \mid \always \phi
 \]
 \vspace{0.5cm}
 \begin{center}
@@ -866,13 +995,14 @@ eventually forever & $\eventual \always w_1$\\
 
  \dkb{state} formulas to express  properties of a state:
 \[
-\Phi\, := \; \true \mid \Phi \wedge \Phi \mid \neg \Phi \mid \exists \phi \mid \forall \phi
+\Phi\, := \; \true \mid \Phi \wedge \Phi \mid \neg \Phi \mid \exists \psi \mid \forall \psi
 \]
 
 
 \dkb{path} formulas to express properties of a path:
 \[
-\phi\, := \; \nexts \Phi \mid  \Phi \until \Psi
+\psi\, := \; \nexts \Phi \mid  \Phi \until \Psi
+             \mid \eventual \phi \mid \always \phi
 \]
 
 \vspace{0.2cm}
@@ -912,6 +1042,19 @@ with
 \end{equation*}
 for $i \in \mathsf{NOM}$ (a \dgold{nominal})
 \end{block}
+
+\begin{block}{Syntax}
+  \begin{equation*}
+\phi\; ::=\;
+    \ldots \:\mid\:
+    \dgold{p} \: \mid\: 
+    \dkb{\pv{m}{\phi}} \:  \mid\:
+    \dkb{\nc{m}{\phi}} \:  \mid\:
+    \alert{i} \:  \mid\:
+    \alert{@_i}\,\phi
+\end{equation*}
+where $\dgold{p \in \mathsf{PROP}}$ and $\dkb{m \in \mathsf{MOD}}$ and $\alert{i \in \mathsf{NOM}}$
+\end{block}
 \end{slide}
 
 %----------------------------------------------------------------------------------
@@ -928,7 +1071,7 @@ $$ \fdec{V}{\mathsf{PROP}}{\pow{(W)}} \; \; \; \text{and}\; \; \;  \dkb{\fdec{V}
 where $\mathsf{NOM}$ is the set of nominals in the model
 \item Satisfaction:
 \begin{align*}
-\ger{M}, w & \models  i &  \text{\textsf{iff} }  & w = V(i)
+\alert{\ger{M}, w  \models  i} &&  \text{\textsf{iff} }  & w = V(i)
 \end{align*}
 \end{itemize}
 \end{block}
@@ -944,7 +1087,8 @@ where $\mathsf{NOM}$ is the set of nominals in the model
 
 \begin{block}{The $@_i$ operator}
 \begin{align*}
-\ger{M}, w & \models  @_i \phi &  \text{~~~~~~ \textsf{iff} ~~~}  &\ger{M}, u  \models \phi\; \text{and $u$ is the state denoted by $i$}
+\alert{\ger{M}, w \models  @_i \phi}
+  &&  \text{~~~~~~ \textsf{iff} ~~~}  &\ger{M}, u  \models \phi\; \text{and $u$ is the state denoted by $i$}
 \end{align*}
 \end{block}
 
@@ -1022,7 +1166,7 @@ An \dkb{invariance} theorem and its \dkb{dual} (for image finite models) can als
 \end{itemize}
 \end{block}
 \begin{flushright}
-\dgold{[recent research at HASLab: projects \textsc{Mondrian} and \textsc{Nasoni}]}
+\dgold{[recent research at HASLab: projects \textsc{Dali} and \textsc{Nasoni}]}
 \end{flushright}
 \end{slide}
 

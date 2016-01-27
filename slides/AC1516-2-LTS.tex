@@ -72,7 +72,7 @@
 \frame[plain]{\titlepage}
 
 
-\section{Basic definitions}
+\section{LTS -- Basic definitions}
 %----------------------------------------------------------------------------------
 \begin{slide}{Reactive systems}
 \small
@@ -231,8 +231,10 @@ $t \in S$ is \dkb{reachable} from $s \in S$ iff there is a word $\sigma \in \Act
 %
 %\end{slide}
 
-%-------------------------------------------------------------------------------
 
+\section{Process algebra}
+
+%-------------------------------------------------------------------------------
 \newcommand{\transp}[2][35]{\color{fg!#1}#2}
 
 \begin{slide}{Process algebras}
@@ -259,7 +261,7 @@ where
 \begin{slide}{Process algebras}
 \small
 
-\begin{block}{}
+\begin{block}{Syntax}
 \begin{equation*}
 \mathcal{P} ~\ni~ P,Q\; ::=\; K ~~|~~ \alpha.P ~~|~~ \sum_{i\in I} P_i
     ~~|~~ \crn P f \transp{~~|~~ P|Q ~~|~~ P\backslash L}
@@ -267,12 +269,12 @@ where
 \end{block}
 
 %\setcounter{equation}{0}
-\begin{exampleblock}{Which are syntactically correct?}
+\begin{exampleblock}{Exercise: Which are syntactically correct?}
 \frsplit[.40]{
 \begin{align}
   & a.b.A+B\\&
-  (a.\cnil + \ainv a.A) \crt \set{a,b}\\&
-  (a.\cnil + \ainv a.A) \crt \set{a,\tau}\\&
+  (a.\cnil + \ainv a.A) \backslash \set{a,b}\\&
+  (a.\cnil + \ainv a.A) \backslash \set{a,\tau}\\&
   a.V+[a/b]\\&
   \tau.\tau.B + \cnil\\&
   (a.B + b.B)[a/b,b/a]
@@ -312,7 +314,7 @@ where
 \\[2mm]
 \pause
 
-\begin{exampleblock}{Draw the LTS's}
+\begin{exampleblock}{Exercise: Draw the LTS's}
   \vspace*{-4mm}
   \begin{align*}
     CM &= \mathsf{coin.\ainv{coffee}}.CM
@@ -323,12 +325,55 @@ where
   \end{align*}
 \end{exampleblock}
 
-
 \end{slide}
 
 %-------------------------------------------------------------------------------
+\begin{frame}[fragile]{mCRL2}
+\small
+\myblock{\url{http://mcrl2.org}}
+  
+\begin{block}{Syntax (by example)}
+\begin{align*}
+  a.P &\to \mcode{a.P}
+  \\
+  P_1 + P_2 &\to \mcode{P1 + P2}
+  \\
+  P\backslash L &\to \mcode{hide(L,P)}
+%  \\
+%  \crn{P}{...} &\to \mcode{...}
+  \\
+  a.P|\ainv a.Q  &\to \mcode{hide(\{a\},block(\{a1,a2\},comm(\{a1|a2->a\}, a1.P||a2.P)))}
+\end{align*}
+\end{block}
+\end{frame}
 
+%-------------------------------------------------------------------------------
+\begin{frame}[fragile]{mCRL2}
+\small
+  \myblock{\url{http://mcrl2.org}}
+  
+%  \begin{block}{Syntax (by example)}
+\begin{lstlisting}
+act
+  coin, coin', coinCom,
+  coffee, coffee', coffeeCom, pub';
 
+proc
+  CM = coin.coffee'.CM;
+  CS = pub'.coin'.coffee.CS;
+  CMCS = CM || CS;
+  SmUni = hide({coffeeCom,coinCom},
+          block({coffee,coffee',coin,coin'},
+          comm({coffee|coffee' -> coffeeCom,
+                coin|coin'     -> coinCom},
+          CMCS )));
+init
+  SmUni;
+\end{lstlisting}
+%  \end{block}
+\end{frame}
+
+%-------------------------------------------------------------------------------
 \section{Behavioural equivalences}
 
 %----------------------------------------------------------------------------------
@@ -490,18 +535,38 @@ whenever $\pair{p,q} \in R$ and $a \in \Act$,
 \text{\dgold{(2)}}\; \;  & q \rtran{a}_2 q'\; \imp\; \rcb{\exists}{p'}{p' \in S_1}{p \rtran{a}_1 p'\, \e\, \pair{p',q'} \in R}   
 \end{align*}
 
-\begin{equation*}
-\xymatrix{
-p \ar[d]^-{a} & \hspace{-1.5cm} R  & \hspace{-2.7cm} q
-    & \! \! \text{\raisebox{-10mm}{\Huge $\Leftrightarrow$}} \! \! &   &  
-    &  q \ar[d]^-{a} \\
-p'           &   &           &                                   & p'\hspace{-2.7cm} &  R \hspace{-1.5cm} &  q'
-}
-\end{equation*}
-\begin{tikzpicture}
-  \node(p){$p$};\node[right=0 of p](R1){$R$};\node[right=0 of R1](q){$q$};
-    \node[right=3](q2){$q$};
-    
+%\begin{equation*}
+%\xymatrix{
+%p \ar[d]^-{a} & \hspace{-1.5cm} R  & \hspace{-2.7cm} q
+%    & \! \! \text{\raisebox{-10mm}{\Huge $\Leftrightarrow$}} \! \! &   &  
+%    &  q \ar[d]^-{a} \\
+%p'           &   &           &                                   & p'\hspace{-2.7cm} &  R \hspace{-1.5cm} &  q'
+%}
+%\end{equation*}
+\centering
+\begin{tikzpicture}[%
+    every edge/.style={draw, thick,-latex',shorten >= 2pt}]
+  \tikzstyle{l} = [auto,inner sep=1pt]
+  % the square
+  \node(p){$p$};\node[right=2.3 of p](q2){$q$};
+  \node[below=1 of p](p'){$p'$};\node(q')at(p'-|q2){$q'$};
+  % the R parts
+  \node[right=0 of p](R1){$R$};\node[right=0 of R1](q){$q$};
+  \node[left=0 of q'](R2){$R$};\node[left=0 of R2](p'2){$p'$};
+  % the arrows
+  \draw[->] (p)edge node[l]{$a$}(p') (q2)edge node[l]{$a$}(q');
+  \node at ($(p)!.5!(q')$){{\Large $\Rightarrow$}};
+  %%%%%%%
+  % the square
+  \node[right=2.3 of q2](pp){$p$};\node[right=2.3 of pp](q2){$q$};
+  \node[below=1 of pp](p'){$p'$};\node(q')at(p'-|q2){$q'$};
+  % the R parts
+  \node[right=0 of p'](R1){$R$};\node[right=0 of R1](q){$q'$};
+  \node[left=0 of q2](R2){$R$};\node[left=0 of R2](p'2){$p$};
+  % the arrows
+  \draw[->] (pp)edge node[l]{$a$}(p') (q2)edge node[l]{$a$}(q');
+  \node at ($(pp)!.5!(q')$){{\Large $\Leftarrow$}};
+
 \end{tikzpicture}
 
 \end{block}

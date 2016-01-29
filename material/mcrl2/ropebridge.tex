@@ -1,0 +1,221 @@
+\documentclass[11pt]{article}
+
+\renewcommand\familydefault{\sfdefault}
+ 
+%input preamble and macros
+\input{../../slides/macros/preamble}
+\input{../../slides/macros/macros}
+
+ 
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+ 
+%\newcommand{\N}{\mathbb{N}}
+%\newcommand{\Z}{\mathbb{Z}}
+
+% Named environments (no counters) 
+\newenvironment{theorem}[2][Theorem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{lemma}[2][Lemma]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+%\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+%\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{question}[2][Question]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{corollary}[2][Corollary]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+ 
+% Environments with counters
+\newtheoremstyle{myplain} {3mm}% ⟨Space above⟩
+{3mm}% ⟨Space below⟩
+{}% ⟨Body font⟩
+{}% ⟨Indent amount⟩
+{\bfseries}% ⟨Theorem head font⟩
+{.}% ⟨Punctuation after theorem head⟩
+{.5em}% ⟨Space after theorem head⟩2
+{}% ⟨Theorem head spec (can be left empty, meaning ‘normal’)⟩
+
+\theoremstyle{myplain}
+\newtheorem{exercise}{Exercise}
+
+\theoremstyle{definition} % no italics
+\newtheorem{subexercise}{}[exercise]
+
+\newcommand{\subex}[1]{\begin{subexercise}#1\end{subexercise}}
+
+\begin{document}
+ 
+% --------------------------------------------------------------
+%                         Start here
+% --------------------------------------------------------------
+ 
+\title{Assignment 1: The rope bridge in mCRL2}
+\author{Jos\'{e} Proen\c{c}a\\
+Arquitectura e C\'alculo -- 2015/2016} 
+ 
+\maketitle
+
+\noindent
+\emph{(This assignment was originally developed by Bas Ploeger in 2008 and given at a tutorial by Jeroen and others in 2012.)}
+\\[3mm]
+%
+%\noindent
+\includegraphics[width=\textwidth]{images/ropebridge-diag}
+
+
+In the middle of the night, four adventurers encounter a shabby rope bridge spanning a deep ravine. For safety reasons, they decide that no more than 2 persons should cross the bridge at the same time and that a fhashlight needs to be carried by one of them on every crossing.
+They have only one flashlight. The 4 adventurers are not equally skilled: crossing the bridge takes them 1, 2, 5, and 10 minutes, respectively. A pair of adventurers cross the bridge in an amount of time equal to that of the slowest of the two adventurers.
+
+One of the adventurers quickly provlaims that they cannot get all four of them across in less than 19 minutes. However, one of her companions disagrees and claims that it can be done in 17 minutes. We shall verify this claim and show that there is no faster strategy using mCRL2.
+
+The file \bash{bridge-holes.mcrl2} contains an outline for a model of this situation. We will gradually fill the holes in a number of exercises.
+
+The specification specifies the \code{Flashlight} process, and everything needed by it, and it gives some clues about the datatypes that are to be used.
+
+First of all, it dictates how the position of the flashlight and the adventurers should be encoded:
+
+\begin{lstlisting}
+% Data type for the position of adventurers and the flashlight.
+% Initially, they are all on the 'start' side of the bridge. In the end,
+% they should all have reached the 'finish' side.
+sort Position = struct start | finish;
+\end{lstlisting}
+
+The following clue is given about the processes describing the adventurers:
+
+\begin{lstlisting}
+% Adventurers are identified by their "speeds", i.e. the number of
+% minutes they need for crossing the bridge. For this we use the basic
+% integer data type of mCRL2 called 'Int'.
+\end{lstlisting}
+
+The flashlight process is given by:
+
+\begin{lstlisting}
+% The Flashlight process models the flashlight:
+% 1. If it is at the 'start' side, it can move forward together with any
+%    pair of adventurers.
+% 2. If it is at the 'finish' side, it can move back together with any
+%    adventurer.
+proc Flashlight(pos:Position) =
+       (pos == start) ->
+         % Case 1.
+         sum s,s':Int . forward_flashlight(s,s') . Flashlight(finish)
+       <> 
+         % Case 2.
+         sum s:Int . back_flashlight(s) . Flashlight(start);
+\end{lstlisting}
+
+Here the actions \code{forward_flashlight} and \code{back_flashlight} are described by:
+
+\begin{lstlisting}
+act
+    % Action declarations:
+    % - 'forward'  means:  from start to finish
+    % - 'back'     means:  from finish to start
+
+    % The flashlight moves forward together with two adventurers,
+    % identified by the action's parameters.
+    forward_flashlight: Int # Int;
+
+    % The flashlight moves back together with one adventurer, identified
+    % by the action's parameter.
+    back_flashlight: Int;
+\end{lstlisting}
+
+In the following exercises we will extend the specification towards a full description of the problem, and we will find out the minimal time needed for all adventurers to cross the bridge.
+
+
+%------------------------------------------------------------------------------
+\begin{exercise}
+Study the stub specification in \bash{bridge-holes.mcrl2}. Then add the process definition for an adventurer. For this, answer the following quesions:
+\begin{itemize}
+  \item What data parameters will the process have?
+  \item What actions will the process be able to perform?
+\end{itemize} 
+You will have to add action declarations and a process definition in the placed marked with \code{\%\%\% TODO (Exercise 1):} in the mcrl2 specification.
+\end{exercise}
+
+
+%------------------------------------------------------------------------------
+\begin{exercise}
+Add the 4 adventurers to the initial process definition. Apart from adding parallel processes to the definition, you have to take care of the synchronisation between actions of these processes:
+\begin{itemize}
+  \item Declare actions for the following events:
+  \begin{itemize}
+    \item 2 adventurers and a flashlight move forward over the bridge;
+    \item 1 adventurer and a flashlight move back over the bridge.
+  \end{itemize}
+  \item For each of these actions to occur, certain actions of the separate processes have to be synchronised. Specify the synchronisation between the actions using the communication operator \code{comm}.
+  \item Ensure that only the synchronised actions can occur, using the \code{allow} operator.
+\end{itemize}
+\end{exercise}
+ 
+ 
+\begin{exercise}
+Simulate the model using mCRL2 toolset by (1) executing the \bash{mcrl22lps} to produce the linearised specification, and (2) executing \bash{lpsxsim} to start a GUI simulation of the resulting linearised specification.
+
+If the linearisation fails, try to fix the reported errors.
+To simulate the system you can execute an action by double-clicking it in the upper-left list. Notice how the state parameter values get updated in the bottom part.
+
+If you notice any weird or incorrect behaviour in the simulator try to improve your model and simulate it again.
+\end{exercise}
+
+
+\begin{exercise}
+  Generate the labelled transition system (LTS) of your model by using the \bash{lps2lts} command.
+Visualise the LTS using the \bash{ltsgraph} tool.
+Alternatively, you can view a 3D representation of the same LTS using the \bash{ltsview} tool.
+\end{exercise}
+
+
+\begin{exercise}
+The total amount of time that the adventurers consumed so far is not yet being measured within the model. For this purpose, add a new process to the specification, called \code{Referee}, which:
+\begin{itemize}
+  \item counts the number of minutes passed and updates this counter every time the bridge is crossed by some aventurer(s);
+  \item reports this number when all adventurers have reached the \emph{finish side}. (This implies that it also needs to be able to determine when this happens!)
+\end{itemize}
+You will have to add action declarations, and a \emph{Referee} process definition and extend the initial process definition, including the communication and allow operators.
+\end{exercise}
+
+
+\begin{exercise}
+We shall now verify the following properties using the toolset:
+\begin{itemize}
+  \item A. It is possible for all adventurers to reach the finish side in 17 minutes.
+  \item B. It is not possible for all adventurers to reach the finish side in less than 17 minutes.
+\end{itemize}
+
+Express each of these properties using mCRL2's modal calculus. Add the formulas to the files \bash{formula_A.mcf} and \bash{formula_B.mcf}.
+\\[2mm]
+\emph{Hint: the modal calculus accepts forall quantifiers over naturals.}
+\\\emph{For example, ``\code{forall x:Nat . val(x < 17) =>} $\psi$'' will check if $\psi$ holds for every $x$ smaller than 17.}
+\end{exercise}
+
+
+\begin{exercise}
+Verify the formulas using the toolset, with the commands \bash{lps2pbes} and \bash{pbes2bool}.
+\end{exercise}
+
+\begin{exercise}
+A disadvantage of using PBES's for model checking is that insightful diagnostic information is hard to obtain. We shall now verify both properties again using the LTS tools.
+
+Verify the properties by generating traces using the \bash{lps2lts} command with extra options. Assuming that the action that reports the time is called \code{report}, execute:
+
+\begin{lstlisting}[style=bash]
+$\texttt{\$}$ lps2lts --action=report -t20 bridge.lps
+\end{lstlisting}
+
+This outputs a message every time a \code{report} action is encountered during state space generation. It also writes a trace to a file for the first 20 occurrences of this action. Properties A and B can now be checked by observing the output messages. Moreover, the trace for property A can be printed by passing the corresponding trace file name as an argument to the \bash{tracepp} command, \eg:
+%
+\begin{lstlisting}[style=bash]
+$\texttt{\$}$ tracepp file.trc
+\end{lstlisting}
+%
+This give an optimal strategy for crossing the bridge in 17 minutes as claimed by the computer scientist adventurer.
+
+\end{exercise}
+
+\end{document}

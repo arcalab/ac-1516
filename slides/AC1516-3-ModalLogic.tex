@@ -1,15 +1,16 @@
 \documentclass{beamer}
 \usepackage{etex} % fixes new-dimension error
 
-% \usepackage{auto-pst-pdf}
- \usepackage{xspace}
- \usepackage{reotex}
- 
-%\usetheme{Singapore}
-%\setbeamercovered{transparent} 
-\input{macros/beamerconf}
+ % \usepackage{auto-pst-pdf}
+\usepackage{xspace}
+\usepackage{reotex}
+\let\set\undefined
 
-\input{./macros/LSBslides-mac.tex}
+\input{macros/beamerconf}
+\input{macros/preamble}
+\input{macros/macros}
+
+
 
 
 \title{
@@ -618,7 +619,7 @@ If $\Phi$ is a set of basic modal formulas  satisfiable in at least one infinite
 
 
 %----------------------------------------------------------------------------------
-%\begin{slide}{\red Exercise}\label{s:24}
+%\begin{slide}{\rdb{Exercise}}\label{s:24}
 %\small
 %\begin{exampleblock}{Express the following properties in Process Logic}
 %\begin{itemize}
@@ -639,7 +640,7 @@ If $\Phi$ is a set of basic modal formulas  satisfiable in at least one infinite
 %\end{slide}
 
 %----------------------------------------------------------------------------------
-\begin{slide}{\red Exercise}\label{s:25}
+\begin{slide}{Exercise}\label{s:25}
 \small
 \begin{exampleblock}{Express the following properties in Process Logic}
 \begin{itemize}
@@ -662,7 +663,7 @@ If $\Phi$ is a set of basic modal formulas  satisfiable in at least one infinite
 
 
 %----------------------------------------------------------------------------------
-\begin{slide}{\red Exercise}\label{s:26}
+\begin{slide}{Exercise}\label{s:26}
 \small
 \begin{exampleblock}{Express the following properties in Process Logic}
 \begin{itemize}
@@ -677,7 +678,7 @@ If $\Phi$ is a set of basic modal formulas  satisfiable in at least one infinite
 \end{slide}
 
 %----------------------------------------------------------------------------------
-\begin{slide}{\red Exercise}\label{s:27}
+\begin{slide}{Exercise}\label{s:27}
 \small
 \begin{exampleblock}{Process logic: The taxi network example}
 \begin{itemize}
@@ -693,7 +694,7 @@ $\phi_1 =\;   \nc{onservice}{\phi_0}$
 
 
 %----------------------------------------------------------------------------------
-\begin{slide}{\red Exercise}\label{s:28}
+\begin{slide}{Exercise}\label{s:28}
 \small
 \begin{exampleblock}{Standard translation to FOL}
 \begin{itemize}
@@ -771,7 +772,7 @@ $S \subseteq W \times W'$ , if two points $w, w'$ are related by $S$, i.e. $w S 
 \end{itemize}
 \end{slide}
 %----------------------------------------------------------------------------------
-\begin{slide}{\red Exercise}\label{s:32}
+\begin{slide}{Exercise}\label{s:32}
 \small
 
 \begin{exampleblock}{Exercise: other properties}
@@ -788,7 +789,7 @@ $S \subseteq W \times W'$ , if two points $w, w'$ are related by $S$, i.e. $w S 
 
 %----------------------------------------------------------------------------------
 
-\begin{slide}{\red Exercise}\label{s:32}
+\begin{slide}{Exercise}\label{s:32}
 \small
 \begin{exampleblock}{Bisimilarity and modal equivalence}
 \begin{itemize}
@@ -940,7 +941,7 @@ e.g. \dkb{some event will happen, and a certain condition will hold until then}
 \end{slide}
 %
 %----------------------------------------------------------------------------------
-\begin{slide}{\red Exercise}\label{s:42}
+\begin{slide}{Exercise}\label{s:42}
 \small
 \begin{exampleblock}{Temporal logics}
 \begin{itemize}

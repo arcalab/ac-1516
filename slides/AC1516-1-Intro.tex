@@ -1,7 +1,8 @@
 \documentclass{beamer}
-\usepackage{etex} % fixes new-dimension error
 
 \input{macros/beamerconf}
+\input{macros/preamble}
+\input{macros/macros}
 
 %----------------------------------------------------------------------------
 \usepackage{graphicx,amsmath}
@@ -27,22 +28,6 @@
 %\usepackage{pstricks,pst-node,pst-text,pst-3d}
 
 
-%------ using color ---------------------------------------------------------
-%\newrgbcolor{goldenrod}{.80392 .60784 .11373}
-%\newrgbcolor{darkgoldenrod}{.5451 .39608 .03137}
-%\newrgbcolor{brown}{.15 .15 .15}
-%\newrgbcolor{darkolivegreen}{.33333 .41961 .18431}
-%%
-%%
-%\def\gold#1{{\goldenrod #1}}
-%\def\dgold#1{{\darkgoldenrod #1}}
-%\def\brw#1{{\brown #1}}
-\def\dkb#1{{\blue #1}}
-\def\tdkb#1{\textbf{\darkblue #1}}
-%%\def\gre#1{{\green #1}}
-\def\gre#1{{\darkolivegreen #1}}
-\def\gry#1{{\gray #1}}
-\def\rdb#1{{\red #1}}
 
 \def\laplace#1#2{*\txt{\mbox{ \fcolorbox{black}{myGray}{$\begin{array}{c}\mbox{#1}\\\\#2\\\\\end{array}$} }}}
 
@@ -67,8 +52,6 @@
 \def\qcom#1#2{#1\qcomp#2}
 \def\sync{}
 
-
-\input{./macros/LSBslides-mac}
 
 
 \title{
@@ -167,7 +150,7 @@ the fundamental organisation of a system, embodied in its components, their rela
 
 \begin{slide}{What is software architecture?}
 
-The {\blue architecture} of a system describes its gross structure which illuminates the top level design decisions, namely
+The \dkb{architecture} of a system describes its gross structure which illuminates the top level design decisions, namely
 
 \begin{itemize}
 \item how is it composed and of which interacting parts?
@@ -198,14 +181,14 @@ A framework to perform early verification of a system and ensure composability o
 
 \begin{block}{\fbox{Which structure? $\leadsto\;$ Architectural views}}
 \begin{itemize}
-\item {\blue code-based structures}: such as {\blue modules}, {\blue classes}, {\blue packages} and relationships like {\blue uses}, {\blue inherits from} or {\blue depends on}.
-\item {\blue run-time structures}: such as {\blue object instances}, {\blue clients}, {\blue servers}, {\blue databases},  {\blue browsers}, {\blue channels}, {\blue broadcasters}, {\blue software buses}, ...
-\item {\blue allocation structures}: intended to map code-based and run-time structures to external items, such as {\blue network locations}, {\blue physical devices}, {\blue managerial structures} ...
+\item \dkb{code-based structures}: such as \dkb{modules}, \dkb{classes}, \dkb{packages} and relationships like \dkb{uses}, \dkb{inherits from} or \dkb{depends on}.
+\item \dkb{run-time structures}: such as \dkb{object instances}, \dkb{clients}, \dkb{servers}, \dkb{databases},  \dkb{browsers}, \dkb{channels}, \dkb{broadcasters}, \dkb{software buses}, ...
+\item \dkb{allocation structures}: intended to map code-based and run-time structures to external items, such as \dkb{network locations}, \dkb{physical devices}, \dkb{managerial structures} ...
 \end{itemize}
 \caixa{This course 
 \begin{itemize}
-\item  focus on {\blue run-time structures} 
-\item  and entails a particular {\blue view}:  \dgold{components \& glue }
+\item  focus on \dkb{run-time structures} 
+\item  and entails a particular \dkb{view}:  \dgold{components \& glue }
 \end{itemize}
 }
 \end{block}
@@ -213,18 +196,18 @@ A framework to perform early verification of a system and ensure composability o
 
 \begin{slide}{What is software architecture?}
 \begin{tabular}{@{}ll@{}}
-{\blue Components}: & 
+\dkb{Components}: & 
 \caixapeq[0.75]{
-{\blue \emph{Loci} of computation and data stores}, encapsulating subsets of the system's functionality and/or data;\\
+\dkb{\emph{Loci} of computation and data stores}, encapsulating subsets of the system's functionality and/or data;\\
 Equipped with run-time interfaces defining their interaction points and restricting access to those subsets;\\
 May explicitly define dependencies on their required execution contexts;\\
-Typically provide {\blue application-specific} services}\\
+Typically provide \dkb{application-specific} services}\\
 %\pause
-{\blue Connectors}: & 
-\caixapeq[0.75]{Pathways of {\blue interaction} between components;\\
+\dkb{Connectors}: & 
+\caixapeq[0.75]{Pathways of \dkb{interaction} between components;\\
 Ensure the flow of data and regulates interaction;\\
-Typically provide {\blue application-independent} interaction facilities;\\
-{\blue \underline{Examples}}: procedure calls, pipes, wrappers, shared data structures, synchronisation barriers, etc.
+Typically provide \dkb{application-independent} interaction facilities;\\
+\dkb{\underline{Examples}}: procedure calls, pipes, wrappers, shared data structures, synchronisation barriers, etc.
 }
 \end{tabular}
 
@@ -232,33 +215,33 @@ Typically provide {\blue application-independent} interaction facilities;\\
 
 \begin{slide}{What is software architecture?}
 \begin{tabular}{@{}ll@{}@{}}
-{\blue Configurations}: & 
+\dkb{Configurations}: & 
 \caixapeq{
-Specifications of  {\blue how} components and connectors {\blue are associated};\\
-{\blue \underline{Examples}}: relations associating component {\blue ports} to 
-connector {\blue roles}, mapping diagrams, etc.
+Specifications of  \dkb{how} components and connectors \dkb{are associated};\\
+\dkb{\underline{Examples}}: relations associating component \dkb{ports} to 
+connector \dkb{roles}, mapping diagrams, etc.
 }\\
 %\pause
-{\blue Properties}: & 
-\caixapeq{Set of {\blue non functional} properties associated to any architectural element;\\
-{\blue \underline{Examples} (for components)}: availability, location, priority, CPU usage, ...\\
-{\blue \underline{Examples} (for connectors)}: reliability, latency, throughput, ...
+\dkb{Properties}: & 
+\caixapeq{Set of \dkb{non functional} properties associated to any architectural element;\\
+\dkb{\underline{Examples} (for components)}: availability, location, priority, CPU usage, ...\\
+\dkb{\underline{Examples} (for connectors)}: reliability, latency, throughput, ...
 }\\
 \end{tabular}
 \end{slide}
 
 \begin{slide}{What is software architecture?}
 \begin{tabular}{ll}
-{\blue Constraints}: & 
+\dkb{Constraints}: & 
 \caixapeq{
 Represent claims about an architectural design that should remain true even as it evolves over time. Typical constraints include restrictions on allowable values of properties, topology, and design vocabulary. For example, \dgold{the number of clients of a particular server is less than some maximum value}.}\\
 %\pause
-{\blue Styles}: & 
+\dkb{Styles}: & 
 \caixapeq{Styles represent \dgold{families of related systems}. A style defines a vocabulary of design element types and rules for composing them.
  Examples include dataflow architectures based on  pipes and filters, blackboard architectures based on shared data space and a set of knowledge sources, and layered systems. 
 }\\
 %\pause
-%{\blue a metaphor}: & soccer vs water polo
+%\dkb{a metaphor}: & soccer vs water polo
 \end{tabular}
 \end{slide}
 
@@ -319,11 +302,11 @@ An architectural style consists of:
 \begin{slide}{Architectural styles (or patterns)}
 \begin{itemize}
 \item classify families of software architectures
-\item act as {\blue types} for {\blue configurations}
+\item act as \dkb{types} for \dkb{configurations}
 \item provide
 \begin{itemize}
-\item {\blue domain-specific design vocabulary} (eg, set of connector and component types admissible)
-\item a set of {\blue constraints} to single out which configurations are well-formed. Eg, a pipeline architecture might constraint valid configurations to be linear sequences of pipes and filters.
+\item \dkb{domain-specific design vocabulary} (eg, set of connector and component types admissible)
+\item a set of \dkb{constraints} to single out which configurations are well-formed. Eg, a pipeline architecture might constraint valid configurations to be linear sequences of pipes and filters.
 \item guidance for architectural design based on the \dkb{problem domain} and the \dkb{deployment context}
 \end{itemize}
 \end{itemize}
@@ -357,10 +340,10 @@ An architectural style consists of:
 \end{itemize}
 ~\\~\\
 \begin{block}{Examples:}
-{\blue virtual machines} (eg, JVM)\\
-{\blue APIs} (eg, C standard library on top of Unix system calls)\\
-{\blue operating systems} (eg, Windows NT microkernel)\\
-{\blue networking protocols} (eg, ISO OSI 7-layer model; TCP/IP)
+\dkb{virtual machines} (eg, JVM)\\
+\dkb{APIs} (eg, C standard library on top of Unix system calls)\\
+\dkb{operating systems} (eg, Windows NT microkernel)\\
+\dkb{networking protocols} (eg, ISO OSI 7-layer model; TCP/IP)
 \end{block}
 \end{slide}
 
@@ -374,9 +357,9 @@ An architectural style consists of:
 \end{itemize}
 ~\\~\\
 \begin{block}{Examples:}
-{\blue remote DB access}\\
-{\blue web-based applications}\\
-{\blue interactive shells} 
+\dkb{remote DB access}\\
+\dkb{web-based applications}\\
+\dkb{interactive shells} 
 \end{block}
 \end{slide}
 
@@ -388,8 +371,8 @@ An architectural style consists of:
 \end{itemize}
 ~\\~\\
 \begin{block}{Examples:}
-{\blue multi-user applications}\\
- {\blue P2P file sharing} \\
+\dkb{multi-user applications}\\
+ \dkb{P2P file sharing} \\
 \end{block}
 \end{slide}
 
@@ -398,15 +381,15 @@ An architectural style consists of:
 \begin{slide}{Pattern: Publish-Subscribe}
 \begin{itemize}
 \item used to structure distributed systems whose components interact through remote service invocations
-\item servers publish their capabilities (services + characteristics) to a {\blue broker} component, which accepts client requests and coordinate communication
+\item servers publish their capabilities (services + characteristics) to a \dkb{broker} component, which accepts client requests and coordinate communication
 \item allows dynamic reconfiguration
 \item requires standardisation of service descriptions through IDL (eg CORBA IDL, .Net, WSDL) or
 a binary standard (eg, Microsoft OLE --- methods are called indirectly using pointers)
 \end{itemize}
 ~\\~\\
 \begin{block}{Examples:}
-{\blue web services}\\
- {\blue CORBA} (for cooperation among heterogeneous OO systems) \\
+\dkb{web services}\\
+ \dkb{CORBA} (for cooperation among heterogeneous OO systems) \\
 \end{block}
 \end{slide}
 
@@ -418,7 +401,7 @@ a binary standard (eg, Microsoft OLE --- methods are called indirectly using poi
 \end{itemize}
 ~\\~\\
 \begin{block}{Examples:}
-{\blue dependable systems} 
+\dkb{dependable systems} 
 \end{block}
 \end{slide}
 
@@ -429,12 +412,12 @@ a binary standard (eg, Microsoft OLE --- methods are called indirectly using poi
 \item asynchronous interaction
 \item channels can be implicit (eg, using event patterns)
 \item allows dynamic reconfiguration
-\item variant of so-called {\blue event-driven} architectures
+\item variant of so-called \dkb{event-driven} architectures
 \end{itemize}
 ~\\~\\
 \begin{block}{Examples:}
-{\blue process monitoring} \\
-{\blue trading systems}
+\dkb{process monitoring} \\
+\dkb{trading systems}
 \end{block}
 \end{slide}
 
@@ -448,8 +431,8 @@ a binary standard (eg, Microsoft OLE --- methods are called indirectly using poi
 \end{itemize}
 ~\\~\\
 \begin{block}{Examples:}
-{\blue compilers} \\
-{\blue Unix shell commands}
+\dkb{compilers} \\
+\dkb{Unix shell commands}
 \end{block}
 \end{slide}
 
@@ -462,8 +445,8 @@ a binary standard (eg, Microsoft OLE --- methods are called indirectly using poi
 \end{itemize}
 ~\\~\\
 \begin{block}{Examples:}
-{\blue complex IA problems} (eg, planning, machine learning) \\
-{\blue complex applications in computing science} (eg, speech recognition; computational chemistry)
+\dkb{complex IA problems} (eg, planning, machine learning) \\
+\dkb{complex applications in computing science} (eg, speech recognition; computational chemistry)
 \end{block}
 \end{slide}
 
@@ -473,61 +456,61 @@ a binary standard (eg, Microsoft OLE --- methods are called indirectly using poi
 
 \begin{slide}{Software Architecture as a discipline}
 \begin{itemize}
-\item Until the 90's, SA was largely an {\blue ad hoc affair} \\ (but see [Dijkstra,69], [Parnas79], ...)
+\item Until the 90's, SA was largely an \dkb{ad hoc affair} \\ (but see [Dijkstra,69], [Parnas79], ...)
 \item Descriptions relied on informal box-and-line diagrams, rarely maintained once the system was built
 \end{itemize}
 \begin{block}{Challenges}
 \begin{itemize}
-\item recognition of a shared {\blue repertoire} of methods, techniques and patterns for structuring complex systems
-\item quest for {\blue reusable frameworks} for the development of product families
+\item recognition of a shared \dkb{repertoire} of methods, techniques and patterns for structuring complex systems
+\item quest for \dkb{reusable frameworks} for the development of product families
 \end{itemize}
 \end{block}
 \end{slide}
 
 \begin{slide}{The last 15 years}
 \begin{itemize}
-\item Formal notations for representing and analysing SA: {\blue ADL}
-\item {\blue Examples}: Wright, Rapide, SADL, Darwin, C2, Aesop, Piccola, AADL\\~\\
+\item Formal notations for representing and analysing SA: \dkb{ADL}
+\item \dkb{Examples}: Wright, Rapide, SADL, Darwin, C2, Aesop, Piccola, AADL\\~\\
 \caixapeq{ADLs provide:
 \begin{itemize}
-\item {\blue conceptual framework} + {\blue concrete syntax}
-\item {\blue tools} for parsing, displaying, analysing or simulating architectural descriptions
+\item \dkb{conceptual framework} + \dkb{concrete syntax}
+\item \dkb{tools} for parsing, displaying, analysing or simulating architectural descriptions
 \end{itemize}
 }\\~\\
-\item \textsc{Acme} [Garlan et al, 97] as an architectural {\blue interchange} language (a sort of
+\item \textsc{Acme} [Garlan et al, 97] as an architectural \dkb{interchange} language (a sort of
 XML for architectural description)
 \item Use of model-based prototyping tools (eg Z, VDM) or model-checkers (eg Alloy) to 
-{\blue analyse} architectural descriptions
+\dkb{analyse} architectural descriptions
 \end{itemize}
 \end{slide}
 
 
 \begin{slide}{The last 15 years}
 \begin{itemize}
-\item Classification of {\blue architectural styles} characterising {\blue families} of SA and acting as {\blue types} for configurations
-\item {\blue Standardisation} efforts: ANSI/IEEE Std 1471-2000, but also 'local' standards (eg, Sun's Enterprise JavaBeans architecture)
-\item Impact of the emergence of a {\blue general purpose (object-oriented) design notation} --- UML ---
+\item Classification of \dkb{architectural styles} characterising \dkb{families} of SA and acting as \dkb{types} for configurations
+\item \dkb{Standardisation} efforts: ANSI/IEEE Std 1471-2000, but also 'local' standards (eg, Sun's Enterprise JavaBeans architecture)
+\item Impact of the emergence of a \dkb{general purpose (object-oriented) design notation} --- UML ---
 closer to practitioners and with a direct link to OO implementations
-\item SA becomes a mature discipline in Software Engineering; new fields include {\blue documentation} and  {\blue architectural recovery} from legacy code
+\item SA becomes a mature discipline in Software Engineering; new fields include \dkb{documentation} and  \dkb{architectural recovery} from legacy code
 \end{itemize}
 \end{slide}
 
 \begin{slide}{Current trends}
 
-\begin{block}{{\red Everyware everywhere}}
+\begin{block}{\rdb{Everyware everywhere}}
 \begin{itemize}
 \item \dkb{Everyware} products
-\item vs \dkb{everywhere} development:\\ many companies look at themselves more as system {\blue integrators} rather than as software {\blue developers}:
+\item vs \dkb{everywhere} development:\\ many companies look at themselves more as system \dkb{integrators} rather than as software \dkb{developers}:
 ~\\~\\
 \caixapeq{
-the code they write is {\blue glue} code ...\\
-which entails the need for common frameworks to reduce {\blue architectural mismatchs} }
+the code they write is \dkb{glue} code ...\\
+which entails the need for common frameworks to reduce \dkb{architectural mismatchs} }
 \end{itemize}
 \end{block}
 \end{slide}
 
 \begin{slide}{Current trends}
-\begin{block}{ From {\red object-oriented} to {\red component-based}}
+\begin{block}{ From \rdb{object-oriented} to \rdb{component-based}}
 \begin{center}
 \caixa{\small
 \begin{itemize}
@@ -563,14 +546,14 @@ components
 
 \begin{slide}{Current trends}
 
-\begin{block}{From {\red programming-in-the-large} to {\red  programming-in-the-world}}
+\begin{block}{From \rdb{programming-in-the-large} to \rdb{ programming-in-the-world}}
 \centering
 ~\\
 \caixapeqq{
-'not only the complexity of building a large application that one needs to deliver, in time and budget, to a client, but of managing an {\blue open-ended
+'not only the complexity of building a large application that one needs to deliver, in time and budget, to a client, but of managing an \dkb{open-ended
 structure of autonomous components, possibly distributed and highly heterogeneous}.\\
 This means developing software components that are autonomous and can be interconnected
-with other components, software or otherwise, and {\blue managing the interconnections
+with other components, software or otherwise, and \dkb{managing the interconnections
 themselves} as new components may be required to join in and others to be
 removed.'\\
 \begin{flushright}
@@ -585,11 +568,11 @@ removed.'\\
 Such trends entails a number of challenges to the way we think about SA
 
 \begin{itemize}
-\item new {\blue target}: need for an architectural discipline for {\red reactive systems}\\
+\item new \dkb{target}: need for an architectural discipline for \rdb{reactive systems}\\
 (often \dkb{complex}, \dkb{time critical}, \dkb{mobile}, \dkb{cyber-physical}, etc ...) 
-\item from  {\blue composition}  to {\red coordination} (orchestration)
+\item from  \dkb{composition}  to \rdb{coordination} (orchestration)
 %\pause
-\item relevance of {\blue wrappers} and component {\blue adapters}: integration \emph{vs} incompatible assumptions about component interaction
+\item relevance of \dkb{wrappers} and component \dkb{adapters}: integration \emph{vs} incompatible assumptions about component interaction
 %~\\
 %\caixapeq{
 %'many resources cannot be smoothly integrated because they make incompatible assumptions about component interaction (...) Eg, it is hard to integrate a component packaged to interact via rpc, to
@@ -597,7 +580,7 @@ Such trends entails a number of challenges to the way we think about SA
 %(Garlan, 06)
 %}
 \item \dkb{reconfigurability}
-\item  continued {\red interaction} as  a first-class citizen and the main form of software composition
+\item  continued \rdb{interaction} as  a first-class citizen and the main form of software composition
 \end{itemize}
 \end{slide}
 
@@ -641,25 +624,25 @@ of assignments is guaranteed?
 %\item What is Software Architecture?
 %%\item    Architectural Styles
 %\item Evolution \& Challenges
-%\item {\blue Course perspective: Architecture for Reactive Systems}
+%\item \dkb{Course perspective: Architecture for Reactive Systems}
 %\end{itemize}
 %\end{slide}
 
 
 
 %\begin{slide}{Starting point}
-%SA as studied at {\blue MFES (until now)}: 
+%SA as studied at \dkb{MFES (until now)}: 
 %\begin{center}
-%\fbox{the architecture of {\blue functional designs}}
+%\fbox{the architecture of \dkb{functional designs}}
 %\end{center} ~\\~\\
 %\begin{tabular}{ll}
-%{\blue Interfaces}: & $f :: \cdots \longrightarrow \cdots$\\
-%{\blue Components}: & $f = \cdots$\\
-%{\blue Connectors}: &  $·$, $\split{~}{~}$, $\times$, $+$, ...\\
-%{\blue Configurations}: &  functions assembled by composition\\
-%{\blue Properties}: & invariants (pre-, post-conditions)\\
-%{\blue Behavioural effects}: & monads and Kleisli compostion\\
-%{\blue Underlying maths}: & universal algebra and relational calculus\\
+%\dkb{Interfaces}: & $f :: \cdots \longrightarrow \cdots$\\
+%\dkb{Components}: & $f = \cdots$\\
+%\dkb{Connectors}: &  $·$, $\split{~}{~}$, $\times$, $+$, ...\\
+%\dkb{Configurations}: &  functions assembled by composition\\
+%\dkb{Properties}: & invariants (pre-, post-conditions)\\
+%\dkb{Behavioural effects}: & monads and Kleisli compostion\\
+%\dkb{Underlying maths}: & universal algebra and relational calculus\\
 %\end{tabular}
 %\end{slide}
 
@@ -692,32 +675,32 @@ Therefore, the course
 \begin{slide}{Syllabus} 
 \begin{itemize}
 \item Introduction to software architecture
-\item {\red Background}
+\item \rdb{Background}
 \begin{itemize}
-\item {\blue (Semantics) Introduction to transition systems} 
+\item \dkb{(Semantics) Introduction to transition systems} 
   \dgold{\textsf{mCRL2}}
-\item {\blue (Logic) Introduction to modal, hybrid and dynamic logic}
+\item \dkb{(Logic) Introduction to modal, hybrid and dynamic logic}
 \end{itemize}
-\item {\red Models and calculi of reactive systems}
+\item \rdb{Models and calculi of reactive systems}
 \begin{itemize}
-%\item {\blue Classical (non deterministic)}  (\dgold{\textsf{mCRL2}})
-\item {\blue Timed (with real time constraints)} (\dgold{\textsf{Uppaal}})
-\item {\blue Probabilistic}  (\dgold{\textsf{PRISM}})
-\item {\blue Cyber-physical} (\dgold{\textsf{KeYmaera}})
+%\item \dkb{Classical (non deterministic)}  (\dgold{\textsf{mCRL2}})
+\item \dkb{Timed (with real time constraints)} (\dgold{\textsf{Uppaal}})
+\item \dkb{Probabilistic}  (\dgold{\textsf{PRISM}})
+\item \dkb{Cyber-physical} (\dgold{\textsf{KeYmaera}})
 \end{itemize}
-\item {\red Architecture for reactive systems}
+\item \rdb{Architecture for reactive systems}
 \begin{itemize}
-%\item {\blue An architectural description language} (\dgold{\textsf{AADL}})
-\item {\blue Component-oriented architectural design}
+%\item \dkb{An architectural description language} (\dgold{\textsf{AADL}})
+\item \dkb{Component-oriented architectural design}
 \begin{itemize}
-\item  {\blue Paradigm:} Software components as monadic Mealy machines
-%\item {\blue Foundations:}  Coalgebra theory as a semantic framework for state-based systems a component calculus
-\item {\blue Method:} The \dgold{\textsf{mMm}} calculus; prototyping in  \textsc{Haskell} 
+\item  \dkb{Paradigm:} Software components as monadic Mealy machines
+%\item \dkb{Foundations:}  Coalgebra theory as a semantic framework for state-based systems a component calculus
+\item \dkb{Method:} The \dgold{\textsf{mMm}} calculus; prototyping in  \textsc{Haskell} 
 \end{itemize}
-\item  {\blue Coordination-oriented architectural design}
+\item  \dkb{Coordination-oriented architectural design}
 \begin{itemize}
-\item  {\blue Paradigm:} The  \dgold{\textsf{Reo}} exogenous coordination model
-\item {\blue Method:} Compositional specification of the glue layer 
+\item  \dkb{Paradigm:} The  \dgold{\textsf{Reo}} exogenous coordination model
+\item \dkb{Method:} Compositional specification of the glue layer 
 \end{itemize}
 \end{itemize}
 \end{itemize}
@@ -751,8 +734,8 @@ Therefore, the course
 %       ; "ka1" -/2pt/*!E\cir<2pt>{} +0
 %       ; <-13pt,17pt>+"ja1" *{\fuc{Stack}} +0
 %       ; "ka1"}
-%("ja1"[d]{E + E + \SING \; \; {\red =}\; \; \dkb{O}}
-%- "ja1" "ka1"[u]{\SING+\SING+E \; \; {\red =}\; \; \dkb{I}} - "ka1" )}
+%("ja1"[d]{E + E + \SING \; \; \rdb{=}\; \; \dkb{O}}
+%- "ja1" "ka1"[u]{\SING+\SING+E \; \; \rdb{=}\; \; \dkb{I}} - "ka1" )}
 %\end{align*}
 %\end{slide}
 
@@ -865,7 +848,7 @@ Therefore, the course
 %
 %\begin{slide}{Our approach}
 %\begin{center}
-%\caixapeq{{\red +} a module on \dkb{performance and dependability analysis in software architecture}}
+%\caixapeq{\rdb{+} a module on \dkb{performance and dependability analysis in software architecture}}
 %\end{center}
 %~\\
 %\begin{itemize}
@@ -893,14 +876,14 @@ Therefore, the course
 %
 %\begin{slide}{Syllabus} 
 %\begin{itemize}
-%\item (\emph{Case-study 2}) {\red Service-oriented architectures}
+%\item (\emph{Case-study 2}) \rdb{Service-oriented architectures}
 %\begin{itemize}
 %\item (\underline{characterisation}) Problems and examples
 %\item (\underline{semantics})  Exogenous coordination models
 %\item (\underline{method \& tool support})   \textsc{Orc} \\(\dgold{asynchronous, dynamic coordination language})
 %\item (\underline{method \& tool support})   \textsc{Reo}\\ (\dgold{connector-based coordination language})
 %\end{itemize}
-%\item  {\red Performance and dependability in software architecture}
+%\item  \rdb{Performance and dependability in software architecture}
 %\begin{itemize}
 %\item (\underline{modelling}) Stochastic behaviour, dependability and performance evaluation
 %\item (\underline{foundations}) Markov chains and markovean decision processes
@@ -943,7 +926,7 @@ Therefore, the course
 \end{itemize}
 
 \begin{center}
-{\red possible GRANTS available! } \\ 
+\rdb{possible GRANTS available! } \\ 
 (with U. Nijmegen, U. Aveiro, CWI, INESC TEC)
 \end{center}
 \end{slide}
@@ -956,11 +939,11 @@ Therefore, the course
 %
 %\begin{slide}{To be extended to }
 %\begin{itemize}
-%\item {\blue object}-based designs: attribute-method interfaces; interaction by method calling
+%\item \dkb{object}-based designs: attribute-method interfaces; interaction by method calling
 %\pause
-%\item {\blue process}-based designs: interfaces are {\blue sets of actions} whose transformational meaning is largely ignored; richer composition mechanisms; interaction by {\blue action handshake}.
+%\item \dkb{process}-based designs: interfaces are \dkb{sets of actions} whose transformational meaning is largely ignored; richer composition mechanisms; interaction by \dkb{action handshake}.
 %\pause 
-%\item {\blue service}-based designs: interfaces as  {\blue sets of ports} through which data flows; interaction is {\blue anonymous} and handled by complex {\blue connectors}; clear separation between {\blue computation} and {\blue coordination}
+%\item \dkb{service}-based designs: interfaces as  \dkb{sets of ports} through which data flows; interaction is \dkb{anonymous} and handled by complex \dkb{connectors}; clear separation between \dkb{computation} and \dkb{coordination}
 %\end{itemize}
 %\end{slide}
 
@@ -972,9 +955,9 @@ Therefore, the course
 %Paradigm \\ vs\\
 %Orchestration
 %\end{tabular}
-%&  {\blue Objects} &  {\blue Processes} &  {\blue Services} \\ \hline\\
-% {\blue Endogenous} &  mMm & \textsc{Ccs}, $\pi$ & \\
-% {\blue Exogenous} &  & \textsc{Orc} &\textsc{Reo}\\
+%&  \dkb{Objects} &  \dkb{Processes} &  \dkb{Services} \\ \hline\\
+% \dkb{Endogenous} &  mMm & \textsc{Ccs}, $\pi$ & \\
+% \dkb{Exogenous} &  & \textsc{Orc} &\textsc{Reo}\\
 % \hline\\
 %\end{tabular}
 %~\\~\\~\\
@@ -990,13 +973,13 @@ Therefore, the course
 %\begin{slide}{Semantics}
 %We need a mathematical semantics able to take into account
 %\begin{itemize}
-%\item {\blue persistence}, i.e., internal state and state transitions
-%\item {\blue continued interaction} along the whole computational process
-%\item {\blue  potential infinite behaviour}
-%\item  equational and inequational reasoning in terms of  {\blue observational} preorders
+%\item \dkb{persistence}, i.e., internal state and state transitions
+%\item \dkb{continued interaction} along the whole computational process
+%\item \dkb{ potential infinite behaviour}
+%\item  equational and inequational reasoning in terms of  \dkb{observational} preorders
 %\end{itemize}
 %\pause
-%These requirements lead to {\blue coalgebra theory} (Rutten, 96)  as \\
+%These requirements lead to \dkb{coalgebra theory} (Rutten, 96)  as \\
 %\begin{center}
 %\fbox{the mathematics of state-based systems}
 %\end{center}
@@ -1015,12 +998,12 @@ Therefore, the course
 %\begin{slide}{Exercise}
 %Read, discuss, comment \& present to the class one of the following papers
 %\begin{enumerate}
-%\item {\blue Architecture-driven modelling and analysis}, D. Garlan and B. Schmerl, SCS'06, 2006.
-%\item {\blue Analysing architectural styles with Alloy}, J. S. Kim and D. Garlan, ROSATEA'06, 2006.
-%\item {\blue Modelling software architectures in the UML}, N. Medvidovic, D. Rosenblum, D. Remiles, and J. Robbins, \emph{ACM Trans. on Software Engineering and Methodology}, 11(1), 2002.
-%\item {\blue Software services: Scientific challenge or industrial hype?}, J. L. Fiadeiro, TAC
+%\item \dkb{Architecture-driven modelling and analysis}, D. Garlan and B. Schmerl, SCS'06, 2006.
+%\item \dkb{Analysing architectural styles with Alloy}, J. S. Kim and D. Garlan, ROSATEA'06, 2006.
+%\item \dkb{Modelling software architectures in the UML}, N. Medvidovic, D. Rosenblum, D. Remiles, and J. Robbins, \emph{ACM Trans. on Software Engineering and Methodology}, 11(1), 2002.
+%\item \dkb{Software services: Scientific challenge or industrial hype?}, J. L. Fiadeiro, TAC
 %LNCS 3407, Springer, pp. 1-13, 2005.
-%\item {\blue ArchJava: Connecting software architecture to implementation}, J. Aldrich, C. Chambers, and D. Notkin.
+%\item \dkb{ArchJava: Connecting software architecture to implementation}, J. Aldrich, C. Chambers, and D. Notkin.
 %\end{enumerate}
 %\end{slide}
 

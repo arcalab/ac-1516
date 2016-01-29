@@ -3,11 +3,13 @@
 \usepackage{etex} % fixes new-dimension error
 
 \input{macros/beamerconf}
+\input{macros/preamble}
+\input{macros/macros}
 
 %----------------------------------------------------------------------------
 \usepackage{graphicx,amsmath}
 \usepackage{stmaryrd} % cf. interleave
-\usepackage{./macros/myisolatin1}
+%\usepackage{./macros/myisolatin1}
 
 \usepackage{amscd}
 %------ using xy ------------------------------------------------------------
@@ -38,21 +40,20 @@
 %\newrgbcolor{darkolivegreen}{.33333 .41961 .18431}
 %
 %
-\def\gold#1{{\goldenrod #1}}
-\def\dgold#1{{\darkgoldenrod #1}}
-%\def\brw#1{{\brown #1}}
-\def\dkb#1{{\blue #1}}
-\def\tdkb#1{\textbf{\darkblue #1}}
-%%\def\gre#1{{\green #1}}
-\def\gre#1{{\darkolivegreen #1}}
-\def\gry#1{{\gray #1}}
-\def\rdb#1{{\red #1}}
+%\def\gold#1{{\textcolor{goldenrod}{#1}}}
+%\def\dgold#1{{\textcolor{darkgoldenrod}{#1}}}
+%%\def\brw#1{{\brown #1}}
+%\def\dkb#1{{\textcolor{blue}{#1}}}
+%\def\tdkb#1{\textbf{\darkblue #1}}
+%%%\def\gre#1{{\green #1}}
+%\def\gre#1{{\textcolor{darkolivegreen}{#1}}}
+%\def\gry#1{{\textcolor{gray}{#1}}}
+%\def\rdb#1{{\textcolor{red}{#1}}}
 
 \def\laplace#1#2{*\txt{\mbox{ \fcolorbox{black}{myGray}{$\begin{array}{c}\mbox{#1}\\\\#2\\\\\end{array}$} }}}
 
 \def\Lg#1{\mathsf{Lang}(#1)}
 \def\Tr#1{\mathsf{Tr}(#1)}
-\input{./macros/LSBslides-mac}
 
 \title{
 	Introduction to labelled transition systems
@@ -328,9 +329,20 @@ where
 \end{slide}
 
 %-------------------------------------------------------------------------------
-\begin{frame}[fragile]{mCRL2}
+\begin{slide}{mCRL2}
 \small
 \myblock{\url{http://mcrl2.org}}
+  
+\begin{itemize}
+  \item {Formal \dkb{specification language} with an associated toolset}
+  
+  \item {Used for \dkb{modelling}, \dkb{validating} and \dkb{verifying} concurrent systems and protocols}
+\end{itemize}
+  
+\end{slide}
+
+%-------------------------------------------------------------------------------
+\begin{frame}[fragile]{mCRL2}
   
 \begin{block}{Syntax (by example)}
 \begin{align*}
@@ -339,10 +351,10 @@ where
   P_1 + P_2 &\to \mcode{P1 + P2}
   \\
   P\backslash L &\to \mcode{hide(L,P)}
-%  \\
-%  \crn{P}{...} &\to \mcode{...}
+ \\
+ \crn{P}{f} &\to \mcode{rename(f,P)}
   \\
-  a.P|\ainv a.Q  &\to \mcode{hide(\{a\},block(\{a1,a2\},comm(\{a1|a2->a\}, a1.P||a2.P)))}
+  a.P|\ainv a.Q  &\to \mcode{hide(\{a\},}\mcode{block(\{a1,a2\},}\mcode{comm(\{a1|a2->a\}, }\mcode{a1.P||a2.P)))}
 \end{align*}
 \end{block}
 \end{frame}
@@ -350,7 +362,7 @@ where
 %-------------------------------------------------------------------------------
 \begin{frame}[fragile]{mCRL2}
 \small
-  \myblock{\url{http://mcrl2.org}}
+%  \myblock{\url{http://mcrl2.org}}
   
 %  \begin{block}{Syntax (by example)}
 \begin{lstlisting}
@@ -372,6 +384,11 @@ init
 \end{lstlisting}
 %  \end{block}
 \end{frame}
+
+%-------------------------------------------------------------------------------
+\begin{slide}{mCRL2 toolset overview}
+  \includegraphics[width=\textwidth]{images/mcrl2-toolset.png}
+\end{slide}
 
 %-------------------------------------------------------------------------------
 \section{Behavioural equivalences}
@@ -511,7 +528,7 @@ q_0 \lesssim p_0 \text{\hspace{0.5cm} cf. \hspace{0.3cm}}
 \end{block}
 \begin{block}{Lemma}
 The similarity relation is a preorder\\
-\gry{(ie, reflexive and transitive)}
+\transp{(ie, reflexive and transitive)}
 \end{block}
 \end{slide}
 
@@ -604,7 +621,7 @@ q_1 \ar[r]^{a} & q_2  \ar[r]^{a}  & q_3  \ar[r]^{a} & \cdots & & h\ar@(ur,dr)[]^
 q_2 \ar[d]^{c}  && q_3  \ar[d]^{c}  & && p_2  \ar[ld]_{c}  \ar[rd]^{c} & \\
 q_4 & & q_5 & &p_4 & & p_5\\
 & q_1  \ar[ld]_{a}  \ar[rd]^{a} & & & & p_1  \ar[d]^{a} \\
-q_2 \ar[d]^{c}  && q_3  \ar[d]^{\red b }  & && p_2  \ar[ld]_{c}  \ar[rd]^{\red b } & \\
+q_2 \ar[d]^{c}  && q_3  \ar[d]^{\rdb{b}}  & && p_2  \ar[ld]_{c}  \ar[rd]^{\rdb{b}} & \\
 q_4 & & q_5 & &p_4 & & p_5
 }
 \end{equation*}
@@ -752,7 +769,7 @@ $$\pair{x,y} \in R \; \dimp\;  \Tr{x} = \Tr{y}$$
 
 \begin{alertblock}{Warning}
 \centering
-\fbox{The bisimilarity relation \dkb{$\sim$} {\red is not} the \dkb{symmetric closure of $\lesssim$}}
+\fbox{The bisimilarity relation \dkb{$\sim$} \rdb{is not} the \dkb{symmetric closure of $\lesssim$}}
 \end{alertblock}
 
 \begin{block}{Example}
@@ -832,26 +849,32 @@ q_0 \ar[ru]^{a} \ar[rd]^{a} &  & & p_0 \ar[r]^{a} & p_1 \ar[r]^{b} & p_3\\
 \end{slide}
 
 %-------------------------------------------------------------------------------
-
-\begin{slide}{mCRL2}
-  
-\begin{itemize}
-  \item {Formal \dkb{specification language} with an associated toolset}
-  
-  \item {Used for \dkb{modelling}, \dkb{validating} and \dkb{verifying} concurrent systems and protocols}
-\end{itemize}
-  
+\begin{slide}{More bisimulations}
+  ...
 \end{slide}
+
 
 %-------------------------------------------------------------------------------
-
-\begin{slide}{mCRL2 - toolset overview}
-\centering  
-
-\includegraphics[width=.9\textwidth]{images/mcrl2-toolset}
-  
-\end{slide}
-
+%
+%\begin{slide}{mCRL2}
+%  
+%\begin{itemize}
+%  \item {Formal \dkb{specification language} with an associated toolset}
+%  
+%  \item {Used for \dkb{modelling}, \dkb{validating} and \dkb{verifying} concurrent systems and protocols}
+%\end{itemize}
+%  
+%\end{slide}
+%
+%-------------------------------------------------------------------------------
+%
+%\begin{slide}{mCRL2 - toolset overview}
+%\centering  
+%
+%\includegraphics[width=.9\textwidth]{images/mcrl2-toolset}
+%  
+%\end{slide}
+%
 %-------------------------------------------------------------------------------
 
 \end{document}

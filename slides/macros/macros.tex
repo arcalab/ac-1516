@@ -714,7 +714,7 @@
 % Listing
 \lstset{%language=Java
 %  ,basicstyle=\footnotesize
-  ,columns=space-fexible
+  ,columns=fullflexible %space-fexible
 %  ,numberstyle=\tiny
   ,mathescape=true
   ,showstringspaces=false
@@ -749,4 +749,4 @@
 \lstdefinestyle{bash}{literate=*}
 \newcommand{\code}[1]{\lstinline[basicstyle=\ttfamily\relsize{-0.5},keywordstyle=\bf\sffamily\color{purple},columns=fullflexible,keepspaces]±#1±}
 \newcommand{\mcode}[1]{\text{\code{#1}}}
-\newcommand{\bash}[1]{\lstinline[basicstyle=\ttfamily\relsize{-0.5}\color{darkgreen},keywordstyle=\bf\sffamily\color{purple},columns=fullflexible,keepspaces]±#1±}
+\newcommand{\bash}[1]{\lstinline[basicstyle=\ttfamily\relsize{-0.5}\color{darkgreen},keywordstyle=\bf\sffamily\color{purple},columns=fullflexible,keepspaces,literate=*]±#1±}

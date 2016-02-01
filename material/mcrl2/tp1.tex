@@ -51,7 +51,7 @@
 %                         Start here
 % --------------------------------------------------------------
  
-\title{mCRL2 exercises -- Vending machines}
+\title{Assignment: Vending machines in mCRL2}
 \author{Jos\'{e} Proen\c{c}a\\
 Arquitectura e C\'alculo -- 2015/2016} 
  
@@ -86,10 +86,10 @@ The specification is split into three sections:
 
 
 \subex{
-Produce the labelled transition system (LTS) of this specification using (1) \code{mcrl22lps} to linearise the system and (2) \code{lps2lts} to produce the final LTS.}
+Produce the labelled transition system (LTS) of this specification using (1) \bash{mcrl22lps} to linearise the system and (2) \bash{lps2lts} to produce the final LTS.}
 
-\subex{Visualise the previous LTS with \code{ltsgraph}.
-\textbf{Show a screenshot of LTS (after rearranging as needed.}}
+\subex{Visualise the previous LTS with \bash{ltsgraph}.
+\textbf{Show a screenshot of the LTS (after rearranging as needed.}}
 
 \subex{Specify and visualise the LTS of a similar specification, obtained by omitting the restrictions \code{allow} and \code{comm}.
 \textbf{How many states do you expect (and count), and why?}}
@@ -100,7 +100,7 @@ Produce the labelled transition system (LTS) of this specification using (1) \co
 \begin{exercise} \label{ex:vm2}
 Next, we add a chocolate bar to the assortment of the vending machine. A chocolate bar costs 1 euro, an apple 50 cents. The machine will now accept coins of 50 cents and 1 euro. The scenarios allowed are (i) insertion of 50 cents and purchasing an apple, (ii) insertion of 50 cent twice or 1 euro once and purchasing a chocolate bar. Additionally, after insertion of money, the user can push the change button, after which the inserted money is returned.
 
-\subex{Extend the following mCRL2 specification to describe the vending machine sketched above, and \textbf{save the resulting specification as \texttt{vm2.mcrl2}}. The actions that are involved, and a possible specification of the \code{Mach} process have been given. The machine is required to perform a \code{prod} action for administration purposes.}
+\subex{Extend the following mCRL2 specification to describe the vending machine sketched above, and \textbf{save the resulting specification as \bash{vm2.mcrl2}}. The actions that are involved, and a possible specification of the \code{Mach} process have been given. The machine is required to perform a \code{prod} action for administration purposes.}
 
 \begin{lstlisting}
 act
@@ -120,7 +120,7 @@ init
   %% 2 %%
 \end{lstlisting}
 
-\subex{Linearise your specification, build the LTS, and visualise the result LTS using \code{mcrl22lps}, \code{lps2lts}, and \code{ltsgraph}.
+\subex{Linearise your specification, build the LTS, and visualise the result LTS using \bash{mcrl22lps}, \bash{lps2lts}, and \bash{ltsgraph}.
 \textbf{Show a screenshot of the obtained graph.}}
 
 \end{exercise}
@@ -173,11 +173,11 @@ init
 
 
 \begin{exercise}  
-Recall the \texttt{vm2.mcrl2} specification from Exercise~\ref{ex:vm2} of a system performing \code{coin50} and \code{coin100} actions as well as so-called $\tau$-steps.
+Recall the \bash{vm2.mcrl2} specification from Exercise~\ref{ex:vm2} of a system performing \code{coin50} and \code{coin100} actions as well as so-called $\tau$-steps.
 
-\subex{Build a specification \texttt{vm2-taus.mcrl2} that is the same as \texttt{vm2.mcrl2} after hiding the actions \code{readyA}, \code{readyC}, \code{out50}, \code{out100}, \code{prod}. \textbf{Show this specification.}}
+\subex{Build a specification \bash{vm2-taus.mcrl2} that is the same as \bash{vm2.mcrl2} after hiding the actions \code{readyA}, \code{readyC}, \code{out50}, \code{out100}, \code{prod}. \textbf{Show this specification.}}
 
-\subex{Using the \code{ltscompare} tool, compare your model under branching bisimilarity with the LTS of the system \code{vm2-taus} with the LTS of the system \texttt{vm2} after hiding the actions \code{readyA}, \code{readyC}, \code{out50}, \code{out100}, \code{prod}. For that use the following command.}
+\subex{Using the \bash{ltscompare} tool, compare your model under branching bisimilarity with the LTS of the system \bash{vm2-taus} with the LTS of the system \bash{vm2} after hiding the actions \code{readyA}, \code{readyC}, \code{out50}, \code{out100}, \code{prod}. For that use the following command.}
 
 \begin{lstlisting}[style=bash]
 $\texttt{\$}$ ltscompare --equivalence=branching-bisim \
@@ -185,9 +185,9 @@ $\texttt{\$}$ ltscompare --equivalence=branching-bisim \
 \end{lstlisting}
 
 
-\subex{Using \code{ltsconvert}, minimise the LTS for \texttt{vm2.mcrl2} with respect to branching bisimulation after hiding the same actions as before (using the \code{hide} operation in mcrl2).
+\subex{Using \bash{ltsconvert}, minimise the LTS for \bash{vm2.mcrl2} with respect to branching bisimulation after hiding the same actions as before (using the \code{hide} operation in mcrl2).
 \textbf{Visualise and include a screenshot of the minimised LTS.}
-Compare the minimised LTSs and \texttt{vm2-taus.lts} visually using \code{ltsgraph}.}
+Compare the minimised LTSs and \bash{vm2-taus.lts} visually using \bash{ltsgraph}.}
 
 %\begin{lstlisting}[style=bash]
 %$\texttt{\$}$ ltsconvert -ebranching-bisim --tau=out10,out20,readyA,readyC,prod vm02.svc vm02min.svc}
@@ -215,8 +215,8 @@ Write a property that expresses that, at any moment, it is possible to reach a s
 Use the mCRL2 toolset to verify if the 3 properties above hold (from Exercises~\ref{ex:ver1},~\ref{ex:ver2}, and~\ref{ex:ver3}).
 This involves 2 steps for each property:
 \begin{enumerate}
-\item use ``\texttt{lps2pbes <lps-file> -f <file-with-formula> <output.pbes>}'' to produce a system of boolean equations, and
-\item use ``\texttt{pbes2bool <output.pbes>}'' to evaluate if these equations have a solution.  
+\item use ``\bash{lps2pbes <lps-file> -f <file-with-formula> <output.pbes>}'' to produce a system of boolean equations, and
+\item use ``\bash{pbes2bool <output.pbes>}'' to evaluate if these equations have a solution.  
 \end{enumerate}
 }
 

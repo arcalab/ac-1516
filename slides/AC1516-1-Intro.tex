@@ -7,7 +7,7 @@
 %----------------------------------------------------------------------------
 \usepackage{graphicx,amsmath}
 \usepackage{stmaryrd} % cf. interleave
-\usepackage{./macros/myisolatin1}
+%\usepackage{./macros/myisolatin1}
 
 \usepackage{amscd}
 %------ using xy ------------------------------------------------------------
@@ -153,9 +153,9 @@ the fundamental organisation of a system, embodied in its components, their rela
 The \dkb{architecture} of a system describes its gross structure which illuminates the top level design decisions, namely
 
 \begin{itemize}
-\item how is it composed and of which interacting parts?
-\item where are the pathways of interaction?
-\item which are the key properties of the parts the architecture rely and/or enforce?
+\item how is it \dgold{composed} and of which \dgold{interacting parts}?
+\item where are the \dgold{pathways of interaction}?
+\item which are the \dgold{key properties} of the parts the architecture rely and/or enforce?
 \end{itemize}
 \end{slide}
 
@@ -182,7 +182,7 @@ A framework to perform early verification of a system and ensure composability o
 \begin{block}{\fbox{Which structure? $\leadsto\;$ Architectural views}}
 \begin{itemize}
 \item \dkb{code-based structures}: such as \dkb{modules}, \dkb{classes}, \dkb{packages} and relationships like \dkb{uses}, \dkb{inherits from} or \dkb{depends on}.
-\item \dkb{run-time structures}: such as \dkb{object instances}, \dkb{clients}, \dkb{servers}, \dkb{databases},  \dkb{browsers}, \dkb{channels}, \dkb{broadcasters}, \dkb{software buses}, ...
+\item \dkb{\underline{run-time structures}}: such as \dkb{object instances}, \dkb{clients}, \dkb{servers}, \dkb{databases},  \dkb{browsers}, \dkb{channels}, \dkb{broadcasters}, \dkb{software buses}, ...
 \item \dkb{allocation structures}: intended to map code-based and run-time structures to external items, such as \dkb{network locations}, \dkb{physical devices}, \dkb{managerial structures} ...
 \end{itemize}
 \caixa{This course 

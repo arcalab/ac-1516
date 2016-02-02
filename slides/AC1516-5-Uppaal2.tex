@@ -3,11 +3,13 @@
 \usepackage{etex} % fixes new-dimension error
 
 \input{macros/beamerconf}
+\input{macros/preamble}
+\input{macros/macros}
 
 %----------------------------------------------------------------------------
 \usepackage{graphicx,amsmath}
 \usepackage{stmaryrd} % cf. interleave
-\usepackage{./macros/myisolatin1}
+%\usepackage{./macros/myisolatin1}
 %\usepackage{/Users/lsb/Library/tex/latex/prooftree}
 \usepackage{amscd}
 %------ using xy ------------------------------------------------------------
@@ -82,7 +84,7 @@
 \def\ET#1{\mathsf{ExecTime(#1)}}
 
 
-\input{./macros/LSBslides-mac}
+%\input{./macros/LSBslides-mac}
 %\input{LSBslides1.tex}
 \title{
 	Time-critical reactive systems\\ (verification)	}
@@ -272,20 +274,25 @@ provided $(l, \eta)$ is a state in $\TL{ta}$
 \begin{slide}{Expressing properties: \textsc{Uppaal}}
 \small
 
+\newcommand{\Boxc}{\dgold{\Box}}
+\newcommand{\Diamondc}{\dgold{\Diamond}}
+\newcommand{\Ac}{\dkb{A}}
+\newcommand{\Ec}{\dkb{E}}
+
 \begin{block}{Path formulae}
 \begin{align*}
-\Pi\; ::=\; & A \Box\, \Psi\, \mid\, A\Diamond\, \Psi\, \mid\, E \Box\, \Psi\, \mid\, E \Diamond\, \Psi\, \mid\, \Phi \leadsto  \Psi\
+\Pi\; ::=\; & \Ac \Boxc\, \Psi\, \mid\, \Ac\Diamondc\, \Psi\, \mid\, \Ec \Boxc\, \Psi\, \mid\, \Ec \Diamondc\, \Psi\, \mid\, \Phi \leadsto  \Psi\
 \end{align*}
 
 where
 \begin{itemize}
-\item \dkb{$A$, $E$} quantify (universally and existentially, resp.) over paths
-\item \dkb{$\Box$, $\Diamond$} quantify (universally and existentially, resp.) over states in a path
+\item \dkb{$A$, $E$} quantify (universally and existentially, resp.) over \dkb{paths}
+\item \dgold{$\Box$, $\Diamond$} quantify (universally and existentially, resp.) over \dgold{states in a path}
 \end{itemize}
 also notice that
 
 \begin{align*}
- \Phi \leadsto  \Psi\; \abv\; A \Box\, (\Phi \imp E \Diamond\, \Psi)
+ \Phi \leadsto  \Psi\; \abv\; \Ac \Boxc\, (\Phi \imp \Ec \Diamondc\, \Psi)
 \end{align*}
 \end{block}
 
@@ -572,8 +579,10 @@ This result is a theoretical limit (proved by Lynch and Shavit in 1992) which co
 %----------------------------------------------------------------------------------
 \begin{slide}{Fisher's algorithm in \textsc{Uppaal}}
 \small
+\centering
 
-\includegraphics[width=6cm]{./images/ficher1.jpg} 
+\includegraphics[width=6cm]{./images/P.pdf} 
+%\includegraphics[width=1.1\textwidth]{./images/P.pdf} 
 
 
 \begin{itemize}
@@ -585,11 +594,20 @@ trying to access the critical section, is $k$ (cf. \dgold{invariant} in state $r
 \end{slide}
 
 %----------------------------------------------------------------------------------
-\begin{slide}{Fisher's algorithm in \textsc{Uppaal}}
+\begin{frame}[fragile]{Fisher's algorithm in \textsc{Uppaal}}
 \small
 
 \begin{block}{Properties}
-\includegraphics[width=12cm]{./images/ficher2.jpg} 
+%\includegraphics[width=12cm]{./images/ficher2.jpg} 
+\begin{lstlisting}[emph={[2]forall,not}]
+% P(1) requests access => it will eventually wait
+P(1).req -> P(1).wait
+% the algorithm is deadlock-free
+A[] not deadlock
+% mutual exclusion invariant
+A[] forall (i:int[1,6]) forall (j:int[1,6])
+   P(i).cs && P(j).cs imply i == j  
+\end{lstlisting}
 \end{block}
 
 \begin{itemize}
@@ -598,7 +616,7 @@ trying to access the critical section, is $k$ (cf. \dgold{invariant} in state $r
 \item ... but it is critically sensible to  small violations of such constraints: for example, replacing $x > k$ by 
 $x \geq k$ in the transition leading to $cs$ compromises both \dgold{mutual exclusion} and \dgold{liveness}.
 \end{itemize}
-\end{slide}
+\end{frame}
 
 
 %----------------------------------------------------------------------------------
@@ -652,11 +670,12 @@ $x \geq k$ in the transition leading to $cs$ compromises both \dgold{mutual excl
 \item \dkb{$kcs$} --- max bound for permanence in critical section 
 \end{description}
 Typically
+\vspace{-4mm}
 \begin{center}
 \fbox{$k\; \geq \; kvr + kcs$}
 \end{center}
 \end{block}
-\vspace{-5mm}
+\vspace{-2mm}
 
 \begin{block}{Experiments}
 \begin{tabular}{|l|c|c|c|c|}

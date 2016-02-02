@@ -1,0 +1,156 @@
+\documentclass[11pt]{article}
+
+\renewcommand\familydefault{\sfdefault}
+ 
+%input preamble and macros
+\input{../../slides/macros/preamble}
+\input{../../slides/macros/macros}
+
+ 
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+ 
+%\newcommand{\N}{\mathbb{N}}
+%\newcommand{\Z}{\mathbb{Z}}
+
+% Named environments (no counters) 
+\newenvironment{theorem}[2][Theorem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{lemma}[2][Lemma]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+%\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+%\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{question}[2][Question]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{corollary}[2][Corollary]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+ 
+% Environments with counters
+\newtheoremstyle{myplain} {5mm}% ⟨Space above⟩
+{3mm}% ⟨Space below⟩
+{}% ⟨Body font⟩
+{}% ⟨Indent amount⟩
+{\bfseries}% ⟨Theorem head font⟩
+{.}% ⟨Punctuation after theorem head⟩
+{.5em}% ⟨Space after theorem head⟩2
+{}% ⟨Theorem head spec (can be left empty, meaning ‘normal’)⟩
+
+\theoremstyle{myplain}
+\newtheorem{exercise}{Exercise}
+
+\theoremstyle{definition} % no italics
+\newtheorem{subexercise}{}[exercise]
+
+\newcommand{\subex}[1]{\begin{subexercise}#1\end{subexercise}}
+
+\begin{document}
+ 
+% --------------------------------------------------------------
+%                         Start here
+% --------------------------------------------------------------
+ 
+\title{Assignment 2: Modelling with time}
+\author{Jos\'{e} Proen\c{c}a\\
+Arquitectura e C\'alculo -- 2015/2016} 
+ 
+\maketitle
+ 
+\section*{Questions}
+
+%The train gate example is distributed with Uppaal. It is a railway control system which
+% - controls access to a bridge for several trains.
+%
+%BRIDGE: a critical shared resource that may be accessed only by one train at a time.
+%SYSTEM: a number of trains (assume 4 for this example) + a controller.
+%
+%TRAIN: sends approach, waits 10 secs for stop! signal,
+% - not stopped: after 10 more it reaches the gate/bridge;
+% - stopped: waits for a go! signal - takes 7-15 sec to reach the cross after go!.
+% - sends a leave! signal after passing.
+% - after reaching the cross - 3-5 sec to cross.
+% (5 locations: Safe, Appr-oaching, Stop-ping, Start-ting, and Cross-sing)
+%
+%GATE: syncs with queue/contr and trains
+% - Can be free or occupied,
+% - starts Free, becomes Occupied
+%CONTROLER/QUEUE: (not for 2 trains)
+%
+%Start has the invariant x <= 15 and its outgoing transition has the constraint x >= 7
+%
+%A train can not be stopped instantly and restarting also takes time. Therefor, there are timing constraints on the trains before entering the bridge. When approaching, a train sends a appr! signal. Thereafter, it has 10 time units to receive a stop signal. This allows it to stop safely before the bridge. After these 10 time units, it takes further 10 time units to reach the bridge if the train is not stopped. If a train is stopped, it resumes its course when the controller sends a go! signal to it after a previous train has left the bridge and sent a leave! signal.
+
+%-----------------------------------------------------------------------------
+%\begin{exercise} \label{ex:train}
+%\textbf{[Train bridge]}
+%Consider a train bridge over a river shared by multiple trains. In this exercise we will consider only 2 trains. Only one train can cross the bridge at a time - a \emph{gate} controls who is allowed to cross the bridge at a given time. The desired model of the train bridge has the following extra requirements:
+%%
+%\begin{itemize}
+%  \item a Train notifies the Gate when it approaches the bridge;
+%  \item the Gate has 10 time units to notify the Train to stop (if another train is crossing the bridge);
+%  \item if the Gate does not send a stop notification within 10 time units, the Train must reach the bridge in another 10 time units;
+%  \item each Train takes between 3 and 5 time units to cross the bridge -- after that it sends a notification to the Gate that it is leaving;
+%  \item if a Train is told to stop, we assume it will take between 7 and 15 time units to reach the bridge;
+%\end{itemize}
+%\end{exercise}
+
+\begin{exercise} \label{ex:airfield}
+\textbf{[Private airfield]}
+Consider a small private airfield used by 2 planes, which can be either flying, parked, landing, or taking off. The landing field is a shared resource by both planes. Consider the following requirements:
+\begin{itemize}
+  \setlength\itemsep{0.3mm}
+  \item only 1 plane can use the field at a time;
+  \item a Controller component receives requests to land or to take off, and replies with a wait signal when the field is not available;
+  \item each plane sends requests to the Controller to land or to take off, and sends notifications when the field becomes empty;
+  \item the Controller has 5 time units to notify a plane to wait;
+  \item after 5 time units from requesting access to the field and with no wait signal, the planes take another 5 time units to reach the field.
+  \item each plane takes non-deterministically between 1-3 time units to take off, and between 4-6 time units to land and park.
+  \item if a plane is told to wait, we assume it will take between 5-7 time units to reach the field.
+\end{itemize}
+
+Suggest a timed automaton model for the planes and the controller, and list 4 to 8 desired properties of the model.
+\end{exercise}
+
+
+%----------------------------------------------
+\begin{exercise} \label{ex:vm2}
+\textbf{[MobilePay]}
+A customer goes to a bar, and when the bill arrives it includes a QR code. The customer scans it with her Internet-connected smartphone, approves the payment of the bill, and leaves the restaurant.
+
+Under the hood, the bar used a service we call \emph{MobilePay} to handle the payment: %. This is how it works:
+\begin{itemize}
+  \setlength\itemsep{0.3mm}
+  \item the bar has a unique Virtual Cash Register, identified by a QR code.
+  \item a MobilePay server receives invoices by the bar to be payed, requests for an invoice by customers (based on the QR code), and payment requests by the customers.
+  \item the server, after 10 min of inactivity upon receiving an invoice and/or an invoice request, sends the bar a fail signal.
+  \item the server takes between 3 and 8 seconds between receiving an invoice and sending it to the customer (once both the request and the invoices are received).
+  \item the server takes between 2 and 10 seconds to validate a payment and send a OK or a fail signal to the bar.
+\end{itemize}
+
+\subex{Model this scenario in Uppaal using timed automata. For simplicity, consider only a server, a bar, and a customer.}
+
+\subex{Propose an update to the requirements and to your model to support the possibility of sharing a single bill by multiple customers.}
+
+%\begin{itemize}
+%  \item Source emits a message every 50ms(\ie, 20 messages per second).
+%  Channel mayloosemessages(nomorethan20\%)
+%• Amessageisconsideredlostifitdoesnotarrivewithin90ms
+%• Sinkendreceivesmessagesandtakes5mstoprocesseachone
+%• Anerrorshouldbegeneratediflessthan15messagespersecondarriveatthesinkend
+%\end{itemize}
+
+
+\end{exercise}
+
+% --------------------------------------------------------------
+\section*{Demo}
+
+
+\begin{exercise}  
+Select an architectural style among the following: \emph{Client \& Server}, \emph{Publish \& Subscribe}, \emph{Peer2Peer}, \emph{Event-bus}, and \emph{Table-driven}, and create an architectural scenario around the chosen style with time critical requirements. Develop a model in Uppaal. Discuss its design and try out a few variants.
+\end{exercise}
+
+
+ 
+\end{document}

@@ -10,7 +10,7 @@
 \usepackage{graphicx,amsmath}
 \usepackage{stmaryrd} % cf. interleave
 \usepackage{booktabs}
-\usepackage{./macros/myisolatin1}
+%\usepackage{./macros/myisolatin1}
 \usepackage{amscd}
 
 \usepackage{alltt}
@@ -1019,5 +1019,32 @@ the assignment $j:=t$
 \end{itemize}
 
 \end{slide}
+
+%\begin{frame}[fragile]{Fisher's mutual exclusion protocol}
+%\small
+%
+%\begin{columns}
+%\column{.4\textwidth}
+%\includegraphics[width=1.1\textwidth]{./images/P.pdf} 
+%
+%\column{.58\textwidth}
+%\begin{itemize}
+%  \item Processes want to access a shared Critical Section
+%  \item Send a request for the access
+%  \item Wait $k$ time units -- if access is not given, resend a request
+%\end{itemize}
+%\end{columns}
+%
+%\bigskip
+%
+%\begin{lstlisting}[emph={[2]forall}]
+%% P(1) requests access => it will eventually wait
+%P(1).req -> P(1).wait
+%% mutual exclusion invariant
+%A[] forall (i:int[1,6]) forall (j:int[1,6])
+%  P(i).cs && P(j).cs imply i == j  
+%\end{lstlisting}
+%
+%\end{frame}
 
 \end{document}

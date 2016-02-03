@@ -10,7 +10,7 @@
 	<meta name="description" content="MFES-AC 15/16 website">
 	<meta name="keywords" content="software architecture, process calculi, coordination, algebraic reasoning, components">
 	<meta name="author" content="Jose Proenca" >
-	<base href="http://ac1516.proenca.org/" target="_parent" />
+<!-- 	<base href="http://ac1516.proenca.org/" target="_parent" /> -->
 	
 <!-- 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" /> -->
   <link href="extra/css/bootstrap-bw.min.css" rel="stylesheet" media="screen">
@@ -71,32 +71,32 @@
 <div class="bs-component">
 
 <!--~~~~~~~~~~~~~~~~~~~~~~~-->
-<h3>Objectivos</h3>
+<h2>Objectivos</h2>
 
 <p>
 Este curso tem por objectivo o estudo de modelos e cálculos em arquitectura de software, com ênfase nos <strong>sistemas reactivos</strong>.
 </p>
 
 <!--~~~~~~~~~~~~~~~~~~~~~~~-->
-<h3 id="programa">Programa resumido</h3>
+<h2 id="programa">Programa resumido</h2>
 
 <ul>
 <li> <strong>Introduction to software architecture</strong>
 <li> <strong>Background</strong> <ul>
   <li> (Semantics) Introduction to transition systems (mCRL2).
-  <li> (Logic) Introduction to modal, hybrid and dynamic logic.
+  <li> (Logic) Introduction to modal, hybrid and dynamic logic (mCRL2).
 </ul> 
 <li> <strong>Models and calculi of reactive systems</strong> <ul>
   <li> Timed (with real time constraints) (Uppaal).
-  <li> Probabilistic (PRISM).
+  <li class="faded"> Probabilistic (PRISM).
   <!-- </li> <li> Cyber-physical (Keymaera). -->
 </ul> 
 <li> <strong>Architecture for reactive systems</strong> <ul>
-  <li> Component-oriented architectural design. <ul>
-    <li> Paradigm: Software components as monadic Mealy machines
-    <li> Method: The mMm calculus; prototyping in Haskell 
+  <li class="faded"> Component-oriented architectural design. <ul>
+    <li class="faded"> Paradigm: Software components as monadic Mealy machines
+    <li class="faded"> Method: The mMm calculus; prototyping in Haskell 
   </ul> 
-    <li> Coordination-oriented architectural design. <ul>
+    <li> Coordination-oriented architectural design. (ECT) <ul>
     <li> Paradigm: The Reo exogenous coordination model
     <li> Method: Compositional specification of the glue layer
   </ul> 
@@ -104,16 +104,36 @@ Este curso tem por objectivo o estudo de modelos e cálculos em arquitectura de 
 </ul>
 
 <!--~~~~~~~~~~~~~~~~~~~~~~~-->
-<h3 id="material">Material de apoio</h3>
+<h2 id="material">Material de apoio</h2>
 
+<h5> Slides </h5>
 <ul>
 <li><a href="slides/AC1516-1-Intro.pdf">
-    Slides: Software Architecture for Reactive Systems</a>
+    1: Software Architecture for Reactive Systems</a>
 <li><a href="slides/AC1516-2-LTS.pdf">
-    Slides: Background - Labelled transition systems</a>
+    2: Background - Labelled transition systems</a>
+<li><a href="slides/AC1516-3-ModalLogic.pdf">
+    3: Introduction to Modal Logic</a>
+<li><a href="slides/AC1516-4-Uppaal1.pdf">
+    4: Modelling time-critical reactive systems</a>
+<li><a href="slides/AC1516-4-Uppaal2.pdf">
+    5: Verifying time-critical reactive systems</a>
+<li class="faded"> <!-- <a href="slides/AC1516-4-Reo.pdf"> -->
+    6: Coordination-oriented design with Reo <!-- </a> -->
 </ul>
 
-<h4> MFES: anos anteriores </h4>
+<h5> Exercícios e projectos </h5>
+<ul>
+<li><a href="material/ropebridge.pdf">
+    mCRL2 tutorial - the rope bridge</a>
+<li><a href="material/tp1.pdf" class="faded">
+    Assignment 1 - a mCRL2 exercise</a>
+<li><a href="material/tp2.pdf" class="faded">
+    Assignment 2 - Time-critical systems</a>
+</ul>
+
+
+<h5> MFES: anos anteriores </h5>
 <ul>
 <li>
 <a href="http://wiki.di.uminho.pt/twiki/bin/view/Education/MFES/WebHome"
@@ -128,18 +148,19 @@ Este curso tem por objectivo o estudo de modelos e cálculos em arquitectura de 
   target="_blank">2010/11</a>,
 <a href="http://wiki.di.uminho.pt/twiki/bin/view/Education/MFES0910/WebHome"
   target="_blank">2009/10</a>.
+</ul>
 
 <!--~~~~~~~~~~~~~~~~~~~~~~~-->
-<h3 id="funcionamento">Funcionamento</h3>
+<h2 id="funcionamento">Funcionamento</h2>
 
 <img class="bioPhoto" src="extra/img/jose-bw.jpg">
 
-<h4><a name="Docente"></a> Docente </h4>
+<h5><a name="Docente"></a> Docente </h5>
 <ul><li>
 <a href="http://jose.proenca.org">José Proença</a>
 </li></ul>
 
-<h4><a name="Avalia_o"></a> Avaliação </h4>
+<h5><a name="Avalia_o"></a> Avaliação </h5>
 
 <ul>
 <li> Prova individual escrita (60%) 
@@ -147,7 +168,7 @@ Este curso tem por objectivo o estudo de modelos e cálculos em arquitectura de 
 </li> <li> As notas finais superiores ou iguais a 19 valores terão que ser defendidas em <u>prova oral</u>.
 </li></ul>
 
-<h4><a name="Atendimento"></a> Atendimento </h4>
+<h5><a name="Atendimento"></a> Atendimento </h5>
 <ul>
   <li> Horário: 4ª 9h-11h (por marcação)
   <li> Marcação: jose at proenca dot org

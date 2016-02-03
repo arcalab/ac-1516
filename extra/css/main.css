@@ -20,6 +20,10 @@
   display: none;
 }
 
+.faded {
+  color: #c6c6c6;
+}
+
 .active{
   display: block;
 }

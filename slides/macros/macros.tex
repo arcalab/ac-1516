@@ -685,11 +685,14 @@
 %--- by jose 2016 ---
 %--------------------
 
-\newcommand{\wrap}[1]{\begin{tabular}{@{}c@{}}#1\end{tabular}}
+\newcommand{\wrap}[2][]{\begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
 \newcommand{\mwrap}[1]{\ensuremath{\begin{array}{@{}c@{}}#1\end{array}}}
 \newcommand{\myblock}[1]{\begin{beamercolorbox}[dp=1ex,center,rounded=true]%
   {postit} {\large \textbf{#1}} \end{beamercolorbox}}%
 \def\trans#1{\xrightarrow{#1}}  % - a - > 
+\def\Trans#1{\stackrel{#1}{\Longrightarrow}} % =a=> 
+\newcommand{\transp}[2][35]{\color{fg!#1}#2}
+\newcommand{\transpt}[2][.35]{\tikz{\node[inner sep=1pt,fill opacity=0.5]{#2}}}
 
 \newcommand{\frsplit}[3][.48]{
   \begin{columns}%[T] % align columns
@@ -727,13 +730,14 @@
   ,emphstyle=\bfseries\itshape\color{blue!80!black}
   ,emphstyle={[2]\itshape\color{red!70!black}}%\underbar}
   ,stringstyle=\color{darkgreen}
-  ,alsoletter={-,||,+,<>}
+  ,alsoletter={-,||,+,<>,&&,=>}
   ,literate=*{->}{{{\color{red!70!black}$\to$}}}{1}
              {.}{{{\color{red!70!black}.}}}{1}
              {+}{{{\color{red!70!black}+}}}{1}
+             {*}{{{\color{red!70!black}*}}}{1}
              {\#}{{{\color{red!70!black}\#}}}{1}
   ,emph={act,proc,init,sort}
-  ,emph={[2]block,hide,comm,rename,allow,||,<>,sum}
+  ,emph={[2]block,hide,comm,rename,allow,||,<>,sum,&&,=>}
 %  ,emphstyle={[2]\color{blue}}2
   ,framerule=1pt
   ,backgroundcolor=\color{black!2}

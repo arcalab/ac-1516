@@ -214,8 +214,10 @@ $\nc{m}{\phi}$ is equivalent to  $\neg \pv{m}{\neg \phi}$
 
 %----------------------------------------------------------------------------------
 \begin{slide}{Semantics}\label{s:12}
-\small
-\begin{block}{Semantics}
+
+\myblock{$\ger{M}, w ~\models~ \phi$  ~~--~~what does it mean? }
+
+\begin{block}{Model definition}
 A \dkb{model} for the language is a pair $\dkb{\ger{M}} = \pair{\ger{F},V}$, where
 \begin{itemize}
 \item $\ger{F} = \pair{\dgold{W}, \enset{\alert{R_m}}_{m \in \mathsf{MOD}}}$  \\ is a \dkb{Kripke frame}, ie, a non empty set \dgold{$W$} and a family of \alert{binary relations} (called \emph{accessibility relations})
@@ -701,6 +703,8 @@ $\phi_1 =\;   \nc{onservice}{\phi_0}$
 \item Explain how propositional symbols and modalities are translated to first-order logic?
 \item In what sense can modal logic be regarded as a \dgold{pointfree} version of a FOL fragment?
 \item Compute  $ST_x (p \imp \pv{m}{p})$ 
+% ST_x p  --> ST_x \pv{m}{p}
+% = P x  --> exists y : y R_m x  &  P y
 \end{itemize}
 \end{exampleblock}
 \end{slide}
@@ -711,7 +715,7 @@ $\phi_1 =\;   \nc{onservice}{\phi_0}$
 
 \section{Bisimulation and modal equivalence}
 %----------------------------------------------------------------------------------
-\begin{slide}{Bisimulation}\label{s:29}
+\begin{slide}{Bisimulation (of models)}\label{s:29}
 \small
 \begin{block}{Definition}
 Given two models $\ger{M} = \pair{\pair{W, R}, V}$ and $\ger{M}' = \pair{\pair{W', R'}, V'}$, a \dgold{bisimulation} is a non-empty binary relation
@@ -728,18 +732,18 @@ $S \subseteq W \times W'$  st whenever $w S w'$ one has that
 \end{slide}
 
 %----------------------------------------------------------------------------------
-\begin{slide}{Bisimulation}\label{s:30}
-\small
-\begin{block}{Definition}
-\begin{itemize}
-\item Bisimulations can be used to \dgold{expand} or \dgold{contract} models (cf via  tree unraveling and contraction)
-\item Bisimulation vs model constructions (\dgold{disjoint union}, \dgold{generated submodels} and \dgold{bounded morphisms})
-\end{itemize}
-\end{block}
-\begin{block}{Note}
-Note the relation to the notion of bisimulation in transition systems, independently discovered by Park (1982) in Computer Science.
-\end{block}
-\end{slide}
+%\begin{slide}{Bisimulation (of models)}\label{s:30}
+%\small
+%\begin{block}{Definition}
+%\begin{itemize}
+%\item Bisimulations can be used to \dgold{expand} or \dgold{contract} models (cf via  tree unraveling and contraction)
+%\item Bisimulation vs model constructions (\dgold{disjoint union}, \dgold{generated submodels} and \dgold{bounded morphisms})
+%\end{itemize}
+%\end{block}
+%\begin{block}{Note}
+%Note the relation to the notion of bisimulation in transition systems, independently discovered by Park (1982) in Computer Science.
+%\end{block}
+%\end{slide}
 
 
 
@@ -759,6 +763,28 @@ $S \subseteq W \times W'$ , if two points $w, w'$ are related by $S$, i.e. $w S 
 \end{itemize}
 \end{block}
 \end{slide}
+
+
+%-------------------------------------------------------------------------------
+\begin{frame}{Exercise}
+\begin{exampleblock}{Find characterising formulas}
+\centering
+\wrap[b]{
+\begin{tikzpicture}
+  \node(1)at(0,0){1};   \node(2)at(1,1){2};
+  \node(3)at(1,-1){3};  \node(4)at(2,0){4};
+  \draw[->] (1)edge(2)edge(3)edge(4) (2)edge(4)edge[loop above]() (3)edge(4);
+\end{tikzpicture}}
+~~~~~~~~~~~
+\wrap[b]{\begin{tikzpicture}
+  \node(1)at(0,0){5};   \node(2)at(1,1){6};
+  \node(3)at(1,-1){7};  \node(4)at(2,0){8};
+  \draw[->] (1)edge(2)edge(3)edge(4) (2)edge(4) (3)edge(4);
+\end{tikzpicture}}
+\\[4mm]
+\eg, (4) is the only world satisfying $\Box\bot$
+\end{exampleblock}
+\end{frame}
 
 %----------------------------------------------------------------------------------
 \begin{slide}{Frame definability}\label{s:32}
@@ -793,8 +819,6 @@ $S \subseteq W \times W'$ , if two points $w, w'$ are related by $S$, i.e. $w S 
 \small
 \begin{exampleblock}{Bisimilarity and modal equivalence}
 \begin{itemize}
-\item Show that  \dgold{irreflexivity} is modally undefinable.
-\\(\ie, no formula that characterises a irreflexive system)
 \item Consider the following transition systems:
 \begin{equation*}
 %??????
@@ -806,8 +830,14 @@ $S \subseteq W \times W'$ , if two points $w, w'$ are related by $S$, i.e. $w S 
 }
 \end{equation*}
 Give a modal formula that can be satisfied at point $1$ but not at $3$.
-%[]([]false + <>[]false) - after any step it either deadlocks in one or 2 steps.
+%[]([]false \/ <>[]false) - after any step it either deadlocks in one or 2 steps.
+% book - Modalities and Multimodalities
+% It is enough to see that (lhs) and (another irreflexive model) are bisimilar, although one is reflexive and the other not.
+% IF irreflexivity were modally definable, the modal formula PSI which defines it would have to be invariant under bisimulations.
+% BUT if PSI were to be true in (v-another-irr-model) then it would be true in (lhs) by the invariance lemma, which is impossible since (u-lhs) is a reflexive point.
 %item Prove the invariance lemma.
+\item Show that  \dgold{irreflexivity} is modally undefinable.
+\\(\ie, no formula that characterises a irreflexive system)
 \end{itemize}
 \end{exampleblock}
 \end{slide}
@@ -835,8 +865,11 @@ $S \subseteq W \times W'$  such that $w S w'$.
 
 \begin{exampleblock}{Exercise}
 \begin{itemize}
-\item Give an example of modally equivalent states in different Kripke structure which fail to be bisimilar.
+\item Give an example of modally equivalent states in different Kripke structures which fail to be bisimilar.
 % infinite models: one modal formula satisfies 2 non-bisimilar (infinite) models
+% m1: infinte branching of finite steps 0, 0-1, 0-1-2, 0-1-2-3,...
+% m2: same as m1, but with an extra infinitly long branch
+% https://books.google.pt/books?id=ql_dBtNOOeAC&pg=PA63&lpg=PA63&dq=not+bisimilar+infinite&source=bl&ots=ONMAmSjJ2E&sig=XpHSBzXyjJ0TUmImDu1Eg8MFnd4&hl=en&sa=X&redir_esc=y#v=onepage&q=not%20bisimilar%20infinite&f=false
 \end{itemize}
 \end{exampleblock}
 \end{slide}
@@ -886,10 +919,36 @@ The following are equivalent for all first-order formulas $\phi(x)$ in one free 
 
 %-------------------------------------------------------------------------------
 \begin{slide}{mCRL2 - modal logic}
-\small
+\newcommand{\expr}{\mathit{mod}}
+\newcommand{\midd}{\,~|~\,}
+\centering
+\begin{block}{Syntax (simplified)}
+\begin{align*}
+  \phi =&~ \mcode{true} \midd \mcode{false} \midd
+          \mcode{forall x.}\phi \midd \mcode{exists x.}\phi \\|&~
+          \phi~OP~\phi \midd \mcode{!}\phi \midd
+          \mcode{[$\expr$]}\phi \midd \mcode{<$\expr$>}\phi \midd \ldots
+\\[3mm]
+\expr =&~ \alpha \midd \mcode{nil} \midd \expr\mcode{+}\expr \midd
+        \expr\mcode{.}\expr \midd \expr\mcode{*} \midd \expr\mcode{+}
+\\[1mm]
+\alpha =&~ \mcode{a(d)} \midd \mcode{a|b|c} \midd
+          \mcode{true} \midd \mcode{false} \midd
+          \mcode{forall x.}\alpha \midd \mcode{exists x.}\alpha \\|&~
+          \alpha~OP~\alpha \midd \mcode{!}\alpha \midd \ldots
+\end{align*}
+\end{block}
+~\\[2mm]
+where $OP = \set{\mcode{&&},\mcode{||},\mcode{=>}}$
+\end{slide}
 
-\myblock{todo}
+%-------------------------------------------------------------------------------
+\begin{slide}{mCRL2 toolset overview}
+  \centering
+  
+  \includegraphics[width=\textwidth]{images/mcrl2-toolset.png}
 
+  -- mCRL2 tutorial: Verification part --
 \end{slide}
 
 
@@ -966,7 +1025,7 @@ e.g. \dkb{some event will happen, and a certain condition will hold until then}
 \small
 
 \[
-\phi\, := \; \true \mid p \mid  \phi_1 \wedge \phi_2 \mid \neg \phi \mid \nexts \phi \mid  \phi_1 \until \phi_2 \mid \eventual \phi \mid \always \phi
+\phi\, := \; \true \mid p \mid  \phi_1 \wedge \phi_2 \mid \neg \phi \mid \nexts \phi \mid  \phi_1 \until \phi_2 %\mid \eventual \phi \mid \always \phi
 \]
 \vspace{0.5cm}
 \begin{center}
@@ -1003,7 +1062,7 @@ eventually forever & $\eventual \always w_1$\\
 \dkb{path} formulas to express properties of a path:
 \[
 \psi\, := \; \nexts \Phi \mid  \Phi \until \Psi
-             \mid \eventual \phi \mid \always \phi
+             %\mid \eventual \phi \mid \always \phi
 \]
 
 \vspace{0.2cm}

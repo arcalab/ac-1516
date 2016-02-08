@@ -28,11 +28,11 @@
 \item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
  
 % Environments with counters
-\newtheoremstyle{myplain} {3mm}% ⟨Space above⟩
+\newtheoremstyle{myplain} {8mm}% ⟨Space above⟩
 {3mm}% ⟨Space below⟩
 {}% ⟨Body font⟩
 {}% ⟨Indent amount⟩
-{\bfseries}% ⟨Theorem head font⟩
+{\bfseries\large}% ⟨Theorem head font⟩
 {.}% ⟨Punctuation after theorem head⟩
 {.5em}% ⟨Space after theorem head⟩2
 {}% ⟨Theorem head spec (can be left empty, meaning ‘normal’)⟩
@@ -51,7 +51,7 @@
 %                         Start here
 % --------------------------------------------------------------
  
-\title{Assignment: Vending machines in mCRL2}
+\title{Assignment 1: Vending machines in mCRL2}
 \author{Jos\'{e} Proen\c{c}a\\
 Arquitectura e C\'alculo -- 2015/2016} 
 
@@ -60,7 +60,9 @@ Arquitectura e C\'alculo -- 2015/2016}
 
 
 \noindent
-\textbf{Report:} Write a report in PDF using LaTeX including the answers to the exercises below.
+\textbf{To do:} Write a report using LaTeX including the answers to the exercises below.
+\\
+\textbf{To submit:} The report in PDF.
 \\
 \textbf{Deadline:} 17 March 2016
  
@@ -96,7 +98,7 @@ The specification is split into three sections:
 Produce the labelled transition system (LTS) of this specification using (1) \bash{mcrl22lps} to linearise the system and (2) \bash{lps2lts} to produce the final LTS.}
 
 \subex{Visualise the previous LTS with \bash{ltsgraph}.
-\textbf{Show a screenshot of the LTS (after rearranging as needed.}}
+\textbf{Show a screenshot of the LTS (make sure it is understandable).}}
 
 \subex{Specify and visualise the LTS of a similar specification, obtained by omitting the restrictions \code{allow} and \code{comm}.
 \textbf{How many states do you expect (and count), and why?}}
@@ -194,7 +196,7 @@ $\texttt{\$}$ ltscompare --equivalence=branching-bisim \
 
 \subex{Using \bash{ltsconvert}, minimise the LTS for \bash{vm2.mcrl2} with respect to branching bisimulation after hiding the same actions as before (using the \code{hide} operation in mcrl2).
 \textbf{Visualise and include a screenshot of the minimised LTS.}
-Compare the minimised LTSs and \bash{vm2-taus.lts} visually using \bash{ltsgraph}.}
+You can compare the minimised LTSs and \bash{vm2-taus.lts} visually using \bash{ltsgraph}.}
 
 %\begin{lstlisting}[style=bash]
 %$\texttt{\$}$ ltsconvert -ebranching-bisim --tau=out10,out20,readyA,readyC,prod vm02.svc vm02min.svc}

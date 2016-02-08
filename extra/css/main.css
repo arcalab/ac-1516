@@ -24,6 +24,22 @@
   color: #c6c6c6;
 }
 
+div.pdf {
+  display:inline-block;
+  background:url(../../extra/img/pdf.png) no-repeat center 0;
+  text-align:center;
+}
+a.pdf {
+    display:inline-block;
+    width:16px;
+    height:16px;
+    margin:0 auto;
+}
+
+a {
+  color: #3194eb;
+}
+
 .active{
   display: block;
 }

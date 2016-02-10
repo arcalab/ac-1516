@@ -938,8 +938,12 @@ The following are equivalent for all first-order formulas $\phi(x)$ in one free 
           \alpha~OP~\alpha \midd \mcode{!}\alpha \midd \ldots
 \end{align*}
 \end{block}
-~\\[2mm]
+%~\\[2mm]
 where $OP = \set{\mcode{&&},\mcode{||},\mcode{=>}}$
+
+\begin{exampleblock}{Example}
+``\code{[true*.a]<b>true}'' means \emph{``whenever an \code{a} appears after any number of steps, it must be immediately followed by \code{b}''}. 
+\end{exampleblock}
 \end{slide}
 
 %-------------------------------------------------------------------------------
@@ -1053,15 +1057,15 @@ eventually forever & $\eventual \always w_1$\\
 \begin{slide}{Computational tree logic (CTL, CTL*)}\label{s:45}
 \small
 
- \dkb{state} formulas to express  properties of a state:
+ \dgold{state} formulas to express  properties of a state:
 \[
-\Phi\, := \; \true \mid \Phi \wedge \Phi \mid \neg \Phi \mid \exists \psi \mid \forall \psi
+\Phi\, := \; \true \mid \Phi \wedge \Phi \mid \neg \Phi \mid \dgold{\exists} \psi \mid \dgold{\forall} \psi
 \]
 
 
 \dkb{path} formulas to express properties of a path:
 \[
-\psi\, := \; \nexts \Phi \mid  \Phi \until \Psi
+\psi\, := \; \dkb{\nexts} \Phi \mid  \Phi \dkb{\until} \Psi
              %\mid \eventual \phi \mid \always \phi
 \]
 
@@ -1069,9 +1073,9 @@ eventually forever & $\eventual \always w_1$\\
 \begin{center}
 \begin{tabular}{|l|c|}
 \hline
-mutual exclusion  & $\forall \always (\neg c_1 \vee \neg c_2)$ \\
- liveness & $\forall \always \forall \eventual c_1 \wedge \forall \always \forall  \eventual c_2$\\
-order  & $\forall \always (c_1 \vee \forall\nexts c_2)$\\
+mutual exclusion  & $\dgold{\forall} \dkb{\always} (\neg c_1 \vee \neg c_2)$ \\
+ liveness & $\dgold{\forall} \dkb{\always} \forall \eventual c_1 \wedge \dgold{\forall} \dkb{\always} \dgold{\forall}  \dkb{\eventual} c_2$\\
+order  & $\dgold{\forall} \dkb{\always} (c_1 \vee \dgold{\forall}\dkb{\nexts} c_2)$\\
 \hline
 \end{tabular}  
 \end{center}
@@ -1098,9 +1102,9 @@ Compare:
 \end{equation*}
 with
 \begin{equation*}
-\eventual (i \e p)\; \e\; \eventual (i \e q)\; \; \impp\; \; \eventual (p \e q)
+\eventual (\alert{i} \e p)\; \e\; \eventual (\alert{i} \e q)\; \; \impp\; \; \eventual (p \e q)
 \end{equation*}
-for $i \in \mathsf{NOM}$ (a \dgold{nominal})
+for $\alert{i \in \mathsf{NOM}}$ (a \dgold{nominal})
 \end{block}
 
 \begin{block}{Syntax}

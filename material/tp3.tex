@@ -1,0 +1,128 @@
+\documentclass[11pt]{article}
+
+\renewcommand\familydefault{\sfdefault}
+ 
+%input preamble and macros
+\input{../slides/macros/preamble}
+\input{../slides/macros/macros}
+
+ 
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+ 
+%\newcommand{\N}{\mathbb{N}}
+%\newcommand{\Z}{\mathbb{Z}}
+
+% Named environments (no counters) 
+\newenvironment{theorem}[2][Theorem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{lemma}[2][Lemma]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+%\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+%\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{question}[2][Question]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{corollary}[2][Corollary]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+ 
+% Environments with counters
+\newtheoremstyle{myplain} {5mm}% ⟨Space above⟩
+{3mm}% ⟨Space below⟩
+{}% ⟨Body font⟩
+{}% ⟨Indent amount⟩
+{\bfseries}% ⟨Theorem head font⟩
+{.}% ⟨Punctuation after theorem head⟩
+{.5em}% ⟨Space after theorem head⟩2
+{}% ⟨Theorem head spec (can be left empty, meaning ‘normal’)⟩
+
+\theoremstyle{myplain}
+\newtheorem{exercise}{Exercise}
+
+\theoremstyle{definition} % no italics
+\newtheorem{subexercise}{}[exercise]
+
+\newcommand{\subex}[1]{\begin{subexercise}#1\end{subexercise}}
+
+\begin{document}
+ 
+% --------------------------------------------------------------
+%                         Start here
+% --------------------------------------------------------------
+ 
+\title{Assignment 3: Architecting the coordination layer}
+\author{Jos\'{e} Proen\c{c}a\\
+Arquitectura e C\'alculo -- 2015/2016} 
+ 
+\maketitle
+
+\noindent
+\textbf{To do:} Develop Reo models as requested, and write a report using LaTeX. This report should visual representations of the requested connectors and properties that you verify, and an explanation of the architectural scenario (and variations) used for Exercise~\ref{ex:demo}.
+\\
+\textbf{To submit:} The report in PDF.
+\\
+\textbf{To demo:} The result of Exercise~\ref{ex:demo}.
+\\
+\textbf{Deadline:} 19 May 2016
+ 
+\section*{Questions}
+
+%The train gate example is distributed with Uppaal. It is a railway control system which
+% - controls access to a bridge for several trains.
+%
+%BRIDGE: a critical shared resource that may be accessed only by one train at a time.
+%SYSTEM: a number of trains (assume 4 for this example) + a controller.
+%
+%TRAIN: sends approach, waits 10 secs for stop! signal,
+% - not stopped: after 10 more it reaches the gate/bridge;
+% - stopped: waits for a go! signal - takes 7-15 sec to reach the cross after go!.
+% - sends a leave! signal after passing.
+% - after reaching the cross - 3-5 sec to cross.
+% (5 locations: Safe, Appr-oaching, Stop-ping, Start-ting, and Cross-sing)
+%
+%GATE: syncs with queue/contr and trains
+% - Can be free or occupied,
+% - starts Free, becomes Occupied
+%CONTROLER/QUEUE: (not for 2 trains)
+%
+%Start has the invariant x <= 15 and its outgoing transition has the constraint x >= 7
+%
+%A train can not be stopped instantly and restarting also takes time. Therefor, there are timing constraints on the trains before entering the bridge. When approaching, a train sends a appr! signal. Thereafter, it has 10 time units to receive a stop signal. This allows it to stop safely before the bridge. After these 10 time units, it takes further 10 time units to reach the bridge if the train is not stopped. If a train is stopped, it resumes its course when the controller sends a go! signal to it after a previous train has left the bridge and sent a leave! signal.
+
+%-----------------------------------------------------------------------------
+%\begin{exercise} \label{ex:train}
+%\textbf{[Train bridge]}
+%Consider a train bridge over a river shared by multiple trains. In this exercise we will consider only 2 trains. Only one train can cross the bridge at a time - a \emph{gate} controls who is allowed to cross the bridge at a given time. The desired model of the train bridge has the following extra requirements:
+%%
+%\begin{itemize}
+%  \item a Train notifies the Gate when it approaches the bridge;
+%  \item the Gate has 10 time units to notify the Train to stop (if another train is crossing the bridge);
+%  \item if the Gate does not send a stop notification within 10 time units, the Train must reach the bridge in another 10 time units;
+%  \item each Train takes between 3 and 5 time units to cross the bridge -- after that it sends a notification to the Gate that it is leaving;
+%  \item if a Train is told to stop, we assume it will take between 7 and 15 time units to reach the bridge;
+%\end{itemize}
+%\end{exercise}
+
+\begin{exercise} \label{ex:airfield}
+\textbf{[Coordination layer]}
+Consider the two problems proposed in the previous project (airfield and MobilePay). Design for each of them the corresponding coordination layer in Reo. Analyse them using the available Reo tools (via mCRL2).
+
+\medskip
+
+Based on this experience comment (suggest ways) on how to combine the specification of software coordination layer (as in Reo) with automata subjected to specific constraints (as in Uppaal).
+\end{exercise}
+
+
+
+% --------------------------------------------------------------
+\section*{Demo}
+
+
+\begin{exercise}  \label{ex:demo}
+Select an architectural style among the following: \emph{Client \& Server}, \emph{Publish \& Subscribe}, \emph{Peer2Peer}, \emph{Event-bus}, and \emph{Table-driven}, and create an architectural scenario around the chosen style with time critical requirements. Develop a model in Reo for its coordination component. Discuss its design and try out a few variants.
+\end{exercise}
+
+
+ 
+\end{document}

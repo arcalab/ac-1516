@@ -246,12 +246,15 @@ $t \in S$ is \dkb{reachable} from $s \in S$ iff there is a word $\sigma \in \Act
 \end{equation*}
 %
 where
-\\- $\alpha \in \Act \transp{\cup \overline\Act \cup \set{\tau}} $,
-\\- $K$ s a collection of process names or process contants,
-\\- $I$ is an indexing set, and
-\\- $L \subseteq \Act \transp{\cup \overline{\Act}}$
-\\- $f$ is a function that renames actions
-\\- notation: $\cnil \ sum_{i\in\emptyset}P_i$; $P_1+P_2 = \sum_{i\in\set{1,2}}P_i$; $f = [b_1/a_1,\ldots,b_n/a_n]$
+\\- $\alpha \in \Act \transp{\cup \overline\Act \cup \set{\tau}} $~ is an action
+\\- $K$ s a collection of process names or process contants
+\\- $I$ is an indexing set
+\\- $L \subseteq \Act \transp{\cup \overline{\Act}}$ is a set of labels
+\\- $f$ is a function that renames actions s.t. $f(\tau) = \tau$ and $f(\overline{a}) = \overline{f(a)}$
+\\- notation:
+\\~~~~~$\cnil = \ sum_{i\in\emptyset}P_i$
+\\~~~~~$P_1+P_2 = \sum_{i\in\set{1,2}}P_i$
+\\~~~~~$[f] = [b_1/a_1,\ldots,b_n/a_n]$
 \end{block}
 \end{slide}
 
@@ -273,13 +276,13 @@ where
 \begin{align}
   & a.b.A+B\\&
   (a.\cnil + \ainv a.A) \backslash \set{a,b}\\&
-  (a.\cnil + \ainv a.A) \backslash \set{a,\tau}\\&
-  a.V+[a/b]\\&
+  (a.\cnil + \ainv a.A) \backslash \set{a,\tau}\\& % no
+  a.B+[a/b]\\& % no
   \tau.\tau.B + \cnil\\&
-  (a.B + b.B)[a/b,b/a]
+  (a.B + b.B)[a/a,b/\tau]
 \end{align}
 }{\begin{align} &
-  (a.B + \tau.B)[a/b,b/a]\\&
+  (a.B + \tau.B)[a/b,a/a]\\& % no
   (a.b.A + \ainv a.\cnil)|B\\&
   (a.b.A + \ainv a.\cnil).B\\&
   (a.b.A + \ainv a.\cnil)+B\\&
@@ -309,7 +312,7 @@ where
 \\[3mm]
 \typerule{res}{P\trans\alpha P'}{\crt P L\trans\alpha \crt{P'}L}~$\transp{\alpha,\ainv{\alpha} \notin L}$
 \msep
-\typerule{rel}{P\trans\alpha P'}{\crn P f\trans{f(\alpha)} \crn{P'} d}
+\typerule{rel}{P\trans\alpha P'}{\crn P f\trans{f(\alpha)} \crn{P'} f}
 \\[2mm]
 \pause
 
@@ -352,7 +355,7 @@ where
  \\
  \crn{P}{f} &\to \mcode{rename(f,P)}
   \\
-  a.P|\ainv a.Q  &\to \mcode{hide(\{a\},}\mcode{block(\{a1,a2\},}\mcode{comm(\{a1|a2->a\}, }\mcode{a1.P||a2.P)))}
+  a.P|\ainv a.Q  &\to \mcode{hide(\{a\},}\mcode{block(\{a1,a2\},}\mcode{comm(\{a1|a2->a\}, }\mcode{a1.P}\mcode{||a2.P)))}
 \end{align*}
 \end{block}
 \end{frame}

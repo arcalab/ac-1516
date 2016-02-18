@@ -355,7 +355,11 @@ where
  \\
  \crn{P}{f} &\to \mcode{rename(f,P)}
   \\
-  a.P|\ainv a.Q  &\to \mcode{hide(\{a\},}\mcode{block(\{a1,a2\},}\mcode{comm(\{a1|a2->a\}, }\mcode{a1.P}\mcode{||a2.P)))}
+  a.P|\ainv a.Q &\to \mcode{hide(\{a\},}\mcode{comm(\{a1|a2->a\}, }\mcode{a1.P}\mcode{||a2.P))}
+  \\
+  a.P|\ainv a.Q \backslash \{a\}  &\to \mcode{hide(\{a\},}\mcode{block(\{a1,a2\},}\mcode{comm(\{a1|a2->a\}, }
+  \\&~~~~~
+  \mcode{a1.P}\mcode{||a2.P)))}
 \end{align*}
 \end{block}
 \end{frame}
@@ -639,7 +643,7 @@ q_4 & & q_5 & &p_4 & & p_5
 
 
 \begin{itemize}
-\item Follows a \dgold{$\forall, \exists$ pattern}: $p$ in all its transitions challenge $q$ which is called to find a matchh to each of those (and conversely)
+\item Follows a \dgold{$\forall, \exists$ pattern}: $p$ in all its transitions challenge $q$ which is called to find a match to each of those (and conversely)
 \item Tighter correspondence with transitions
 \item Based on the information that the transitions convey, rather than on the shape of the LTS
 \item \dgold{Local} checks on states

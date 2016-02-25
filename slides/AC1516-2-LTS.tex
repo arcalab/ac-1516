@@ -130,7 +130,8 @@ s \rtran{a} s' \; \; \; \; \;  \imp & \; \; \; \; \; \apf{h}{s}  \primertran{a} 
 \small
 \begin{block}{System}
 Given a LTS $\pair{S, \Act, \rra}$, each state $s \in S$ determines a \dkb{system} over 
-all states reachable from $s$ and the corresponding restrictions of $\rra$ and $\downarrow$.
+all states reachable from $s$ and the corresponding restriction of $\rra$.
+% and $\downarrow$.
 \end{block}
 
 \begin{block}{LTS classification}
@@ -252,7 +253,7 @@ where
 \\- $L \subseteq \Act \transp{\cup \overline{\Act}}$ is a set of labels
 \\- $f$ is a function that renames actions s.t. $f(\tau) = \tau$ and $f(\overline{a}) = \overline{f(a)}$
 \\- notation:
-\\~~~~~$\cnil = \ sum_{i\in\emptyset}P_i$
+\\~~~~~$\cnil = \sum_{i\in\emptyset}P_i$
 \\~~~~~$P_1+P_2 = \sum_{i\in\set{1,2}}P_i$
 \\~~~~~$[f] = [b_1/a_1,\ldots,b_n/a_n]$
 \end{block}
@@ -490,20 +491,20 @@ this capacity is kept along the whole life of the system to which state space $q
 \begin{block}{Definition}
 Given  $\pair{S_1, \Act, \rra_1}$  and $\pair{S_2, \Act, \rra_2}$
  over $\Act$,
-relation $R \subseteq S_1 \times S_2$ is a \dkb{simulation} iff,
-for all $\pair{p,q} \in R$ and $a \in \Act$,
+relation \structure{$R \subseteq S_1 \times S_2$} is a \dkb{simulation} iff,
+for all $\pair{p,q} \in \structure{R}$ and $a \in \Act$,
 
 \begin{align*}
 %\text{\dgold{(1)}}\; \;  & p \downarrow_1 \;  \imp\; q \downarrow_2\\ &\\
-\text{\dgold{(1)}}\; \;  & p \rtran{a}_1 p'\;  \imp\; \rcb{\exists}{q'}{q' \in S_2}{q \rtran{a}_2 q'\, \e\, \pair{p',q'} \in R}   
+\text{\dgold{(1)}}\; \;  & p \rtran{a}_1 p'\;  \imp\; \rcb{\exists}{q'}{q' \in S_2}{q \rtran{a}_2 q'\, \e\, \pair{p',q'} \in \structure{R}}   
 \end{align*}
 \vspace{6mm}
 
 \begin{equation*}
 \xymatrix{
-p \ar[d]^-{a} & \hspace{-1.5cm} R  & \hspace{-2.7cm} q 
+p \ar[d]^-{a} & \hspace{-1.5cm} \structure{R}  & \hspace{-2.7cm} q 
   & \!\! \text{\raisebox{-10mm}{\Huge $\imp$}} \! \! &  &  &  q \ar[d]^-{a} \\
-p'           &   &           &                                   & p'\hspace{-2.7cm} &  R \hspace{-1.5cm} &  q'
+p'           &   &           &                                   & p'\hspace{-2.7cm} &  \structure{R} \hspace{-1.5cm} &  q'
 }
 \end{equation*}
 
@@ -512,7 +513,8 @@ p'           &   &           &                                   & p'\hspace{-2.
 
 %----------------------------------------------------------------------------------
 \begin{slide}{Example}
-\small
+
+\begin{exampleblock}{Find simulations}
 \begin{equation*}
 \xymatrix{
 & q_1  \ar[r]^{d} & q_2 &       &        &                              p_2\\
@@ -520,12 +522,13 @@ q_0 \ar[ru]^{a} \ar[rd]_{a} &  & & p_0 \ar[r]^{a} & p_1 \ar[ru]^{d} \ar[rd]_{e} 
 & q_4  \ar[r]_{e} & q_3 &       &        &                              p_3\\
 }
 \end{equation*}
+\end{exampleblock}
 
 \vspace{0.2cm}
-\begin{equation*}
+\visible<2->{\begin{equation*}
 q_0 \lesssim p_0 \text{\hspace{0.5cm} cf. \hspace{0.3cm}} 
 \enset{\pair{q_0,p_0}, \pair{q_1,p_1},\pair{q_4,p_1},\pair{q_2,p_2},\pair{q_3,p_3}}
-\end{equation*}
+\end{equation*}}
 \end{slide}
 
 %----------------------------------------------------------------------------------
@@ -603,7 +606,8 @@ whenever $\pair{p,q} \in R$ and $a \in \Act$,
 
 %----------------------------------------------------------------------------------
 \begin{slide}{Examples}
-\small
+
+\begin{exampleblock}{Find bisimulations}
 \begin{equation*}
 \xymatrix{
 & q_1  \ar[ld]_{a}  \ar[rd]^{a} & & & & m \ar[d]_{a}\\
@@ -618,13 +622,17 @@ q_2 \ar[rr]^{c}  && q_3 \ar@(ur,dr)[]^{c}  & & & n\ar@(ur,dr)[]^{c}
 q_1 \ar[r]^{a} & q_2  \ar[r]^{a}  & q_3  \ar[r]^{a} & \cdots & & h\ar@(ur,dr)[]^{a}  \\
 }
 \end{equation*}
-% R = \setdef{q_i, h}{i \geq 1}
+% R = \setdef{q_i, h}{i \geq 1}  
+\end{exampleblock}
+
 \end{slide}
 
 
 %----------------------------------------------------------------------------------
 \begin{slide}{Examples}
-\small
+
+\begin{exampleblock}{Find bisimulations}
+\vspace*{-2mm}
 \begin{equation*}
 \xymatrix{
 & q_1  \ar[ld]_{a}  \ar[rd]^{a} & & & & p_1  \ar[d]^{a} \\
@@ -635,6 +643,7 @@ q_2 \ar[d]^{c}  && q_3  \ar[d]^{\rdb{b}}  & && p_2  \ar[ld]_{c}  \ar[rd]^{\rdb{b
 q_4 & & q_5 & &p_4 & & p_5
 }
 \end{equation*}
+\end{exampleblock}
 \end{slide}
 
 %----------------------------------------------------------------------------------

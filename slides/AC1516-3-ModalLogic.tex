@@ -280,6 +280,65 @@ points $w$, if $\ger{M}, w \models \Gamma$ then $\ger{M}, w \models \phi$
 
 
 %----------------------------------------------------------------------------------
+\begin{slide}{Example: Hennessy-Milner logic}\label{s:17}
+\small
+\begin{block}{Process logic (\dgold{Hennessy-Milner logic})}
+\begin{itemize}
+\item $\mathsf{PROP} = \emptyset$
+\item $W = \PP$ is a set of states, typically process terms, in a labelled transition system 
+\item each subset $K \subseteq Act$ of actions generates a modality corresponding to transitions labelled by an element of $K$ 
+\end{itemize}
+\end{block}
+Assuming the underlying LTS \dgold{$\ger{F} = \pair{\PP, \setdef{p \tran{K} p'}{K \subseteq Act}}$} as the modal frame, satisfaction is abbreviated as
+\begin{align*}
+p & \models \pv{K}{\phi} \text{ ~~~~~~~~ \textsf{iff} ~~~}
+\existential{q \in \setdef{p'}{p \tran{a} p' \; \e\;  a \in K}}{q \models \phi} \\
+p & \models \nc{K}{\phi} \text{~~~~~~~~~~ \textsf{iff} ~~~}
+\universal{q \in \setdef{p'}{p \tran{a} p' \; \e\;  a \in K}}{q \models \phi} 
+\end{align*}
+\end{slide}
+
+\begin{slide}{Example: Hennessy-Milner logic}
+\small
+
+\begin{columns}
+\column{0.38\textwidth}
+\centering
+\begin{tikzpicture}[scale=1.5,%
+  every node/.style={auto,inner sep=1pt},%
+  every edge/.style={draw, thick,-latex',shorten >= 2pt}]
+\tikzstyle{n} = [inner sep=3pt]
+\node[n](s2)at(0,2){$S_2$};
+\node[n](s3)at(2,2){$S_3$};
+\node[n](s1)at(1,1){$S_1$};
+\node[n](s5)at(0,0){$S_4$};
+\node[n](s4)at(2,0){$S_5$};
+\draw[->]
+  (s1)edge node{$a$}(s4) edge[bend left=5pt] node{$a$}(s3)
+  (s2)edge node{$b$}(s3)
+  (s3)edge node{$c$}(s4) edge[bend left=5pt] node{$c$}(s1)
+  (s4)edge node{$b$}(s5)
+  (s5)edge node{$c$}(s2) edge node{$c$}(s1);
+\end{tikzpicture}
+
+\column{0.58\textwidth}
+\begin{exampleblock}{Prove:}
+\begin{enumerate}
+  \item $S_2 \models \alm a (\evm b tt \land \evm c tt)$\\
+  \item $S_1 \not \models \alm a(\evm b tt \land \evm c tt)$\\
+  \item $S_2 \models \alm b \alm c(\evm a tt \lor \evm b tt)$\\
+  \item $S_1 \models \alm b \alm c(\evm a tt \lor \evm b tt)$    
+%  \item $S_2 \models [a](⟨b⟩tt ∧ ⟨c⟩tt)$\\
+%  \item $S_1 \not \models [a](⟨b⟩tt ∧ ⟨c⟩tt)$\\
+%  \item $S_2 \models [b][c](⟨a⟩tt ∨ ⟨c⟩tt)$\\
+%  \item $S_1 \models [b][c](⟨a⟩tt ∨ ⟨c⟩tt)$    
+\end{enumerate}
+\end{exampleblock}
+\end{columns}
+  
+\end{slide}
+
+%----------------------------------------------------------------------------------
 \begin{slide}{Proof system $\mathbf{K}$}\label{s:37}
 \small
 
@@ -301,6 +360,19 @@ but are truth-functionally tautologous)
 \end{block}
   
 \end{slide}
+
+
+%\begin{slide}{Proof system $\mathbf{K}$}
+%\begin{exampleblock}{Prove}
+%\begin{align*}
+%%  \eventual\always
+%  &\eventual(\phi \lor \psi) \to (\eventual \phi \lor \eventual \psi)
+%  \\
+%  &\eventual(\phi \lor \psi) \to \eventual \phi
+%\end{align*}
+%\end{exampleblock}
+%\end{slide}
+
 
 %----------------------------------------------------------------------------------
 \begin{slide}{Variants}\label{s:38}
@@ -383,67 +455,10 @@ where $t$ is a proposition valid only at the (terminal) state $3$.
 
 
 
-%----------------------------------------------------------------------------------
-\begin{slide}{Examples III}\label{s:17}
-\small
-\begin{block}{Process logic (\dgold{Hennessy-Milner logic})}
-\begin{itemize}
-\item $\mathsf{PROP} = \emptyset$
-\item $W = \PP$ is a set of states, typically process terms, in a labelled transition system 
-\item each subset $K \subseteq Act$ of actions generates a modality corresponding to transitions labelled by an element of $K$ 
-\end{itemize}
-\end{block}
-Assuming the underlying LTS \dgold{$\ger{F} = \pair{\PP, \setdef{p \tran{K} p'}{K \subseteq Act}}$} as the modal frame, satisfaction is abbreviated as
-\begin{align*}
-p & \models \pv{K}{\phi} \text{ ~~~~~~~~ \textsf{iff} ~~~}
-\existential{q \in \setdef{p'}{p \tran{a} p' \; \e\;  a \in K}}{q \models \phi} \\
-p & \models \nc{K}{\phi} \text{~~~~~~~~~~ \textsf{iff} ~~~}
-\universal{q \in \setdef{p'}{p \tran{a} p' \; \e\;  a \in K}}{q \models \phi} 
-\end{align*}
-\end{slide}
 
-\begin{slide}{Examples III}
-\small
-
-\begin{columns}
-\column{0.38\textwidth}
-\centering
-\begin{tikzpicture}[scale=1.5,%
-  every node/.style={auto,inner sep=1pt},%
-  every edge/.style={draw, thick,-latex',shorten >= 2pt}]
-\tikzstyle{n} = [inner sep=3pt]
-\node[n](s2)at(0,2){$S_2$};
-\node[n](s3)at(2,2){$S_3$};
-\node[n](s1)at(1,1){$S_1$};
-\node[n](s5)at(0,0){$S_4$};
-\node[n](s4)at(2,0){$S_5$};
-\draw[->]
-  (s1)edge node{$a$}(s4) edge[bend left=5pt] node{$a$}(s3)
-  (s2)edge node{$b$}(s3)
-  (s3)edge node{$c$}(s4) edge[bend left=5pt] node{$c$}(s1)
-  (s4)edge node{$b$}(s5)
-  (s5)edge node{$c$}(s2) edge node{$c$}(s1);
-\end{tikzpicture}
-
-\column{0.58\textwidth}
-\begin{exampleblock}{Prove:}
-\begin{enumerate}
-  \item $S_2 \models \alm a (\evm b tt \land \evm c tt)$\\
-  \item $S_1 \not \models \alm a(\evm b tt \land \evm c tt)$\\
-  \item $S_2 \models \alm b \alm c(\evm a tt \lor \evm b tt)$\\
-  \item $S_1 \models \alm b \alm c(\evm a tt \lor \evm b tt)$    
-%  \item $S_2 \models [a](⟨b⟩tt ∧ ⟨c⟩tt)$\\
-%  \item $S_1 \not \models [a](⟨b⟩tt ∧ ⟨c⟩tt)$\\
-%  \item $S_2 \models [b][c](⟨a⟩tt ∨ ⟨c⟩tt)$\\
-%  \item $S_1 \models [b][c](⟨a⟩tt ∨ ⟨c⟩tt)$    
-\end{enumerate}
-\end{exampleblock}
-\end{columns}
-  
-\end{slide}
 
 %----------------------------------------------------------------------------------
-\begin{slide}{Examples IV}\label{s:18}
+\begin{slide}{Examples III}\label{s:18}
 \small
 \begin{block}{Temporal logic}
 \begin{itemize}
@@ -455,7 +470,7 @@ p & \models \nc{K}{\phi} \text{~~~~~~~~~~ \textsf{iff} ~~~}
 \end{slide}
 
 %----------------------------------------------------------------------------------
-\begin{slide}{Examples IV}\label{s:18a}
+\begin{slide}{Examples III}\label{s:18a}
 \small
 
 \begin{block}{$\pair{T,<}$}
@@ -480,7 +495,7 @@ t  \models \eventual \phi &\text{ ~~~~~~~~ \textsf{iff} ~~~}
 \end{slide}
 
 %----------------------------------------------------------------------------------
-\begin{slide}{Examples IV}\label{s:18b}
+\begin{slide}{Examples III}\label{s:18b}
 \small
 
 ... but typical structures, however, are 
@@ -501,7 +516,7 @@ t  \models \eventual \phi &\text{ ~~~~~~~~ \textsf{iff} ~~~}
 
 
 %----------------------------------------------------------------------------------
-\begin{slide}{Examples V}\label{s:19}
+\begin{slide}{Examples IV}\label{s:19}
 \small
 \begin{block}{Epistemic logic (J. Hintikka, 1962)}
 \begin{itemize}

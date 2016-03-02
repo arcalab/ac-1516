@@ -536,8 +536,10 @@ q_0 \lesssim p_0 \text{\hspace{0.5cm} cf. \hspace{0.3cm}}
 \small
 
 \begin{block}{Definition}
+\centering
 \[p \lesssim q\; \equiv\; \rcb{\exists}{R}{}{R\; \text{is a simulation and}\; \pair{p,q} \in R} 
 \]
+\emph{We say \dkb{$q$ simulates $p$}.}
 \end{block}
 \begin{block}{Lemma}
 The similarity relation is a preorder\\
@@ -783,6 +785,20 @@ $$\pair{x,y} \in R \; \dimp\;  \Tr{x} = \Tr{y}$$
 
 %----------------------------------------------------------------------------------
 \begin{slide}{Properties}
+\centering
+\begin{alertblock}{Warning}
+\centering
+\fbox{The bisimilarity relation \dkb{$\sim$} \rdb{is not} the \dkb{symmetric closure of $\lesssim$}}
+\end{alertblock}
+
+~\\[5mm]
+i.e., $\Big[p\lesssim q$ and $q\lesssim p\Big]$ does \structure{not} imply
+  $\Big[p \sim q\Big]$
+\end{slide}
+
+
+%----------------------------------------------------------------------------------
+\begin{slide}{Properties}
 
 \small
 
@@ -866,6 +882,7 @@ q_0 \ar[ru]^{a} \ar[rd]^{a} &  & & p_0 \ar[r]^{a} & p_1 \ar[r]^{b} & p_3\\
 }
 \end{exampleblock}
 \end{slide}
+%Rania Khalaf (IBM T.J. Watson Research Center, USA) - rkhalaf@us.ibm.com	
 
 %-------------------------------------------------------------------------------
 \begin{slide}{More bisimulations}
@@ -875,15 +892,18 @@ q_0 \ar[ru]^{a} \ar[rd]^{a} &  & & p_0 \ar[r]^{a} & p_1 \ar[r]^{b} & p_3\\
 
 \begin{block}{Weak transition}
 \begin{align*}
-  p \Trans{\alpha} q ~~~\text{iff}~~~
+  p \Trans{\alpha} q ~~~&\text{iff}~~~
   p \,(\rtran{\tau})^{*}\, q_1\rtran{a} q_2 \,(\rtran{\tau})^{*}\, q
+  \\
+  p \Trans{\tau} q ~~~&\text{iff}~~~
+  p \,(\rtran{\tau})^{*}\, q
 \end{align*}  
 where $\alpha \neq \tau$ and $(\rtran{\tau})^{*}$ is the reflexive and transitive closure of $\rtran{\tau}$.
 \end{block}
 
 \begin{block}{Weak bisimulation (vs. strong)}
 Given  $\pair{S_1, \Act,  \rra_1}$  and $\pair{S_2, \Act, \rra_2}$ over $\Act$,
-relation $R \subseteq S_1 \times S_2$ is a \dkb{bisimulation} iff for all $\pair{p,q} \in R$ and $a \in \Act$,
+relation $R \subseteq S_1 \times S_2$ is a \dkb{bisimulation} iff for all $\pair{p,q} \in R$ and $a \in \Act\,\rdb{\cup \set{\tau}}$,
 %
 \begin{align*}
 %\text{\dgold{(1)}}\; \;  &  p \downarrow_1 \;  \dimp\; q \downarrow_2\\ &\\

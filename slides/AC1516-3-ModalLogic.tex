@@ -542,7 +542,7 @@ t  \models \eventual \phi &\text{ ~~~~~~~~ \textsf{iff} ~~~}
 \begin{block}{From modal logic}
 \vspace*{-3mm}
 \begin{equation*}
-\phi\; ::=\; p \: \mid\: \true\: \mid\: \false\: \mid\: \neg \phi \: \mid\: \phi_1 \e \phi_2\: \mid\:
+\phi\; ::=\; \dgold{p} \: \mid\: \true\: \mid\: \false\: \mid\: \neg \phi \: \mid\: \phi_1 \e \phi_2\: \mid\:
            \phi_1 \impp  \phi_2\:   \mid\:
            \dgold{\pv{m}{\phi}} \:  \mid\:
            \dgold{\nc{m}{\phi}} 
@@ -554,7 +554,7 @@ t  \models \eventual \phi &\text{ ~~~~~~~~ \textsf{iff} ~~~}
 \begin{block}{To first order logic}
 \vspace*{-3mm}
 \begin{equation*}
-\phi\; ::=\; P\,x \: \mid\: \true\: \mid\: \false\: \mid\: \neg \phi \: \mid\: \phi_1 \e \phi_2\: \mid\:
+\phi\; ::=\; \dgold{P\,x} \: \mid\: \true\: \mid\: \false\: \mid\: \neg \phi \: \mid\: \phi_1 \e \phi_2\: \mid\:
            \phi_1 \impp  \phi_2\: \mid\:
            \dgold{\rcb{\exists}{x}{}{\phi} } \: \mid\:
            \dgold{\rcb{\forall}{y}{}{\phi} }
@@ -567,25 +567,32 @@ t  \models \eventual \phi &\text{ ~~~~~~~~ \textsf{iff} ~~~}
 \begin{slide}{The first order connection}
 \small
 
-Boxes and diamonds are essentially a \dgold{macro notation} to encode quantification over accessible states in a point free way. \\
-\vspace{0.2cm}
+\only<1>{Boxes and diamonds are essentially a \dgold{macro notation} to encode quantification over accessible states in a point free way. \\
+\vspace{0.2cm}}
 \begin{block}{The standard translation}
 
 ... to first-order logic \dgold{expands} these macros:
 
 %\vspace{0.1cm}
 \begin{align*}
-ST_x (p) & =  P\, x\\
+\dgold{ST_x (p)} & \dgold{\,=  P\, x}\\
 ST_x (\true) & =  \true \\
 ST_x (\false) & =  \false\\
 ST_x (\neg \phi) & =  \neg ST_x (\phi)\\
 ST_x (\phi_1 \e \phi_2) & =  ST_x (\phi_1) \e  ST_x (\phi_1)\\
 ST_x (\phi_1 \impp \phi_2) & =  ST_x (\phi_1) \impp  ST_x (\phi_1)\\
-\dgold{ST_x (\pv{m} \phi) }& \dgold{=  \rcb{\exists}{y}{}{(x R_m y\, \e\, ST_y(\phi))} }  \\
-\dgold{ST_x (\nc{m} \phi) }& \dgold{=  \rcb{\forall}{y}{}{(x R_m y\, \impp\, ST_y(\phi))} }  \\
+\dgold{ST_x (\pv{m} \phi) }& \dgold{\,=  \rcb{\exists}{y}{}{(x R_m y\, \e\, ST_y(\phi))} }  \\
+\dgold{ST_x (\nc{m} \phi) }& \dgold{\,=  \rcb{\forall}{y}{}{(x R_m y\, \impp\, ST_y(\phi))} }  \\
 \end{align*}
 \end{block}
+
+\only<2>{
+\centering
+\myblock{Translate: $ST_x(p \to \eventual p)$}
+
+}
 \end{slide}
+
 
 
 %----------------------------------------------------------------------------------

@@ -443,7 +443,8 @@ where $t$ is a proposition valid only at the (terminal) state $3$.
 \small
 \begin{block}{$(P,<)$ a strict partial order with infimum $0$}
 ~\\
-
+% Think about TIME/progress. 0 is minimal time (smallest time)
+% x 
 
 \begin{itemize}
 \item $P, x \models \always \false\; \;$  if $x$ is a maximal element of $P$
@@ -499,11 +500,14 @@ t  \models \eventual \phi &\text{ ~~~~~~~~ \textsf{iff} ~~~}
 \small
 
 ... but typical structures, however, are 
+% from the handybook of logics - temporal logics
 
 \begin{block}{Linear time structures}
 \begin{itemize}
-\item \dgold{linear}: $\rcb{\forall}{x,y}{x,y \in T}{x=y \wedge x<y \wedge y<x}$.
-\item \dgold{discrete}: for each $t\in T$, i) if there is a $u>t$ there is a first such $u$; ii) if there is a $u<t$ there is a last such $u$.
+\item \dgold{linear}: $\rcb{\forall}{x,y}{x,y \in T}{x=y ~\lor~ x<y ~\lor~ y<x}$. % NOT branching
+\item \dgold{discrete}: linear and for each $t\in T$, \\
+%i) if there is a $u>t$ there is a first such $u$; ii) if there is a $u<t$ there is a last such $u$.
+$\exists u \cdot u>t ~\Rightarrow~ \exists u'>t$ without any $u'>v>t$ ~~~ (and its dual)
 \item \dgold{dense}: if for all $t,x \in T$, if $x<t$ there is a $v\in T$ such that $x<v<t$.
 \item \dgold{Dedekind complete}: if for all $S\subseteq T$ non-empty and bounded above, there is a lest upper bound in $T$.
 \item \dgold{continuous}: if it is both dense and Dedekind complete
@@ -579,8 +583,8 @@ t  \models \eventual \phi &\text{ ~~~~~~~~ \textsf{iff} ~~~}
 ST_x (\true) & =  \true \\
 ST_x (\false) & =  \false\\
 ST_x (\neg \phi) & =  \neg ST_x (\phi)\\
-ST_x (\phi_1 \e \phi_2) & =  ST_x (\phi_1) \e  ST_x (\phi_1)\\
-ST_x (\phi_1 \impp \phi_2) & =  ST_x (\phi_1) \impp  ST_x (\phi_1)\\
+ST_x (\phi_1 \e \phi_2) & =  ST_x (\phi_1) \e  ST_x (\phi_2)\\
+ST_x (\phi_1 \impp \phi_2) & =  ST_x (\phi_1) \impp  ST_x (\phi_2)\\
 \dgold{ST_x (\pv{m} \phi) }& \dgold{\,=  \rcb{\exists}{y}{}{(x R_m y\, \e\, ST_y(\phi))} }  \\
 \dgold{ST_x (\nc{m} \phi) }& \dgold{\,=  \rcb{\forall}{y}{}{(x R_m y\, \impp\, ST_y(\phi))} }  \\
 \end{align*}

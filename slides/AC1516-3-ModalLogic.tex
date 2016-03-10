@@ -22,7 +22,7 @@
 \date{
 \begin{tabular}{c}
 \\
-    April, 2016
+    Mar\c{c}o, 2016
 \end{tabular}
 }
 
@@ -220,7 +220,7 @@ $\nc{m}{\phi}$ is equivalent to  $\neg \pv{m}{\neg \phi}$
 \begin{block}{Model definition}
 A \dkb{model} for the language is a pair $\dkb{\ger{M}} = \pair{\ger{F},V}$, where
 \begin{itemize}
-\item $\ger{F} = \pair{\dgold{W}, \enset{\alert{R_m}}_{m \in \mathsf{MOD}}}$  \\ is a \dkb{Kripke frame}, ie, a non empty set \dgold{$W$} and a family of \alert{binary relations} (called \emph{accessibility relations})
+\item $\ger{F} = \pair{\dgold{W}, \enset{\alert{R_m}}_{m \in \mathsf{MOD}}}$  \\ is a \dkb{Kripke frame}, ie, a non empty set \dgold{$W$} and a family \alert{$R_m$} of \alert{binary relations} (called \emph{accessibility relations})
 over \dgold{$W$}, one for each modality symbol $m \in \mathsf{MOD}$. Elements of \dgold{$W$} are called \dgold{points},  \dgold{states},  \dgold{worlds} or
 simply  \dgold{vertices} in  directed graphs. 
 \item $\fdec{V}{\mathsf{PROP}}{\pow{(W)}}$ is a \dkb{valuation}.
@@ -581,8 +581,8 @@ ST_x (\false) & =  \false\\
 ST_x (\neg \phi) & =  \neg ST_x (\phi)\\
 ST_x (\phi_1 \e \phi_2) & =  ST_x (\phi_1) \e  ST_x (\phi_1)\\
 ST_x (\phi_1 \impp \phi_2) & =  ST_x (\phi_1) \impp  ST_x (\phi_1)\\
-\dgold{ST_x (\pv{m} \phi) }& \dgold{=  \rcb{\exists}{y}{}{(y R_m x\, \e\, ST_y(\phi))} }  \\
-\dgold{ST_x (\nc{m} \phi) }& \dgold{=  \rcb{\forall}{y}{}{(y R_m x\, \impp\, ST_y(\phi))} }  \\
+\dgold{ST_x (\pv{m} \phi) }& \dgold{=  \rcb{\exists}{y}{}{(x R_m y\, \e\, ST_y(\phi))} }  \\
+\dgold{ST_x (\nc{m} \phi) }& \dgold{=  \rcb{\forall}{y}{}{(x R_m y\, \impp\, ST_y(\phi))} }  \\
 \end{align*}
 \end{block}
 \end{slide}

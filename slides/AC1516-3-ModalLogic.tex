@@ -449,7 +449,7 @@ where $t$ is a proposition valid only at the (terminal) state $3$.
 \begin{itemize}
 \item $P, x \models \always \false\; \;$  if $x$ is a maximal element of $P$
 \item $P, 0 \models \eventual \always false\; \;$  iff  ... %$P$ contains a maximal element 
-\item $P, 0 \models \always \eventual \always false\; \;$  iff  ... %every element is below  a maximal element 
+\item $P, 0 \models \always \eventual \always false\; \;$  iff  ... %every element is a maximal element (FALSE)
 \end{itemize}
 \end{block}
 \end{slide}
@@ -507,9 +507,9 @@ t  \models \eventual \phi &\text{ ~~~~~~~~ \textsf{iff} ~~~}
 \item \dgold{linear}: $\rcb{\forall}{x,y}{x,y \in T}{x=y ~\lor~ x<y ~\lor~ y<x}$. % NOT branching
 \item \dgold{discrete}: linear and for each $t\in T$, \\
 %i) if there is a $u>t$ there is a first such $u$; ii) if there is a $u<t$ there is a last such $u$.
-$\exists u \cdot u>t ~\Rightarrow~ \exists u'>t$ without any $u'>v>t$ ~~~ (and its dual)
+$(\exists u \cdot u>t) ~\Rightarrow~ \exists u'>t$ without any $v$ s.t. $u'>v>t$ ~~~ (and its dual)
 \item \dgold{dense}: if for all $t,x \in T$, if $x<t$ there is a $v\in T$ such that $x<v<t$.
-\item \dgold{Dedekind complete}: if for all $S\subseteq T$ non-empty and bounded above, there is a lest upper bound in $T$.
+\item \dgold{Dedekind complete}: if for all $S\subseteq T$ non-empty and bounded above, there is a least upper bound in $T$.
 \item \dgold{continuous}: if it is both dense and Dedekind complete
 \end{itemize}
 \end{block}
@@ -695,12 +695,12 @@ If $\Phi$ is a set of basic modal formulas  satisfiable in at least one infinite
 \small
 \begin{exampleblock}{Express the following properties in Process Logic}
 \begin{itemize}
-\item $\phi_0 =$ \emph{In a taxi network, a car can collect a passenger or be allocated by the Central to a pending service}
-\item $\phi_1 =$ \emph{This applies only to cars already on service}
+\item $\phi_0 =$ \emph{In a taxi network, a car can \red{col}{lect} a passenger or be \red{allo}{cated} by the Central to a pending service}
+\item $\phi_1 =$ \emph{This applies only to cars already on \red{service}}
 \item $\phi_2 =$
- \emph{If a car is allocated to a service, it must first collect the passenger and then plan the route}
-\item $\phi_3 =$ \emph{On detecting an emergence the taxi becomes inactive}
-\item $\phi_4 =$ \emph{A car on service is not inactive}
+ \emph{If a car is \red{allo}{cated} to a service, it must first \red{col}{lect} the passenger and then \red{plan} the route}
+\item $\phi_3 =$ \emph{On detecting an \red{emergence} the taxi becomes inactive}
+\item $\phi_4 =$ \emph{A car on \red{service} is not inactive}
 \end{itemize}
 \end{exampleblock}
 \end{slide}
@@ -746,11 +746,11 @@ $\phi_1 =\;   \nc{onservice}{\phi_0}$
 \begin{block}{Definition}
 Given two models $\ger{M} = \pair{\pair{W, R}, V}$ and $\ger{M}' = \pair{\pair{W', R'}, V'}$, a \dgold{bisimulation} is a non-empty binary relation
 $S \subseteq W \times W'$  st whenever $w S w'$ one has that
-\begin{itemize}
+\begin{enumerate}
 \item points $w$ and $w'$ satisfy the same propositional symbols
 \item if $v R w$, then there is a point $v'$ in $\ger{M}'$ st  $v' R w'$ and $v S v'$ \hspace{0.3cm} (\dgold{zig})
 \item if $v' R' w'$, then there is a point $v$ in $\ger{M}$ st  $v R w$ and $v S v'$ \hspace{0.3cm} (\dgold{zag})
-\end{itemize}
+\end{enumerate}
 \end{block}
 %\begin{block}{Note}
 %Note the relation to the notion of bisimulation in transition systems, independently discovered by Park (1982) in Computer Science.
@@ -777,8 +777,13 @@ $S \subseteq W \times W'$  st whenever $w S w'$ one has that
 \begin{slide}{Invariance and definability}\label{s:31}
 \small
 \begin{block}{Lemma (invariance: bisimulation implies modal equivalence)}
-Given two models $\ger{M} = \pair{\pair{W, R}, V}$ and $\ger{M}' = \pair{\pair{W', R'}, V'}$, and a \dgold{bisimulation} 
-$S \subseteq W \times W'$ , if two points $w, w'$ are related by $S$, i.e. $w S w'$, then $w, w'$  satisfy the same basic modal formulas.
+Given \gold{two models} $\ger{M} = \pair{\pair{W, R}, V}$ and $\ger{M}' = \pair{\pair{W', R'}, V'}$, and a \dgold{bisimulation} 
+$S \subseteq W \times W'$,\\
+~~\red{if} two points $w, w'$ are related by $S$ (i.e. $w S w'$),\\
+~~\red{then} $w, w'$  satisfy the same basic modal formulas.\\
+~~~~~~~~~\textcolor{black!50}{(i.e., for all $\phi$:
+  ~~~$\ger{M},w \models \phi ~\Leftrightarrow~ \ger{M}',w' \models \phi$)}
+% or: M,x |= φ iff N,y |= φ for all modal formulas φ
  \end{block}
 \begin{block}{Applications}
 \begin{itemize}
@@ -810,6 +815,13 @@ $S \subseteq W \times W'$ , if two points $w, w'$ are related by $S$, i.e. $w S 
 \\[4mm]
 \eg, (4) is the only world satisfying $\Box\bot$
 \end{exampleblock}
+%%%
+% from ML for open minds
+% 3: <>[]ff /\ [][]ff --- (also [][]ff?)
+% 1: <>(3:)
+% 2: <><>tt /\ not(1:)
+% tip: last point as negation of all others...
+% on the rhs: 2 becomes 3.
 \end{frame}
 
 %----------------------------------------------------------------------------------
@@ -828,13 +840,13 @@ $S \subseteq W \times W'$ , if two points $w, w'$ are related by $S$, i.e. $w S 
 \small
 
 \begin{exampleblock}{Exercise: other properties}
-\begin{itemize}
+\begin{enumerate}
   \item Transitivity: \dkb{$\eventual\eventual p \to \eventual p$}
   \item Reflexivity: \visible<2->{\dkb{$p \to \eventual p$}}
   \item Symmetry:    \visible<2->{\dkb{$p \to \always \eventual p$}}
   \item Confluence:  \visible<2->{\dkb{$\eventual\always p \to \always \eventual p$}}
   \item Irreflexibility:  \visible<2->{\alert{Not possible}}
-\end{itemize}
+\end{enumerate}
 \end{exampleblock}
 
 \end{slide}
@@ -861,9 +873,9 @@ Give a modal formula that can be satisfied at point $1$ but not at $3$.
 % It is enough to see that (lhs) and (another irreflexive model) are bisimilar, although one is reflexive and the other not.
 % IF irreflexivity were modally definable, the modal formula PSI which defines it would have to be invariant under bisimulations.
 % BUT if PSI were to be true in (v-another-irr-model) then it would be true in (lhs) by the invariance lemma, which is impossible since (u-lhs) is a reflexive point.
-%item Prove the invariance lemma.
 \item Show that  \dgold{irreflexivity} is modally undefinable.
 \\(\ie, no formula that characterises a irreflexive system)
+\item Prove the invariance lemma.
 \end{itemize}
 \end{exampleblock}
 \end{slide}
@@ -873,8 +885,9 @@ Give a modal formula that can be satisfied at point $1$ but not at $3$.
 \small
 To prove the converse of the invariance lemma requires passing to an \dgold{infinitary} modal language  with arbitrary (countable) conjunctions and disjunctions. Alternatively, and more usefully, it can be shown  for \dgold{finite} models:
 \begin{block}{Lemma (modal equivalence implies bisimulation)}
-If two points $w, w'$ from two finite models $\ger{M} = \pair{\pair{W, R}, V}$ and $\ger{M}' = \pair{\pair{W', R'}, V'}$ satisfy the same modal formulas, then there is a bisimulation
-$S \subseteq W \times W'$  such that $w S w'$.
+\red{If} two points $w, w'$ from two finite models $\ger{M} = \pair{\pair{W, R}, V}$ and $\ger{M}' = \pair{\pair{W', R'}, V'}$ satisfy the same modal formulas,
+\\
+\red{then} there is a bisimulation $S \subseteq W \times W'$  such that $w S w'$.
  \end{block}
 \end{slide}
 
@@ -895,6 +908,7 @@ $S \subseteq W \times W'$  such that $w S w'$.
 % infinite models: one modal formula satisfies 2 non-bisimilar (infinite) models
 % m1: infinte branching of finite steps 0, 0-1, 0-1-2, 0-1-2-3,...
 % m2: same as m1, but with an extra infinitly long branch
+% For every point, 
 % https://books.google.pt/books?id=ql_dBtNOOeAC&pg=PA63&lpg=PA63&dq=not+bisimilar+infinite&source=bl&ots=ONMAmSjJ2E&sig=XpHSBzXyjJ0TUmImDu1Eg8MFnd4&hl=en&sa=X&redir_esc=y#v=onepage&q=not%20bisimilar%20infinite&f=false
 \end{itemize}
 \end{exampleblock}
@@ -953,12 +967,12 @@ The following are equivalent for all first-order formulas $\phi(x)$ in one free 
   \phi =&~ \mcode{true} \midd \mcode{false} \midd
           \mcode{forall x.}\phi \midd \mcode{exists x.}\phi \\|&~
           \phi~OP~\phi \midd \mcode{!}\phi \midd
-          \mcode{[$\expr$]}\phi \midd \mcode{<$\expr$>}\phi \midd \ldots
+          \mcode{[$\structure{\expr}$]}\phi \midd \mcode{<$\structure{\expr}$>}\phi \midd \ldots
 \\[3mm]
-\expr =&~ \alpha \midd \mcode{nil} \midd \expr\mcode{+}\expr \midd
+\structure{\expr} =&~ \dkb{\alpha} \midd \mcode{nil} \midd \expr\mcode{+}\expr \midd
         \expr\mcode{.}\expr \midd \expr\mcode{*} \midd \expr\mcode{+}
 \\[1mm]
-\alpha =&~ \mcode{a(d)} \midd \mcode{a|b|c} \midd
+\dkb{\alpha} =&~ \mcode{a(d)} \midd \mcode{a|b|c} \midd
           \mcode{true} \midd \mcode{false} \midd
           \mcode{forall x.}\alpha \midd \mcode{exists x.}\alpha \\|&~
           \alpha~OP~\alpha \midd \mcode{!}\alpha \midd \ldots
@@ -1014,11 +1028,11 @@ can be obtained in different ways, e.g.
 \begin{block}{Until and Since}
 \begin{align*}
 \ger{M}, w  &\models \phi\, \mathcal{U}\, \psi & \text{ ~~ \textsf{iff} ~~} &
-\text{there exists}\; v \in W \;\text{st}\; v R w\; \text{and}\; \ger{M}, v \models \psi,\\
-& & & \text{and for all}\; u\; \text{st}\; u R w\; \text{and}\; v R u,\; \text{one has}\;  \ger{M}, u \models \phi\\
-\ger{M}, w  &\models \phi\, \mathcal{S}\, \psi & \text{ ~~ \textsf{iff} ~~} &
 \text{there exists}\; v \in W \;\text{st}\; w R v\; \text{and}\; \ger{M}, v \models \psi,\\
-& & & \text{and for all}\; u\; \text{st}\; u R v\; \text{and}\; w R u,\; \text{one has}\;  \ger{M}, u \models \phi
+& & & \text{and for all}\; u\; \text{st}\; w R u\; \text{and}\; u R v,\; \text{one has}\;  \ger{M}, u \models \phi\\
+\ger{M}, w  &\models \phi\, \mathcal{S}\, \psi & \text{ ~~ \textsf{iff} ~~} &
+\text{there exists}\; v \in W \;\text{st}\; v R w\; \text{and}\; \ger{M}, v \models \psi,\\
+& & & \text{and for all}\; u\; \text{st}\; v R u\; \text{and}\; u R w,\; \text{one has}\;  \ger{M}, u \models \phi
 \end{align*}
 \end{block}
 %
@@ -1261,201 +1275,201 @@ An \dkb{invariance} theorem and its \dkb{dual} (for image finite models) can als
 \end{slide}
 
 %----------------------------------------------------------------------------------
-\begin{slide}{Applications to architectural design}\label{s:52}
-\small
-
-\begin{block}{Structural reasoning over \reo circuits}
-
-$$
-\begin{array}{c}
-\phi\; :== \; p\; \mid i \: \mid\: \neg \phi \: \mid\: \phi_1 \land \phi_2\:  \mid\: \nc{K}{\phi} \:   \mid\:  \nco{K}{\phi} \:  \mid \: @_i \phi
-           %\pv{K}{\phi} \:  \mid\: \pvo{K}{\phi} \:  \mid\:
-\end{array}
-$$
-\begin{itemize}
-\item modalities are indexed by regular expressions over channel \dkb{types};
-\item $\pv{K}$ and $\nc{K}$ (reps., $\pvo{K}$ and $\nco{K}$) express properties of \dkb{outgoing} (resp., \dkb{incoming}) connections from the node in which they are evaluated.
-%\item @  \emph{redirects} the formula evaluation to the context of a specific node.
-%\item Nominals make possible to express proprieties \emph{local} to a specific node.
-\end{itemize}
-\end{block}
-\begin{flushright}
-\dgold{[Nuno Oliveira PhD thesis (MAP-i, 2015)]}
-\end{flushright}
-\end{slide}
-
-
-%----------------------------------------------------------------------------------
-\begin{slide}{Applications to architectural design}\label{s:53}
-\small
-
-\begin{block}{Structural reasoning over \reo circuits}
-
-\begin{center}
-
-\begin{tikzpicture}
-\ionode{(tout)}{(-0.5,1)}{node[left, xshift=-3pt]{\scriptsize $i$}}
-\ionode{(ho)}{(7,0)}{node[right, xshift=3pt]{\scriptsize $h_{o}$}}
-\mixednode{(j)}{(1,0)}{node[left, yshift=0, xshift=-3]{\scriptsize $j$}}
-\mixednode{(a)}{(3,0)}{node[below, yshift=0, xshift=6]{\scriptsize $a$}}
-\mixednode{(esi)}{(6,1)}{node[right, yshift=-5, xshift=0]{\scriptsize $es_i$}}
-\mixednode{(e)}{(3,1)}{node[left, yshift=0, xshift=-3]{\scriptsize $e$}}
-\xrouter{(xr1)}{(6,0)}{}
-\xrouter{(xr2)}{(1,1)}{}
-
-\sync{(tout)}{(xr2)}{
-	node[above, yshift=-1, xshift=12]{\scriptsize $y_i$}
-	node[above, yshift=1, xshift=29]{\scriptsize $y_{1}$}
-	node[below, yshift=-1, xshift=29]{\scriptsize $y_{2}$}
-}
-
-\Uchannel{sync}{(xr2)}{(esi)}{0.8}{v}{+}{}
-\sync{(xr2)}{(j)}{}
-
-\fifoe{(j)}{(a)}{
-		node[above, yshift=3pt, xshift=-17]{\scriptsize $w$}
-	}
-
-\fifoe{(a)}{(xr1)}{
-	node[above, yshift=3, xshift=-27]{\scriptsize $MAs$}
-	node[below, yshift=1, xshift=8]{\scriptsize $x_i$}
-	node[above, yshift=2, xshift=13]{\scriptsize $x_{1}$}
-	node[below, yshift=1, xshift=29]{\scriptsize $x_{2}$}
-}
-\sync{(xr1)}{(esi)}{}
-\sync{(xr1)}{(ho)}{}
-
-\fifoe{(esi)}{(e)}{node[above, yshift=3pt, xshift=25]{\scriptsize $Es$}}
-\sync{(e)}{(a)}{}
-\end{tikzpicture}
-\end{center}
-
-
-\begin{enumerate}
-\item \dkb{$\phi_1 \deff \ @_{t_o} \pv{-^*}{\true} \e \nc{-^{*}}\nc{-MAs}{\false}$}  \\
-(there is a path from triage input port ($t_{o}$) to a $MAs$ edge)
-\item \dkb{$\phi_2 \deff  \nco{-}\false \impp   \nc{-^*}h_o$}\\
-(all paths from input ports, lead to the billing service ($h_{o}$) port)
-\end{enumerate}
-
-\end{block}
-\end{slide}
-
-
-
-%----------------------------------------------------------------------------------
-\begin{slide}{Applications to architectural design}\label{s:54}
-\small
-\vspace{0.2cm}
-\begin{block}{Reconfiguration of \reo circuits}
-\begin{minipage}[b]{0.45\linewidth}
-\begin{center}
-
-%\emph{(a)}
-
-\begin{tikzpicture}
-\ionode{(a)}{(0,1.5)}{node[left, xshift=-3pt]{\scriptsize $\node{a}$}}
-\ionode{(b)}{(0,0.5)}{node[left, xshift=-3pt]{\scriptsize $\node{b}$}}
-
-\mixednode{(c)}{(0.8,1)}{node[below, yshift=-3pt]{\scriptsize $\node{cde}$}}
-\mixednode{(d)}{(1.7,1)}{node[below, yshift=-3pt]{\scriptsize $\node{fgh}$}}
-
-\ionode{(e)}{(2.5,1.5)}{node[right, xshift=3pt]{\scriptsize $\node{i}$}}
-\ionode{(f)}{(2.5,0.5)}{node[right, xshift=3pt]{\scriptsize $\node{j}$}}
-
-\fifoe{(a)}{(c)}{}
-\sync{(b)}{(c)}{}
-
-\sync{(c)}{(d)}{}
-\lossysync{(d)}{(e)}{}
-\lossysync{(d)}{(f)}{}
-
-\end{tikzpicture}
-
-\end{center}
-\end{minipage}
-\hspace{0.2cm}
-\begin{minipage}[b]{0.45\linewidth}
-\begin{center}
-
-%\emph{(b)}
-
-\begin{tikzpicture}
-\ionode{(a)}{(0,1.5)}{node[left, xshift=-3pt]{\scriptsize $\node{a}$}}
-\ionode{(b)}{(0,0.5)}{node[left, xshift=-3pt]{\scriptsize $\node{b}$}}
-
-\ionode{(ac)}{(1,1.5)}{node[right, xshift=3pt]{\scriptsize $\node{c}$}}
-\ionode{(bc)}{(1,0.5)}{node[right, xshift=3pt]{\scriptsize $\node{d}$}}
-\ionode{(cd)}{(2,1)}{node[left, xshift=-3pt]{\scriptsize $\node{e}$}}
-
-\mixednode{(d)}{(2.7,1)}{node[below, yshift=-3pt]{\scriptsize $\node{fgh}$}}
-
-\ionode{(e)}{(3.5,1.5)}{node[right, xshift=3pt]{\scriptsize $\node{i}$}}
-\ionode{(f)}{(3.5,0.5)}{node[right, xshift=3pt]{\scriptsize $\node{j}$}}
-
-\fifoe{(a)}{(ac)}{}
-\sync{(b)}{(bc)}{}
-
-\sync{(cd)}{(d)}{}
-\lossysync{(d)}{(e)}{}
-\lossysync{(d)}{(f)}{}
-
-\end{tikzpicture}
-
-\end{center}
-\end{minipage}
-
-
-\begin{minipage}[b]{\linewidth}
-\begin{center}
-
-\begin{tikzpicture}
-\ionode{(a)}{(-1,1)}{node[left, xshift=-3pt]{\scriptsize $\node{a}$}}
-\ionode{(b)}{(-1,0)}{node[left, xshift=-3pt]{\scriptsize $\node{b}$}}
-
-\mixednode{(mi)}{(-0.1,0.5)}{node[below, xshift=8pt]{\scriptsize $\node{cdm_i}$}}
-%\mixednode{(bc)}{(0,0)}{node[below, xshift=3pt]{\scriptsize $bc$}}
-\mixednode{(mo)}{(1.1,0.5)}{node[below, xshift=8pt]{\scriptsize $\node{m_oe}$}}
-
-\mixednode{(d)}{(2,0.5)}{node[below, yshift=-3pt]{\scriptsize $\node{fgh}$}}
-
-\ionode{(e)}{(3,1)}{node[right, xshift=3pt]{\scriptsize $\node{i}$}}
-\ionode{(f)}{(3,0)}{node[right, xshift=3pt]{\scriptsize $\node{j}$}}
-
-\fifoe{(a)}{(mi)}{}
-\sync{(b)}{(mi)}{}
-
-\sync{(mo)}{(d)}{}
-\lossysync{(d)}{(e)}{}
-\lossysync{(d)}{(f)}{}
-
-\path[-]
-	 (0,0) edge[bend left]  (0,0.5) 
-	 (0,0.5) edge [bend left] (0,1)
-	 (0,1) edge [bend left] (0.33, 1)
-	 (0.33,1) edge [bend left] (0.66, 1)
-	 (0.66,1) edge [bend left] (1, 1)
-	 (1,1) edge [bend left] (1, 0.5)
-	 (1,0.5) edge [bend left] (1, 0)
-	 (1,0) edge [bend left] (0.66,0)
-	 (0.66,0) edge [bend left] (0.33,0)
-	 (0.33,0) edge [bend left] (0,0)
-	 ;	 
-
-\end{tikzpicture}
-
-%\emph{(c)}
-
-\end{center}
-\end{minipage}
-
-\vspace{0.4cm}
-Invariant \dkb{$\Phi = \pv{\mathsf{sync}}{(\pv{-}{\true} \e \nc{-\mathsf{lossy}}{\false})}$} is \dkb{displaced} along a reconfiguration:
-$$
-\dkb{@_{\node{cde}}\, \Phi\; \; \leadsto \; \; @_{\node{m_oe}}\, \Phi}
-$$
-\end{block}
-\end{slide}
+%\begin{slide}{Applications to architectural design}\label{s:52}
+%\small
+%
+%\begin{block}{Structural reasoning over \reo circuits}
+%
+%$$
+%\begin{array}{c}
+%\phi\; :== \; p\; \mid i \: \mid\: \neg \phi \: \mid\: \phi_1 \land \phi_2\:  \mid\: \nc{K}{\phi} \:   \mid\:  \nco{K}{\phi} \:  \mid \: @_i \phi
+%           %\pv{K}{\phi} \:  \mid\: \pvo{K}{\phi} \:  \mid\:
+%\end{array}
+%$$
+%\begin{itemize}
+%\item modalities are indexed by regular expressions over channel \dkb{types};
+%\item $\pv{K}$ and $\nc{K}$ (reps., $\pvo{K}$ and $\nco{K}$) express properties of \dkb{outgoing} (resp., \dkb{incoming}) connections from the node in which they are evaluated.
+%%\item @  \emph{redirects} the formula evaluation to the context of a specific node.
+%%\item Nominals make possible to express proprieties \emph{local} to a specific node.
+%\end{itemize}
+%\end{block}
+%\begin{flushright}
+%\dgold{[Nuno Oliveira PhD thesis (MAP-i, 2015)]}
+%\end{flushright}
+%\end{slide}
+%
+%
+%%----------------------------------------------------------------------------------
+%\begin{slide}{Applications to architectural design}\label{s:53}
+%\small
+%
+%\begin{block}{Structural reasoning over \reo circuits}
+%
+%\begin{center}
+%
+%\begin{tikzpicture}
+%\ionode{(tout)}{(-0.5,1)}{node[left, xshift=-3pt]{\scriptsize $i$}}
+%\ionode{(ho)}{(7,0)}{node[right, xshift=3pt]{\scriptsize $h_{o}$}}
+%\mixednode{(j)}{(1,0)}{node[left, yshift=0, xshift=-3]{\scriptsize $j$}}
+%\mixednode{(a)}{(3,0)}{node[below, yshift=0, xshift=6]{\scriptsize $a$}}
+%\mixednode{(esi)}{(6,1)}{node[right, yshift=-5, xshift=0]{\scriptsize $es_i$}}
+%\mixednode{(e)}{(3,1)}{node[left, yshift=0, xshift=-3]{\scriptsize $e$}}
+%\xrouter{(xr1)}{(6,0)}{}
+%\xrouter{(xr2)}{(1,1)}{}
+%
+%\sync{(tout)}{(xr2)}{
+%	node[above, yshift=-1, xshift=12]{\scriptsize $y_i$}
+%	node[above, yshift=1, xshift=29]{\scriptsize $y_{1}$}
+%	node[below, yshift=-1, xshift=29]{\scriptsize $y_{2}$}
+%}
+%
+%\Uchannel{sync}{(xr2)}{(esi)}{0.8}{v}{+}{}
+%\sync{(xr2)}{(j)}{}
+%
+%\fifoe{(j)}{(a)}{
+%		node[above, yshift=3pt, xshift=-17]{\scriptsize $w$}
+%	}
+%
+%\fifoe{(a)}{(xr1)}{
+%	node[above, yshift=3, xshift=-27]{\scriptsize $MAs$}
+%	node[below, yshift=1, xshift=8]{\scriptsize $x_i$}
+%	node[above, yshift=2, xshift=13]{\scriptsize $x_{1}$}
+%	node[below, yshift=1, xshift=29]{\scriptsize $x_{2}$}
+%}
+%\sync{(xr1)}{(esi)}{}
+%\sync{(xr1)}{(ho)}{}
+%
+%\fifoe{(esi)}{(e)}{node[above, yshift=3pt, xshift=25]{\scriptsize $Es$}}
+%\sync{(e)}{(a)}{}
+%\end{tikzpicture}
+%\end{center}
+%
+%
+%\begin{enumerate}
+%\item \dkb{$\phi_1 \deff \ @_{t_o} \pv{-^*}{\true} \e \nc{-^{*}}\nc{-MAs}{\false}$}  \\
+%(there is a path from triage input port ($t_{o}$) to a $MAs$ edge)
+%\item \dkb{$\phi_2 \deff  \nco{-}\false \impp   \nc{-^*}h_o$}\\
+%(all paths from input ports, lead to the billing service ($h_{o}$) port)
+%\end{enumerate}
+%
+%\end{block}
+%\end{slide}
+%
+%
+%
+%%----------------------------------------------------------------------------------
+%\begin{slide}{Applications to architectural design}\label{s:54}
+%\small
+%\vspace{0.2cm}
+%\begin{block}{Reconfiguration of \reo circuits}
+%\begin{minipage}[b]{0.45\linewidth}
+%\begin{center}
+%
+%%\emph{(a)}
+%
+%\begin{tikzpicture}
+%\ionode{(a)}{(0,1.5)}{node[left, xshift=-3pt]{\scriptsize $\node{a}$}}
+%\ionode{(b)}{(0,0.5)}{node[left, xshift=-3pt]{\scriptsize $\node{b}$}}
+%
+%\mixednode{(c)}{(0.8,1)}{node[below, yshift=-3pt]{\scriptsize $\node{cde}$}}
+%\mixednode{(d)}{(1.7,1)}{node[below, yshift=-3pt]{\scriptsize $\node{fgh}$}}
+%
+%\ionode{(e)}{(2.5,1.5)}{node[right, xshift=3pt]{\scriptsize $\node{i}$}}
+%\ionode{(f)}{(2.5,0.5)}{node[right, xshift=3pt]{\scriptsize $\node{j}$}}
+%
+%\fifoe{(a)}{(c)}{}
+%\sync{(b)}{(c)}{}
+%
+%\sync{(c)}{(d)}{}
+%\lossysync{(d)}{(e)}{}
+%\lossysync{(d)}{(f)}{}
+%
+%\end{tikzpicture}
+%
+%\end{center}
+%\end{minipage}
+%\hspace{0.2cm}
+%\begin{minipage}[b]{0.45\linewidth}
+%\begin{center}
+%
+%%\emph{(b)}
+%
+%\begin{tikzpicture}
+%\ionode{(a)}{(0,1.5)}{node[left, xshift=-3pt]{\scriptsize $\node{a}$}}
+%\ionode{(b)}{(0,0.5)}{node[left, xshift=-3pt]{\scriptsize $\node{b}$}}
+%
+%\ionode{(ac)}{(1,1.5)}{node[right, xshift=3pt]{\scriptsize $\node{c}$}}
+%\ionode{(bc)}{(1,0.5)}{node[right, xshift=3pt]{\scriptsize $\node{d}$}}
+%\ionode{(cd)}{(2,1)}{node[left, xshift=-3pt]{\scriptsize $\node{e}$}}
+%
+%\mixednode{(d)}{(2.7,1)}{node[below, yshift=-3pt]{\scriptsize $\node{fgh}$}}
+%
+%\ionode{(e)}{(3.5,1.5)}{node[right, xshift=3pt]{\scriptsize $\node{i}$}}
+%\ionode{(f)}{(3.5,0.5)}{node[right, xshift=3pt]{\scriptsize $\node{j}$}}
+%
+%\fifoe{(a)}{(ac)}{}
+%\sync{(b)}{(bc)}{}
+%
+%\sync{(cd)}{(d)}{}
+%\lossysync{(d)}{(e)}{}
+%\lossysync{(d)}{(f)}{}
+%
+%\end{tikzpicture}
+%
+%\end{center}
+%\end{minipage}
+%
+%
+%\begin{minipage}[b]{\linewidth}
+%\begin{center}
+%
+%\begin{tikzpicture}
+%\ionode{(a)}{(-1,1)}{node[left, xshift=-3pt]{\scriptsize $\node{a}$}}
+%\ionode{(b)}{(-1,0)}{node[left, xshift=-3pt]{\scriptsize $\node{b}$}}
+%
+%\mixednode{(mi)}{(-0.1,0.5)}{node[below, xshift=8pt]{\scriptsize $\node{cdm_i}$}}
+%%\mixednode{(bc)}{(0,0)}{node[below, xshift=3pt]{\scriptsize $bc$}}
+%\mixednode{(mo)}{(1.1,0.5)}{node[below, xshift=8pt]{\scriptsize $\node{m_oe}$}}
+%
+%\mixednode{(d)}{(2,0.5)}{node[below, yshift=-3pt]{\scriptsize $\node{fgh}$}}
+%
+%\ionode{(e)}{(3,1)}{node[right, xshift=3pt]{\scriptsize $\node{i}$}}
+%\ionode{(f)}{(3,0)}{node[right, xshift=3pt]{\scriptsize $\node{j}$}}
+%
+%\fifoe{(a)}{(mi)}{}
+%\sync{(b)}{(mi)}{}
+%
+%\sync{(mo)}{(d)}{}
+%\lossysync{(d)}{(e)}{}
+%\lossysync{(d)}{(f)}{}
+%
+%\path[-]
+%	 (0,0) edge[bend left]  (0,0.5) 
+%	 (0,0.5) edge [bend left] (0,1)
+%	 (0,1) edge [bend left] (0.33, 1)
+%	 (0.33,1) edge [bend left] (0.66, 1)
+%	 (0.66,1) edge [bend left] (1, 1)
+%	 (1,1) edge [bend left] (1, 0.5)
+%	 (1,0.5) edge [bend left] (1, 0)
+%	 (1,0) edge [bend left] (0.66,0)
+%	 (0.66,0) edge [bend left] (0.33,0)
+%	 (0.33,0) edge [bend left] (0,0)
+%	 ;	 
+%
+%\end{tikzpicture}
+%
+%%\emph{(c)}
+%
+%\end{center}
+%\end{minipage}
+%
+%\vspace{0.4cm}
+%Invariant \dkb{$\Phi = \pv{\mathsf{sync}}{(\pv{-}{\true} \e \nc{-\mathsf{lossy}}{\false})}$} is \dkb{displaced} along a reconfiguration:
+%$$
+%\dkb{@_{\node{cde}}\, \Phi\; \; \leadsto \; \; @_{\node{m_oe}}\, \Phi}
+%$$
+%\end{block}
+%\end{slide}
 
 
 %----------------------------------------------------------------------------------

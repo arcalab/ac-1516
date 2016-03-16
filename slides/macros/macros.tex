@@ -10,7 +10,7 @@
 \definecolor{darkgreen}{rgb}{0,0.6,0}
 %
 %
-\def\gold#1{{\textcolor{goldenrod}{#1}}}
+%\def\gold#1{{\textcolor{goldenrod}{#1}}}
 \def\dgold#1{{\textcolor{darkgoldenrod}{#1}}}
 %\def\brw#1{{\brown #1}}
 \def\dkb#1{\textcolor{blue}{#1}}
@@ -19,7 +19,12 @@
 \def\gre#1{\textcolor{darkolivegreen}{#1}}
 \def\gry#1{\textcolor{gray}{#1}}
 \def\rdb#1{\textcolor{red}{#1}}
+
 \definecolor{myGray}{gray}{0.85}
+\newcommand{\red}[1]{\textcolor{red!80!black}{#1}\xspace}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}\xspace}
+\newcommand{\gold}[1]{\textcolor{darkgoldenrod}{#1}\xspace}
+\newcommand{\grey}[1]{\textcolor{myGray}{#1}\xspace}
 \def\laplace#1#2{*\txt{\mbox{ \fcolorbox{black}{myGray}{$\begin{array}{c}\mbox{#1}\\\\#2\\\\\end{array}$} }}}
 \newenvironment{bluein}{\blue}{\black\hskip -2.5pt}
 

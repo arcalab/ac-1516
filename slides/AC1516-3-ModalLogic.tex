@@ -1023,45 +1023,84 @@ can be obtained in different ways, e.g.
 
 
 %----------------------------------------------------------------------------------
-\begin{slide}{Temporal logics with $\mathcal{U}$ and $\mathcal{S}$}\label{s:41}
-\small
+%\begin{slide}{Temporal logics with $\mathcal{U}$ and $\mathcal{S}$}\label{s:41}
+%\small
+%\begin{block}{Until and Since}
+%\begin{align*}
+%\ger{M}, w  &\models \phi\, \mathcal{U}\, \psi & \text{ ~~ \textsf{iff} ~~} &
+%\text{there exists}\; v \in W \;\text{st}\; w R v\; \text{and}\; \ger{M}, v \models \psi,\\
+%& & & \text{and for all}\; u\; \text{st}\; w R u\; \text{and}\; u R v,\; \text{one has}\;  \ger{M}, u \models \phi\\
+%\ger{M}, w  &\models \phi\, \mathcal{S}\, \psi & \text{ ~~ \textsf{iff} ~~} &
+%\text{there exists}\; v \in W \;\text{st}\; v R w\; \text{and}\; \ger{M}, v \models \psi,\\
+%& & & \text{and for all}\; u\; \text{st}\; v R u\; \text{and}\; u R w,\; \text{one has}\;  \ger{M}, u \models \phi
+%\end{align*}
+%\end{block}
+%%
+%\begin{itemize}
+%\item note the $\exists\, \forall$ qualification pattern: these operators are neither diamonds nor boxes.
+%\item  more expressive --- e.g. helpful to express \dgold{guarantee} properties, 
+%e.g. \dkb{some event will happen, and a certain condition will hold until then}
+%\end{itemize}
+%\end{slide}
+%
+%----------------------------------------------------------------------------------
+\newcommand{\Until}{\mathop{\mathcal{U}}} 
+\newcommand{\Since}{\mathop{\mathcal{S}}} 
+\begin{frame}{Temporal Logics with $\Until$ and $\Since$}
 \begin{block}{Until and Since}
-\begin{align*}
-\ger{M}, w  &\models \phi\, \mathcal{U}\, \psi & \text{ ~~ \textsf{iff} ~~} &
-\text{there exists}\; v \in W \;\text{st}\; w R v\; \text{and}\; \ger{M}, v \models \psi,\\
-& & & \text{and for all}\; u\; \text{st}\; w R u\; \text{and}\; u R v,\; \text{one has}\;  \ger{M}, u \models \phi\\
-\ger{M}, w  &\models \phi\, \mathcal{S}\, \psi & \text{ ~~ \textsf{iff} ~~} &
-\text{there exists}\; v \in W \;\text{st}\; v R w\; \text{and}\; \ger{M}, v \models \psi,\\
-& & & \text{and for all}\; u\; \text{st}\; v R u\; \text{and}\; u R w,\; \text{one has}\;  \ger{M}, u \models \phi
-\end{align*}
+  \begin{align*}
+    \ger{M},w & \models \phi\Until\psi
+      & \text{iff}~~& \text{there \gold{exists} $v$ st
+                      $w\alert{\leq}v$ and $\ger{M},v \models \psi$, and} \\
+      && & \text{\gold{for all} $u$ st $w \alert{\leq} u \alert{<} v$,
+                 one has $\ger{M},u \models \phi$}
+    \\[2mm]
+    \ger{M},w & \models \phi\Since\psi
+      & \text{iff}~~& \text{there \gold{exists} $v$ st
+                      $v\alert{\leq}w$ and $\ger{M},v \models \psi$, and} \\
+      && & \text{\gold{for all} $u$ st $v \alert{<} u \alert{\leq} w$,
+                 one has $\ger{M},u \models \phi$}
+  \end{align*}
 \end{block}
 %
 \begin{itemize}
+\item Defined for temporal frames $\pair{T,<}$.
 \item note the $\exists\, \forall$ qualification pattern: these operators are neither diamonds nor boxes.
-\item  more expressive --- e.g. helpful to express \dgold{guarantee} properties, 
-e.g. \dkb{some event will happen, and a certain condition will hold until then}
+\item  More general definition for other frames -- it becomes more expressive than modal logics.
 \end{itemize}
-\end{slide}
-%
+\end{frame}
+
 %----------------------------------------------------------------------------------
-\begin{slide}{Exercise}\label{s:42}
-\small
+\begin{frame}{Exercise}
 \begin{exampleblock}{Temporal logics}
 \begin{itemize}
-\item Show that  $\mathcal{U}$ is modally undefinable.\\
-\emph{Hint} Consider the following transition structures and formula $\false\, \mathcal{U}\, \true$:
-
-\begin{equation*}
-%????????
-\xymatrix{
-%&&&\\
-1 \ar@(ul,ur)[]   & \hspace{0.3cm} & 2  \ar@/^/[r]   & 3 \ar@/^/[l]  
-}
-\end{equation*}
-\item Would this be the case if we restrict ourselves to transitive, irreflexive models?
+  \item $\eventual \psi = \only<2->{\blue{tt \Until \psi}}$
+  \item $\always \psi = \only<3>{\blue{\lnot(\eventual \lnot \psi)} = \blue{
+                        \lnot(tt \Until \lnot\psi)}}$
 \end{itemize}
 \end{exampleblock}
-\end{slide}
+  
+\end{frame}
+
+
+%\begin{slide}{Exercise}\label{s:42}
+%\small
+%\begin{exampleblock}{Temporal logics}
+%\begin{itemize}
+%\item Show that  $\mathcal{U}$ is modally undefinable.\\
+%\emph{Hint} Consider the following transition structures and formula $\false\, \mathcal{U}\, \true$:
+%
+%\begin{equation*}
+%%????????
+%\xymatrix{
+%%&&&\\
+%1 \ar@(ul,ur)[]   & \hspace{0.3cm} & 2  \ar@/^/[r]   & 3 \ar@/^/[l]  
+%}
+%\end{equation*}
+%\item Would this be the case if we restrict ourselves to transitive, irreflexive models?
+%\end{itemize}
+%\end{exampleblock}
+%\end{slide}
 
 
 %----------------------------------------------------------------------------------
@@ -1192,14 +1231,14 @@ where $\mathsf{NOM}$ is the set of nominals in the model
 \begin{block}{The $@_i$ operator}
 \begin{align*}
 \alert{\ger{M}, w \models  @_i \phi}
-  &&  \text{~~~~~~ \textsf{iff} ~~~}  &\ger{M}, u  \models \phi\; \text{and $u$ is the state denoted by $i$}
+  &&  \text{~ \textsf{iff} ~~}  &\ger{M}, u  \models \phi\; \text{and $u = V(i)$ [$u$ is the state denoted by $i$]}
 \end{align*}
 \end{block}
 
 \begin{block}{Standard translation to first-order}
 \begin{align*}
 ST_x(i) & =  (x = i)\\
-ST_x(@_i \phi) & =  ST_i(\phi)(x = i)\\
+ST_x(@_i \phi) & =  ST_i(\phi)[x \leftarrow i]\\
 \end{align*}
 i.e., hybrid logic corresponds to a first-order language enriched with constants and equality.
 \end{block}
@@ -1234,8 +1273,8 @@ Given two models $\ger{M} = \pair{\pair{W, R}, V}$ and $\ger{M}' = \pair{\pair{W
 $S \subseteq W \times W'$  st whenever $w S w'$ one has that
 \begin{itemize}
 \item points $w$ and $w'$ satisfy the same propositional symbols \dkb{and nominals}
-\item if $v R w$, then there is a point $v'$ in $\ger{M}'$ st  $v' R w'$ and $v S v'$ \hspace{0.3cm} (\dgold{zig})
-\item if $v' R' w'$, then there is a point $v$ in $\ger{M}$ st  $v R w$ and $v S v'$ \hspace{0.3cm} (\dgold{zag})
+\item if $w R v$, then there is a point $v'$ in $\ger{M}'$ st  $w' R v'$ and $v S v'$ \hspace{0.3cm} (\dgold{zig})
+\item if $w' R' v'$, then there is a point $v$ in $\ger{M}$ st  $w R v$ and $v S v'$ \hspace{0.3cm} (\dgold{zag})
 \item \dkb{$V(i)\, R\, V'(i)$ for all nominal $i$} (\dgold{name consistency})
 \end{itemize}
 \end{block}
@@ -1470,71 +1509,71 @@ An \dkb{invariance} theorem and its \dkb{dual} (for image finite models) can als
 %$$
 %\end{block}
 %\end{slide}
-
-
-%----------------------------------------------------------------------------------
-\begin{slide}{Applications to architectural design}\label{s:55}
-\small
-
-\begin{block}{Specifying reconfigurable architectures}
-\begin{itemize}
-\item Reconfigurable architectures are represented as \dkb{structured transition systems} whose
-\item states are endowed with  \dkb{local} specifications and
-\item  the \dkb{global} transition structure models system's evolution  through possible configurations.
-\item The hybrid language is developed \dkb{on top} whichever logic is taken for the local configurations (\eg, equational, first-order, fuzzy, etc.) \\
---- by \dkb{hybridisation}.
-\end{itemize}
-\end{block}
-
-
-\begin{flushright}
-\dgold{[Alexandre Madeira PhD thesis (MAP-i, 2013)]}
-\end{flushright}
-\end{slide}
-
-%----------------------------------------------------------------------------------
-\begin{slide}{Applications to architectural design}\label{s:56}
-\small
-
-\begin{minipage}[b]{0.4\linewidth}
-  \centering
- \includegraphics[width=.8\linewidth]{images/HT-ex1.pdf}
-\end{minipage}
-\quad
-\begin{minipage}[b]{0.5\linewidth}
-  \centering
-  \includegraphics[width=.9\linewidth]{images/HT-ex2.pdf}
-\end{minipage}
-~\\
-
-\begin{itemize}
-\item $\mathcal{H}$: \gold{pure hybrid formulas}
-\item $\mathcal{H}^2$: \gold{hierarchical sturctures}, e.g. $$@_{j^1} k^0 \wedge^1 [\lambda^1] (\rho_1,\dots,\rho_n)$$
-\end{itemize}
-
-\end{slide}
-
-
-%----------------------------------------------------------------------------------
-\begin{slide}{Applications to architectural design}\label{s:57}
-\small
-
-\vspace{0.3cm}
-
-\begin{block}{Hierarchical  architectures}
-\begin{itemize}
-\item Hierarchical  architectures are represented as \dkb{hierarchical  transition systems} whose
- states are transition systems themselves 
-\item and (intrusive)  transitions between designated states in different local transition systems at different levels of abstraction are allowed.
-\item  Hybrid logic captures this principle which is inherent to well known design formalisms such as  statecharts and  UML.
-\end{itemize}
-\end{block}
-\vspace{-0.2cm}
-\begin{center}
-  \includegraphics[width=0.5\textwidth]{images/intro2.pdf}
-\end{center}
-
-\end{slide}
+%
+%
+%%----------------------------------------------------------------------------------
+%\begin{slide}{Applications to architectural design}\label{s:55}
+%\small
+%
+%\begin{block}{Specifying reconfigurable architectures}
+%\begin{itemize}
+%\item Reconfigurable architectures are represented as \dkb{structured transition systems} whose
+%\item states are endowed with  \dkb{local} specifications and
+%\item  the \dkb{global} transition structure models system's evolution  through possible configurations.
+%\item The hybrid language is developed \dkb{on top} whichever logic is taken for the local configurations (\eg, equational, first-order, fuzzy, etc.) \\
+%--- by \dkb{hybridisation}.
+%\end{itemize}
+%\end{block}
+%
+%
+%\begin{flushright}
+%\dgold{[Alexandre Madeira PhD thesis (MAP-i, 2013)]}
+%\end{flushright}
+%\end{slide}
+%
+%%----------------------------------------------------------------------------------
+%\begin{slide}{Applications to architectural design}\label{s:56}
+%\small
+%
+%\begin{minipage}[b]{0.4\linewidth}
+%  \centering
+% \includegraphics[width=.8\linewidth]{images/HT-ex1.pdf}
+%\end{minipage}
+%\quad
+%\begin{minipage}[b]{0.5\linewidth}
+%  \centering
+%  \includegraphics[width=.9\linewidth]{images/HT-ex2.pdf}
+%\end{minipage}
+%~\\
+%
+%\begin{itemize}
+%\item $\mathcal{H}$: \gold{pure hybrid formulas}
+%\item $\mathcal{H}^2$: \gold{hierarchical sturctures}, e.g. $$@_{j^1} k^0 \wedge^1 [\lambda^1] (\rho_1,\dots,\rho_n)$$
+%\end{itemize}
+%
+%\end{slide}
+%
+%
+%%----------------------------------------------------------------------------------
+%\begin{slide}{Applications to architectural design}\label{s:57}
+%\small
+%
+%\vspace{0.3cm}
+%
+%\begin{block}{Hierarchical  architectures}
+%\begin{itemize}
+%\item Hierarchical  architectures are represented as \dkb{hierarchical  transition systems} whose
+% states are transition systems themselves 
+%\item and (intrusive)  transitions between designated states in different local transition systems at different levels of abstraction are allowed.
+%\item  Hybrid logic captures this principle which is inherent to well known design formalisms such as  statecharts and  UML.
+%\end{itemize}
+%\end{block}
+%\vspace{-0.2cm}
+%\begin{center}
+%  \includegraphics[width=0.5\textwidth]{images/intro2.pdf}
+%\end{center}
+%
+%\end{slide}
 
 
 

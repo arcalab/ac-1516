@@ -965,7 +965,7 @@ The following are equivalent for all first-order formulas $\phi(x)$ in one free 
 \begin{block}{Syntax (simplified)}
 \begin{align*}
   \phi =&~ \mcode{true} \midd \mcode{false} \midd
-          \mcode{forall x.}\phi \midd \mcode{exists x.}\phi \\|&~
+          \mcode{forall x:T.}\phi \midd \mcode{exists x.:T}\phi \\|&~
           \phi~OP~\phi \midd \mcode{!}\phi \midd
           \mcode{[$\structure{\expr}$]}\phi \midd \mcode{<$\structure{\expr}$>}\phi \midd \ldots
 \\[3mm]
@@ -973,13 +973,18 @@ The following are equivalent for all first-order formulas $\phi(x)$ in one free 
         \expr\mcode{.}\expr \midd \expr\mcode{*} \midd \expr\mcode{+}
 \\[1mm]
 \dkb{\alpha} =&~ \mcode{a(d)} \midd \mcode{a|b|c} \midd
-          \mcode{true} \midd \mcode{false} \midd
-          \mcode{forall x.}\alpha \midd \mcode{exists x.}\alpha \\|&~
-          \alpha~OP~\alpha \midd \mcode{!}\alpha \midd \ldots
+          \mcode{true} \midd \mcode{false} 
+          \midd
+          \alpha~OP~\alpha \midd \mcode{!}\alpha
+          \\|&~
+          \mcode{forall x:T.}\alpha \midd \mcode{exists x:T.}\alpha 
+          \midd
+          \ldots
 \end{align*}
 \end{block}
 %~\\[2mm]
-where $OP = \set{\mcode{&&},\mcode{||},\mcode{=>}}$
+where $OP = \set{\mcode{&&},\mcode{||},\mcode{=>}}$ ~~and~~
+$T = \set{Bool, Nat, Int, \ldots}$
 
 \begin{exampleblock}{Example}
 ``\code{[true*.a]<b>true}'' means \emph{``whenever an \code{a} appears after any number of steps, it must be immediately followed by \code{b}''}. 

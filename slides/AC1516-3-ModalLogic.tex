@@ -696,11 +696,11 @@ If $\Phi$ is a set of basic modal formulas  satisfiable in at least one infinite
 \begin{exampleblock}{Express the following properties in Process Logic}
 \begin{itemize}
 \item $\phi_0 =$ \emph{In a taxi network, a car can \red{col}{lect} a passenger or be \red{allo}{cated} by the Central to a pending service}
-\item $\phi_1 =$ \emph{This applies only to cars already on \red{service}}
+\item $\phi_1 =$ \emph{This applies only to cars already \red{on-service}}
 \item $\phi_2 =$
  \emph{If a car is \red{allo}{cated} to a service, it must first \red{col}{lect} the passenger and then \red{plan} the route}
 \item $\phi_3 =$ \emph{On detecting an \red{emergence} the taxi becomes inactive}
-\item $\phi_4 =$ \emph{A car on \red{service} is not inactive}
+\item $\phi_4 =$ \emph{A car \red{on-service} is not inactive}
 \end{itemize}
 \end{exampleblock}
 \end{slide}
@@ -748,8 +748,8 @@ Given two models $\ger{M} = \pair{\pair{W, R}, V}$ and $\ger{M}' = \pair{\pair{W
 $S \subseteq W \times W'$  st whenever $w S w'$ one has that
 \begin{enumerate}
 \item points $w$ and $w'$ satisfy the same propositional symbols
-\item if $v R w$, then there is a point $v'$ in $\ger{M}'$ st  $v' R w'$ and $v S v'$ \hspace{0.3cm} (\dgold{zig})
-\item if $v' R' w'$, then there is a point $v$ in $\ger{M}$ st  $v R w$ and $v S v'$ \hspace{0.3cm} (\dgold{zag})
+\item if $w R v$, then there is a point $v'$ in $\ger{M}'$ st  $w' R v'$ and $v S v'$ \hspace{0.3cm} (\dgold{zig})
+\item if $w' R' v'$, then there is a point $v$ in $\ger{M}$ st  $w R v$ and $v S v'$ \hspace{0.3cm} (\dgold{zag})
 \end{enumerate}
 \end{block}
 %\begin{block}{Note}

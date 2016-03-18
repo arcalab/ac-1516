@@ -1069,7 +1069,7 @@ can be obtained in different ways, e.g.
 \end{block}
 %
 \begin{itemize}
-\item Defined for temporal frames $\pair{T,<}$.
+\item Defined for temporal frames $\pair{T,<}$ (transitive, asymmetric).
 \item note the $\exists\, \forall$ qualification pattern: these operators are neither diamonds nor boxes.
 \item  More general definition for other frames -- it becomes more expressive than modal logics.
 \end{itemize}
@@ -1077,7 +1077,7 @@ can be obtained in different ways, e.g.
 
 %----------------------------------------------------------------------------------
 \begin{frame}{Exercise}
-\begin{exampleblock}{Temporal logics}
+\begin{exampleblock}{Temporal logics - rewrite using $\Until$}
 \begin{itemize}
   \item $\eventual \psi = \only<2->{\blue{tt \Until \psi}}$
   \item $\always \psi = \only<3>{\blue{\lnot(\eventual \lnot \psi)} = \blue{
@@ -1113,19 +1113,19 @@ can be obtained in different ways, e.g.
 \small
 
 \[
-\phi\, := \; \true \mid p \mid  \phi_1 \wedge \phi_2 \mid \neg \phi \mid \nexts \phi \mid  \phi_1 \until \phi_2 %\mid \eventual \phi \mid \always \phi
+\phi\, := \; \true \mid p \mid  \phi_1 \wedge \phi_2 \mid \neg \phi \mid \blue\nexts \phi \mid  \phi_1 \,\blue\Until\, \phi_2 %\mid \eventual \phi \mid \always \phi
 \]
 \vspace{0.5cm}
 \begin{center}
 \begin{tabular}{|l|c|}
 \hline
-mutual exclusion  & $\always (\neg c_1 \vee \neg c_2)$ \\
- liveness & $\always \eventual c_1 \wedge \always \eventual c_2$\\
-starvation freedom  & $(\always \eventual w_1 \impp \always \eventual c_1) \wedge
-(\always \eventual w_1 \impp \always \eventual c_1)$ \\
-progress & $\always (w_1 \impp \eventual c_1)$\\
-weak fairness & $\eventual \always w_1 \, \impp \always \eventual c_1$\\
-eventually forever & $\eventual \always w_1$\\
+mutual exclusion  & $\blue\always (\neg c_1 \vee \neg c_2)$ \\
+ liveness & $\blue\always \blue\eventual c_1 \wedge \blue\always \blue\eventual c_2$\\
+starvation freedom  & $(\blue\always \blue\eventual w_1 \impp \blue\always \blue\eventual c_1) \wedge
+(\blue\always \blue\eventual w_1 \impp \blue\always \blue\eventual c_1)$ \\
+progress & $\blue\always (w_1 \impp \blue\eventual c_1)$\\
+weak fairness & $\blue\eventual \blue\always w_1 \, \impp \blue\always \blue\eventual c_1$\\
+eventually forever & $\blue\eventual \blue\always w_1$\\
 \hline
 \end{tabular}  
 \end{center}

@@ -162,7 +162,7 @@ video/audio equipment. Correctness depends crucially on
 \small
 
 \begin{itemize}
-\item \dgold{timed transition systems}, \dgold{timed Petri nets}, \dgold{timed IO automata}, \dgold{timed process algebras} and other formalisms associate lower and upper bounds to transitions but, but no \dkb{time constraints} to transverse the automaton.
+\item \dgold{timed transition systems}, \dgold{timed Petri nets}, \dgold{timed IO automata}, \dgold{timed process algebras} and other formalisms associate lower and upper bounds to transitions, but no \dkb{time constraints} to transverse the automaton.
 \item Expressive power is often somehow limited and \dgold{infinite}-state LTS (introduced to express \dkb{dense} time models) are 
 difficult to handle in practice
 \end{itemize}
@@ -463,7 +463,7 @@ subject to a number of constraints, eg,
 \end{equation*}
 \item delay transitions are \dkb{deterministic}
 \begin{equation*}
-(s \tran{d} s'  \e s' \tran{d} s'')\; \imp\; s'  = s''
+(s \tran{d} s'  \e s \tran{d} s'')\; \imp\; s'  = s''
 \end{equation*}
 %\item a state can only reach itself \dkb{without delay}
 %\begin{equation*}

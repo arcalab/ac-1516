@@ -199,12 +199,12 @@ R \; =\;  & \setdef{\pair{\pair{W1,[x=d]}, \pair{Z1,[x=d]} } }{d \in \R_0^+}\; \
 \small
 
 \begin{block}{Untimed bisimulation}
-A relation $R$ is a \dkb{untimed simulation} iff whenever $s_1 R s_2$, for any action $a$ and delay $t$,
+A relation $R$ is an \dkb{untimed simulation} iff whenever $s_1 R s_2$, for any action $a$ and delay $t$,
 \begin{align*}
 s_1 \tran{a} s_1' \; & \imp\; \text{there is a transition}\; \; \; s_2 \tran{a} s_2' \e s_1' R s_2'\\
 s_1 \tran{d} s_1'\; & \imp\; \text{there is a transition}\; \; \; s_2 \tran{d'} s_2' \e s_1' R s_2'
 \end{align*}
-And a \dkb{untimed bisimulation} if its converse is also a  untimed bisimulation.
+And it is an \dkb{untimed bisimulation} if its converse is also a  untimed bisimulation.
 \end{block}
 ~\\
 
@@ -282,6 +282,8 @@ provided $(l, \eta)$ is a state in $\TL{ta}$
 \begin{block}{Path formulae}
 \begin{align*}
 \Pi\; ::=\; & \Ac \Boxc\, \Psi\, \mid\, \Ac\Diamondc\, \Psi\, \mid\, \Ec \Boxc\, \Psi\, \mid\, \Ec \Diamondc\, \Psi\, \mid\, \Phi \leadsto  \Psi\
+\\[2mm]
+\Psi\; ::=\; & \mathcal{A}.\ell ~|~ g_c ~|~ g_d ~|~ \texttt{not~}\Psi ~|~ \Psi \texttt{ or }\Psi ~|~ \Psi \texttt{ and }\Psi ~|~ \Psi \texttt{ imply }\Psi
 \end{align*}
 
 where

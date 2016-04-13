@@ -18,7 +18,7 @@
 
 \myparagraph{To do:} Develop Uppaal models as requested, and write a report using LaTeX. This report should include screenshots of the requested time automata and properties that you verify, and an explanation of the architectural scenario used for Exercise 3.
 
-\myparagraph{To submit:} The report in PDF \textbf{and} developed Uppaal models. Send by email a unique zip file ``\bash{ac2-NN.zip}'', where \bash{NN} is your group number.
+\myparagraph{To submit:} The \emph{report} in PDF \textbf{and} the developed \emph{Uppaal models}. Send by email a unique zip file ``\bash{ac2-N.zip}'', where \bash{N} is your group number.
 
 \myparagraph{To demo:} The result of Exercise 3.
 
@@ -68,15 +68,16 @@ Consider a small private airfield used by 2 planes, which can be either flying, 
 \begin{itemize}
   \setlength\itemsep{0.3mm}
   \item only 1 plane can use the field at a time;
-  \item a Controller component receives requests to land or to take off, and replies with a wait signal when the field is not available;
-  \item each plane sends requests to the Controller to land or to take off, and sends notifications when the field becomes empty;
+  \item a Controller component receives requests to \emph{land} or to \emph{take off}, and replies with a \emph{wait} signal when the field is not available;
+  \item each plane sends requests to the Controller to \emph{land} or to \emph{take off}, and sends notifications when the field becomes \emph{free};
   \item the Controller has 5 time units to notify a plane to wait;
   \item after 5 time units from requesting access to the field and with no wait signal, the planes take another 5 time units to reach the field.
   \item each plane takes non-deterministically between 1-3 time units to take off, and between 4-6 time units to land and park.
+  \item after taking off and after parking the planes notify the Controller with a \emph{gone} signal.
   \item if a plane is told to wait, we assume it will take between 5-7 time units to reach the field.
 \end{itemize}
 
-Suggest a timed automaton model for the planes and the controller, and list 4 to 8 desired properties of the model.
+Suggest a timed automaton model for the planes and the controller, and list 4 to 8 desired properties of the model and verify them using Uppaal.
 \end{exercise}
 
 
@@ -91,6 +92,7 @@ Under the hood, the bar used a service we call \emph{MobilePay} to handle the pa
   \item the bar has a unique Virtual Cash Register, identified by a QR code.
   \item a MobilePay server receives invoices by the bar to be payed, requests for an invoice by customers (based on the QR code), and payment requests by the customers.
   \item the server, after 10 min of inactivity upon receiving an invoice and/or an invoice request, sends the bar a fail signal.
+  \item if the bar sends an invoice while a previous one is being processed, the previous invoice is canceled and the new one becomes active.
   \item the server takes between 3 and 8 seconds between receiving an invoice and sending it to the customer (once both the request and the invoices are received).
   \item the server takes between 2 and 10 seconds to validate a payment and send a OK or a fail signal to the bar.
 \end{itemize}

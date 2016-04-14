@@ -113,7 +113,7 @@
 \small
 
 \begin{block}{Definition}
-A \dkb{timed trace} over a \dgold{temporal LTS} is a (finite or infinite) sequence  $\pair{t_1,a_1}, \pair{t_2,a_2}, \cdots$ in
+A \dkb{timed trace} over a \dgold{timed LTS} is a (finite or infinite) sequence  $\pair{t_1,a_1}, \pair{t_2,a_2}, \cdots$ in
  $\R^+ \times Act$ such that there exists a path
 \begin{equation*}
 \pair{l_0,\eta_0}  \tran{d_1}   \pair{l_0,\eta_1}    \tran{a_1}     \pair{l_1,\eta_2}    \tran{d_2}    \pair{l_1,\eta_3}   \tran{a_2} \cdots 
@@ -129,9 +129,18 @@ with $t_0=0$ and, for all clock $x$, $\eta_0\, x = 0$.
 Intuitively, each $t_i$ is an absolute time value acting as a \dgold{time-stamp}.
 
 \begin{alertblock}{Warning}
-All results from now on are given over an arbitrary \dgold{temporal LTS}; they naturally apply to $\TL{ta}$ for any timed automata $ta$.
+All results from now on are given over an arbitrary \dgold{timed LTS}; they naturally apply to $\TL{ta}$ for any timed automata $ta$.
 \end{alertblock}
 \end{slide}
+
+
+
+\begin{frame}{Traces}
+\begin{exampleblock}{Write possible traces}
+  \centering
+  \includegraphics[width=7cm]{./images/lamp1.jpg}
+\end{exampleblock}
+\end{frame}
 
 %----------------------------------------------------------------------------------
 \begin{slide}{Traces}
@@ -162,7 +171,7 @@ are not \dkb{timed-language equivalent}
 \begin{slide}{Bisimulation}
 \small
 
-\begin{block}{Timed bisimulation (between temporal LTS)}
+\begin{block}{Timed bisimulation (between states of timed LTS)}
 A relation $R$ is a \dkb{timed simulation} iff whenever $s_1 R s_2$, for any action $a$ and delay $d$,
 \begin{align*}
 s_1\tran{a} s_1'\; & \imp\; \text{there is a transition}\; \; \; s_2 \tran{a} s_2' \e s_1' R s_2'\\
@@ -208,7 +217,7 @@ R \; =\;  & \{\pair{\pair{W1,\{x\mapsto d\}}&, \pair{Z1,\{x\mapsto d\}} } &|~d \
 A relation $R$ is an \dkb{untimed simulation} iff whenever $s_1 R s_2$, for any action $a$ and delay $t$,
 \begin{align*}
 s_1 \tran{a} s_1' \; & \imp\; \text{there is a transition}\; \; \; s_2 \tran{a} s_2' \e s_1' R s_2'\\
-s_1 \tran{d} s_1'\; & \imp\; \text{there is a transition}\; \; \; s_2 \tran{d'} s_2' \e s_1' R s_2'
+\transp{s_1 \tran{d} s_1'\;} & \transp{\imp\; \text{there is a transition}\; \; \; s_2 \tran{d'} s_2' \e s_1' R s_2'}
 \end{align*}
 And it is an \dkb{untimed bisimulation} if its converse is also a  untimed bisimulation.
 \end{block}
@@ -268,9 +277,9 @@ Any expression which can be evaluated to a boolean value for a state (typically 
 \end{center}
 Additionally,
 \begin{itemize}
-\item $ta.\ell$ which tests \dgold{current location}:  $(\ell, \eta) \models ta.\ell$ \\
+\item \dkb{$ta.\ell$} which tests \dgold{current location}:  $(\ell, \eta) \models ta.\ell$ \\
 provided $(\ell, \eta)$ is a state in $\TL{ta}$
-\item $\texttt{deadlock}$: $(\ell, \eta) \models \forall_{d \in \R_0^+} .\, \text{there is no transition from} \; \pair{\ell,\eta+d}$ 
+\item \dkb{$\texttt{deadlock}$}: $(\ell, \eta) \models \forall_{d \in \R_0^+} .\, \text{there is no transition from} \; \pair{\ell,\eta+d}$ 
 \end{itemize}
 \end{block}
 
@@ -289,7 +298,7 @@ provided $(\ell, \eta)$ is a state in $\TL{ta}$
 \begin{align*}
 \Pi\; ::=\; & \Ac \Boxc\, \Psi\, \mid\, \Ac\Diamondc\, \Psi\, \mid\, \Ec \Boxc\, \Psi\, \mid\, \Ec \Diamondc\, \Psi\, \mid\, \Phi \leadsto  \Psi\
 \\[2mm]
-\Psi\; ::=\; & ta.\ell ~|~ g_c ~|~ g_d ~|~ \texttt{not~}\Psi ~|~ \Psi \texttt{ or }\Psi ~|~ \Psi \texttt{ and }\Psi ~|~ \Psi \texttt{ imply }\Psi
+\Psi\; ::=\; & ta.\ell ~|~ g_c ~|~ {\transp{g_d}} ~|~ \texttt{not~}\Psi ~|~ \Psi \texttt{ or }\Psi ~|~ \Psi \texttt{ and }\Psi ~|~ \Psi \texttt{ imply }\Psi
 \end{align*}
 
 where
@@ -384,8 +393,8 @@ In Uppaal these properties are formulated positively: something good is invarian
 
 \begin{block}{$A \Diamond\, \phi$ and $\phi\, \leadsto \, \psi$}
 \vspace{5mm}
-\dkb{Something good will eventually happen}\\
- or \dkb{if something good happen, then something else will eventually happen!}
+\dkb{Something good will \emph{eventually happen}}\\
+ or \dkb{if \emph{something} happens, then \emph{something else} will eventually happen!}
 \vspace{5mm}
 
 Examples\\
@@ -421,7 +430,8 @@ Examples\\
 \\ \dkb{(Train 0 can reach the cross)}
 \item \texttt{E<> Train(0).Cross and Train(1).Stop}
 \\ \dkb{(Train 0 can be crossing bridge while Train 1 is waiting to cross)}
-\item \texttt{E<> Train(0).Cross and (forall (i:id-t) i != 0 imply Train(i).Stop)}
+\item \texttt{E<> Train(0).Cross and}\\
+  \texttt{~~~~~~~(forall (i:id-t) i != 0 imply Train(i).Stop)}
 \\ \dkb{(Train 0 can cross bridge while the other trains are waiting to cross)}
 \end{itemize}
 

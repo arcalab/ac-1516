@@ -211,7 +211,7 @@ R \; =\;  & \{\pair{\pair{W1,\{x\mapsto d\}}&, \pair{Z1,\{x\mapsto d\}} } &|~d \
 
 
 %----------------------------------------------------------------------------------
-\begin{slide}{Bisimulation}
+\begin{slide}{Untimed Bisimulation}
 \small
 
 \begin{block}{Untimed bisimulation}
@@ -229,6 +229,31 @@ And it is an \dkb{untimed bisimulation} if its converse is also a  untimed bisim
 unique, special transition labelled by $\epsilon$.}
 \end{slide}
 
+%----------------------------------------------------------------------------------
+\begin{slide}{Untimed Bisimulation}
+\small
+
+\begin{exampleblock}{Example}
+\centering
+\wrap{\includegraphics[height=3cm]{./images/bis2}}
+~~~~
+\wrap{W1 bisimilar to Z1?}
+\end{exampleblock}
+
+\visible<2>{
+\begin{align*}
+\pair{\pair{W1,\{x\mapsto 0\}}, \pair{Z1,\{x\mapsto 0\}} } \in R
+\end{align*}
+where
+\[\begin{array}{r@{~}l@{~}l@{~}l}
+R \; =\;  & \{\pair{\pair{W1,\{x\mapsto d\}}&, \pair{Z1,\{x\mapsto d'\}} } &|~0\leq d \leq 1 , 0 \leq d' \leq 2 \}\; \;   \cup\\
+              & \{\pair{\pair{W1,\{x\mapsto d\}}&, \pair{Z1,\{x\mapsto d'\}} } &|~ d>1, d'>2\}\; \;  \cup\\
+              & \{\pair{\pair{W2,\{x\mapsto d\}}&, \pair{Z2,\{x\mapsto d'\}} } &|~d,d' \in \R_0^+\}  
+\end{array}\]
+}
+
+
+\end{slide}
 
 
 \section{Behavioural properties}

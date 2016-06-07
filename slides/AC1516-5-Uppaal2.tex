@@ -178,7 +178,7 @@ A relation $R$ is a \dkb{timed simulation} iff whenever $s_1 R s_2$, for any act
 s_1\tran{a} s_1'\; & \imp\; \text{there is a transition}\; \; \; s_2 \tran{a} s_2' \e s_1' R s_2'\\
 s_1 \tran{d} s_1'\; & \imp\; \text{there is a transition}\; \; \; s_2 \tran{d} s_2' \e s_1' R s_2'
 \end{align*}
-And a \dkb{timed bisimulation} if its converse is also a bisimulation.
+And a \dkb{timed bisimulation} if its converse is also a timed simulation.
 \end{block}
 \end{slide}
 
@@ -220,7 +220,7 @@ A relation $R$ is an \dkb{untimed simulation} iff whenever $s_1 R s_2$, for any 
 s_1 \tran{a} s_1' \; & \imp\; \text{there is a transition}\; \; \; s_2 \tran{a} s_2' \e s_1' R s_2'\\
 s_1 \tran{{\red{d}}} s_1'\; & \imp\; \text{there is a transition}\; \; \; s_2 \tran{{\red{d'}}} s_2' \e s_1' R s_2'
 \end{align*}
-And it is an \dkb{untimed bisimulation} if its converse is also a  untimed bisimulation.
+And it is an \dkb{untimed bisimulation} if its converse is also an untimed simulation.
 \end{block}
 ~\\
 

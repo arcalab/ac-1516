@@ -101,6 +101,12 @@ table tr:nth-child(odd) {
   max-width: 100px;
   text-align: center;
 }
+.finalgrade {
+  max-width: 100px;
+  text-align: center;
+  font-weight:bold;
+  color:#3399f3; 
+}
 /* 
 table th	{
     background-color: black;

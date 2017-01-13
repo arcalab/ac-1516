@@ -80,6 +80,9 @@ table {
     position: relative;
     left: auto;
 }
+#sumarios {
+  width:100%;
+}
 /* 
 table, th, td {
     border: 1px solid black;
